@@ -16,7 +16,8 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	Vector3 target_postition;					// Players position
 
 	float timer;								// A timer for the mannequin's movement
-	public float move_time = 10.0f;					// the amount of time before the mannequin moves
+	public float move_time = 10.0f;				// The amount of time before the mannequin moves
+	Vector3 current_position;					// The position the mannequin should be in 
 
 	// Use this for initialization
 	void Start () 
@@ -63,6 +64,13 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 			//reset bools if light comes back on
 			enemy_moved = false;
 		}
+
+		// If mannequin is unseen
+		if (!this.GetComponent<Renderer> ().isVisible)
+		{
+			//set mannequin position
+			mannequin.transform.position = current_position;
+		}
 	}
 
 	//Used to move the enemy
@@ -72,7 +80,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		enemy_moved = true;
 
 		// Move the enemy to the next set location
-		mannequin.transform.position = enemy_positions[index].position;
+		current_position = enemy_positions[index].position;
 
 		//Get the look position of the player
 		target_postition = new Vector3 (player.position.x, 
