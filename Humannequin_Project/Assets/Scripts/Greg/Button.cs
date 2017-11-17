@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Button : MonoBehaviour {
 
-	public string input_text;	//the colour of the button in text
-	public GameObject puzzle_object;		//the object the puzzle is on
+	public int input_number;	// The number of the button
+	public GameObject puzzle_object;		// The object the puzzle is on
 
 	//start is called when the scene starts
 	void Start ()
@@ -14,10 +14,15 @@ public class Button : MonoBehaviour {
 	}
 
 	//Activate is called when the player interacts with this object
-	void Activate ()
+	void Activate (string active_tool)
 	{
 		//Debug.Log("input in button");
-		//send the colour to the puzzle script
-		gameObject.SendMessageUpwards ("Get_Player_Input", input_text);
+		// If the player is not holding a tool
+		if (active_tool == "NONE")
+		{
+			// Send the colour to the puzzle script
+			gameObject.SendMessageUpwards ("Get_Player_Input", input_number);
+		}
+
 	}
 }

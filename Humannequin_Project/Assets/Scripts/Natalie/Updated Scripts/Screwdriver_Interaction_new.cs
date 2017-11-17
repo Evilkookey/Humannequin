@@ -27,7 +27,7 @@ public class Screwdriver_Interaction_new : MonoBehaviour
 		if (object_name != "cover") 
 		{
 			// Play animation
-			object_animator.SetBool ("screw_play", true);
+			object_animator.SetBool ("play", true);
 
 			// Add one to the screw counter
 			screw_counter = screw_counter + 1;
@@ -39,7 +39,7 @@ public class Screwdriver_Interaction_new : MonoBehaviour
 			if (screw_counter == 4) 
 			{
 				// Play animation
-				object_animator.SetBool ("cover_play", true);
+				object_animator.SetBool ("play", true);
 			}
 		}
 	}
