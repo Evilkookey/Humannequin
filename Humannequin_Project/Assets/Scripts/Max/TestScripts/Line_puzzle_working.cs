@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LinePuzzleAgain : MonoBehaviour {
+public class Line_puzzle_working : MonoBehaviour {
 
-	//Distance for the ray 
-	float raycast_distance = 3.0f;
-
-	//If a line renderer is being used
+	float raycast_distance = 200.0f;
 	public bool using_line;
 
 	[System.Serializable]
@@ -22,31 +19,28 @@ public class LinePuzzleAgain : MonoBehaviour {
 	//Line which gets set when you press the start cube
 	public lines_struct current_line;
 
-	//This could be an array - DO I NEED THESE (can i just pass in current line as ref???????)
-	public lines_struct red_line, blue_line, green_line, magenta_line;
+	//This is not the best way to do this - come back to this later (Use ref in front of passed in lines_struct variables)
+	public LineRenderer red_line, blue_line, green_line;
+	bool red_done,blue_done,green_done;
 
 	public int MAX_LENGTH = 10;
 	public float move_distance = 0.12f;
 
-	//To hold all the empty cubes in the puzzle
 	public GameObject[] cubes;
 
 	// Use this for initialization
 	void Start () 
 	{
-		//Find line renderers
-		red_line.line_renderer = GameObject.Find("LineRendererRed").GetComponent<LineRenderer>();
-		blue_line.line_renderer = GameObject.Find("LineRendererBlue").GetComponent<LineRenderer>();
-		green_line.line_renderer = GameObject.Find("LineRendererGreen").GetComponent<LineRenderer>();
-		magenta_line.line_renderer = GameObject.Find("LineRendererMagenta").GetComponent<LineRenderer>();
-		
-		//Set up arrays
-		current_line.boxes = new GameObject[MAX_LENGTH];
-		red_line.boxes = new GameObject[MAX_LENGTH];
-		blue_line.boxes = new GameObject[MAX_LENGTH];
-		green_line.boxes = new GameObject[MAX_LENGTH];
-		magenta_line.boxes = new GameObject[MAX_LENGTH];
+		red_line = GameObject.Find("LineRendererRed").GetComponent<LineRenderer>();
+		blue_line = GameObject.Find("LineRendererBlue").GetComponent<LineRenderer>();
+		green_line = GameObject.Find("LineRendererGreen").GetComponent<LineRenderer>();
 
+		current_line.boxes = new GameObject[MAX_LENGTH];
+
+		//		red_line.boxes = new GameObject[MAX_LENGTH];
+		//		blue_line.boxes = new GameObject[MAX_LENGTH];
+		//		green_line.boxes = new GameObject[MAX_LENGTH];
+		//
 		//current_line = red_line;
 		using_line = false;
 
@@ -56,11 +50,6 @@ public class LinePuzzleAgain : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if(red_line.line_complete && blue_line.line_complete && green_line.line_complete && magenta_line.line_complete)
-		{
-			Debug.Log("WIN");
-		}
-		
 		//Cast ray from camera 
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay(new Vector3((Screen.width / 2), (Screen.height / 2)));
@@ -70,7 +59,7 @@ public class LinePuzzleAgain : MonoBehaviour {
 		{
 			if(Input.GetMouseButton(0))
 			{
-				//If cube is a starting cube
+				//if cube is a starting cube
 				if (hit.collider.gameObject.tag == "start") 
 				{
 					//If line is not already being used
@@ -80,40 +69,33 @@ public class LinePuzzleAgain : MonoBehaviour {
 						if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.red) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 						{						
 							//Set the line renderer to the red one
-							current_line = red_line;
-							SetStart(hit.collider.gameObject,ref red_line);
+							current_line.line_renderer = red_line;
+							SetStart(hit.collider.gameObject,red_line);
 						}
 						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.blue) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 						{	
-							//Set the line renderer to the blue one
-							current_line = blue_line;
-							SetStart(hit.collider.gameObject,ref blue_line);
+							//Set the line renderer to the red one
+							current_line.line_renderer = blue_line;
+							SetStart(hit.collider.gameObject,blue_line);
 						}
 						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.green) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 						{	
-							//Set the line renderer to the green one
-							current_line = green_line;
-							SetStart(hit.collider.gameObject,ref green_line);
-						}
-						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.magenta) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
-						{	
-							//Set the line renderer to the green one
-							current_line = magenta_line;
-							SetStart(hit.collider.gameObject,ref magenta_line);
+							//Set the line renderer to the red one
+							current_line.line_renderer = green_line;
+							SetStart(hit.collider.gameObject,green_line);
 						}
 					}
 
 
 				}
 
-				//If clicked on resetting cube
+				//if cube is a Reseting cube
 				if (hit.collider.gameObject.tag == "Respawn") 
 				{
 					//Removes all positions from line renderers
-					red_line.line_renderer.positionCount = 1;
-					blue_line.line_renderer.positionCount = 1;
-					green_line.line_renderer.positionCount = 1;
-					magenta_line.line_renderer.positionCount = 1;
+					red_line.positionCount = 1;
+					blue_line.positionCount = 1;
+					green_line.positionCount = 1;
 
 					//Resets variables
 					using_line = false;
@@ -154,60 +136,37 @@ public class LinePuzzleAgain : MonoBehaviour {
 			if(Input.GetMouseButtonUp(0))
 			{
 				//If cube is a finish cube
-				if (hit.collider.gameObject.tag == "start") 
+				if (hit.collider.gameObject.tag == "Finish") 
 				{
 					//If the distance between last position and new position is less than the set move distance
 					if(Vector3.Distance(current_line.line_renderer.GetPosition(current_line.line_renderer.positionCount - 1),
 						hit.collider.gameObject.transform.position) < move_distance)
 					{
 						//If cube is red
-						if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.red && current_line.line_renderer == red_line.line_renderer)
+						if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.red && current_line.line_renderer == red_line)
 						{
-							SetFinish(hit.collider.gameObject,ref red_line);
+							SetFinish(hit.collider.gameObject);
 						}
-						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.blue && current_line.line_renderer == blue_line.line_renderer)
+						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.blue && current_line.line_renderer == blue_line)
 						{
-							SetFinish(hit.collider.gameObject,ref blue_line);
+							SetFinish(hit.collider.gameObject);
 						}
-						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.green && current_line.line_renderer == green_line.line_renderer)
+						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.green && current_line.line_renderer == green_line)
 						{
-							SetFinish(hit.collider.gameObject, ref green_line);
-						}	
-						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.magenta && current_line.line_renderer == magenta_line.line_renderer)
-						{
-							SetFinish(hit.collider.gameObject, ref magenta_line);
-						}	
+							SetFinish(hit.collider.gameObject);
+						}					
 					}
 
 				}
-				//If there is a current set line 
-				if(current_line.line_renderer != null)
+				//If the line is not complete and there is a line set
+				if (!current_line.line_complete && current_line.line_renderer != null) 
 				{
-					//If the line is not complete  
-					if (current_line.line_renderer == red_line.line_renderer && !red_line.line_complete) 
-					{						
-						//Reset all line positions
-						Reset();
-					}
-					if (current_line.line_renderer == blue_line.line_renderer && !blue_line.line_complete) 
-					{				
-						//Reset all line positions
-						Reset();
-					}
-					if (current_line.line_renderer == green_line.line_renderer && !green_line.line_complete ) 
-					{
-						//Reset all line positions
-						Reset();
-					}
-					if (current_line.line_renderer == magenta_line.line_renderer && !magenta_line.line_complete ) 
-					{
-						//Reset all line positions
-						Reset();
-					}
-
+					//Reset all line positions
+					Reset();
 				}
+
 				//Unassign current line
-				//current_line.line_renderer = null;
+				current_line.line_renderer = null;
 
 			}
 		}
@@ -215,9 +174,7 @@ public class LinePuzzleAgain : MonoBehaviour {
 
 	void Reset()
 	{
-		//Not using line anymore
 		using_line = false;
-
 		//Reset hit variable for all boxes that were hit
 		for(int i = 0;i<current_line.line_renderer.positionCount - 1 ;i++)
 		{
@@ -225,24 +182,22 @@ public class LinePuzzleAgain : MonoBehaviour {
 
 		}
 
-		//Remove current positions for the line
+		//remove current positions for the line
 		current_line.line_renderer.positionCount = 1;
 	}
 
-	//This will set the first cube in the line and reset line if already completed line
-	void SetStart(GameObject hit, ref lines_struct line)
+	void SetStart(GameObject hit,LineRenderer line)
 	{
 		//If the line is not completed already
-		if(!line.line_complete && line.line_renderer.positionCount < 2)
+		if(!current_line.line_complete && line.positionCount < 2)
 		{
-			//Currently using the line
 			using_line = true;
 
 			//Set the cube hit variable to true
 			hit.GetComponent<Puzzle_cube>().SetHit(true);
 
 			//Set the line renderer to the red one
-			current_line = line;
+			current_line.line_renderer = line;
 
 			//Add the hit cube to the array of boxes
 			current_line.boxes[current_line.line_renderer.positionCount -1] = hit;
@@ -255,30 +210,28 @@ public class LinePuzzleAgain : MonoBehaviour {
 		{
 			Reset();
 
-			line.line_complete = false;
+			current_line.line_renderer = line;
+			current_line.line_complete = false;
 			//hit.GetComponent<Puzzle_cube>().SetHit(true);
 
 		}
 	}
-	//This will set the last cube in the line
-	void SetFinish(GameObject hit,ref lines_struct line)
+
+	void SetFinish(GameObject hit)
 	{
-		//Finished using the line
-		using_line = false;
+		using_line =false;
 
 		//Set the cube hit variable to true
 		hit.GetComponent<Puzzle_cube>().SetHit(true);
 
 		//Add the hit cube to the array of boxes
-		line.boxes[line.line_renderer.positionCount -1] = hit;
+		current_line.boxes[current_line.line_renderer.positionCount -1] = hit;
 
 		//Make a new position for the line renderer and set it to the hix box position
-		line.line_renderer.positionCount++;
-		line.line_renderer.SetPosition(line.line_renderer.positionCount -1, hit.transform.position);
-
-		//Debug.Log(line.line_renderer.positionCount);
+		current_line.line_renderer.positionCount++;
+		current_line.line_renderer.SetPosition(current_line.line_renderer.positionCount -1, hit.transform.position);
 
 		//Set line complete to true
-		line.line_complete = true;
+		current_line.line_complete = true;
 	}
 }
