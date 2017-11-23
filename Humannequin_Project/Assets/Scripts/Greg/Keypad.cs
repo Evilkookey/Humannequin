@@ -43,7 +43,7 @@ public class Keypad : MonoBehaviour {
 		player_sequence = new int[sequence_length];
 		timer = 0.0f;
 
-		current_state = game_state.INACTIVE;
+		current_state = game_state.GENERATE;
 		is_on = false;
 
 		flickering_light = GameObject.Find("Enemy_Light").GetComponent<Light>();
@@ -76,7 +76,7 @@ public class Keypad : MonoBehaviour {
 		for (int i = 0; i < sequence_length; i++)
 		{
 			//set this member of sequence to random colour
-			int rando = Random.Range(0, 10);
+			int rando = Random.Range(1, 10);
 			sequence[i] = rando;
 		}
 		//change to display state;
@@ -86,14 +86,16 @@ public class Keypad : MonoBehaviour {
 	void Get_Player_Input(int input_number)
 	{
 		//add to player sequence
-		player_sequence[number_pointer] = player_input;
+		player_sequence[number_pointer] = input_number;
+
 		//TODO
-		keypad_screen.text.Insert(4, player_input.ToString());
+		//keypad_screen.text.Insert(4, player_input.ToString());
+
 		// Move pointer
 		number_pointer++;
 
 		//compare the input with the part of sequence
-		if (number_pointer > sequence_length)
+		if (number_pointer >= sequence_length)
 		{
 			//check sequences
 			if (player_sequence == sequence)
@@ -107,6 +109,9 @@ public class Keypad : MonoBehaviour {
 				Debug.Log("incorrect");
 				//reset pointer before allowing another try
 				number_pointer = 0;
+
+				//TODO
+				//Clear the screen
 
 				//turn light off and on again
 				flickering_light.enabled = false;
@@ -124,5 +129,20 @@ public class Keypad : MonoBehaviour {
 
 		//set state to complete
 		current_state = game_state.COMPLETE;
+	}
+
+	void Turn_On_Light()
+	{
+		//time the light
+		light_timer += Time.deltaTime;
+		//after one second
+		if (light_timer >= 1.0f)
+		{
+			Debug.Log("NOPE");
+			//turn light back on, rest timer and stop repeating
+			flickering_light.enabled = true;
+			light_timer = 0.0f;
+			CancelInvoke();
+		}
 	}
 }

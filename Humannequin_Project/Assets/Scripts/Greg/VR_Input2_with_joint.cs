@@ -64,7 +64,7 @@ public class VR_Input2_with_joint : MonoBehaviour
 				{
 				case Interaction_Type.INTERACT:
 					Debug.Log("activate was sent");
-					interact_object.SendMessage("Activate");
+					interact_object.SendMessage("Activate", active_tool.ToString());
 					break;
 				case Interaction_Type.HOLD:
 					Debug.Log("object picked up");
