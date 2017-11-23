@@ -19,17 +19,21 @@ public class LinePuzzleAgain : MonoBehaviour {
 
 	};
 
+
 	//Line which gets set when you press the start cube
 	public lines_struct current_line;
 
-	//This could be an array - DO I NEED THESE (can i just pass in current line as ref???????)
-	public lines_struct red_line, blue_line, green_line, magenta_line;
+	//This could be an array
+	public lines_struct red_line, blue_line, green_line, magenta_line, yellow_line;
 
 	public int MAX_LENGTH = 10;
 	public float move_distance = 0.12f;
 
 	//To hold all the empty cubes in the puzzle
 	public GameObject[] cubes;
+
+	//Custom colours to pass in
+	public Material yellow_colour, magenta_colour, green_colour;
 
 	// Use this for initialization
 	void Start () 
@@ -39,6 +43,8 @@ public class LinePuzzleAgain : MonoBehaviour {
 		blue_line.line_renderer = GameObject.Find("LineRendererBlue").GetComponent<LineRenderer>();
 		green_line.line_renderer = GameObject.Find("LineRendererGreen").GetComponent<LineRenderer>();
 		magenta_line.line_renderer = GameObject.Find("LineRendererMagenta").GetComponent<LineRenderer>();
+		yellow_line.line_renderer = GameObject.Find("LineRendererYellow").GetComponent<LineRenderer>();
+
 		
 		//Set up arrays
 		current_line.boxes = new GameObject[MAX_LENGTH];
@@ -46,17 +52,18 @@ public class LinePuzzleAgain : MonoBehaviour {
 		blue_line.boxes = new GameObject[MAX_LENGTH];
 		green_line.boxes = new GameObject[MAX_LENGTH];
 		magenta_line.boxes = new GameObject[MAX_LENGTH];
+		yellow_line.boxes = new GameObject[MAX_LENGTH];
 
 		//current_line = red_line;
 		using_line = false;
-
+	
 	}
 
 
 	// Update is called once per frame
 	void Update () 
 	{
-		if(red_line.line_complete && blue_line.line_complete && green_line.line_complete && magenta_line.line_complete)
+		if(red_line.line_complete && blue_line.line_complete && green_line.line_complete && magenta_line.line_complete && yellow_line.line_complete) // add new colour here
 		{
 			Debug.Log("WIN");
 		}
@@ -89,17 +96,23 @@ public class LinePuzzleAgain : MonoBehaviour {
 							current_line = blue_line;
 							SetStart(hit.collider.gameObject,ref blue_line);
 						}
-						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.green) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
+						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == green_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 						{	
 							//Set the line renderer to the green one
 							current_line = green_line;
 							SetStart(hit.collider.gameObject,ref green_line);
 						}
-						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.magenta) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
+						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == magenta_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 						{	
 							//Set the line renderer to the green one
 							current_line = magenta_line;
 							SetStart(hit.collider.gameObject,ref magenta_line);
+						}
+						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == yellow_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
+						{	
+							//Set the line renderer to the green one
+							current_line = yellow_line;
+							SetStart(hit.collider.gameObject,ref yellow_line);
 						}
 					}
 
@@ -110,10 +123,11 @@ public class LinePuzzleAgain : MonoBehaviour {
 				if (hit.collider.gameObject.tag == "Respawn") 
 				{
 					//Removes all positions from line renderers
-					red_line.line_renderer.positionCount = 1;
+					red_line.line_renderer.positionCount = 1;							// Add new colour here
 					blue_line.line_renderer.positionCount = 1;
 					green_line.line_renderer.positionCount = 1;
 					magenta_line.line_renderer.positionCount = 1;
+					yellow_line.line_renderer.positionCount = 1;
 
 					//Resets variables
 					using_line = false;
@@ -157,7 +171,7 @@ public class LinePuzzleAgain : MonoBehaviour {
 				if (hit.collider.gameObject.tag == "start") 
 				{
 					//If the distance between last position and new position is less than the set move distance
-					if(Vector3.Distance(current_line.line_renderer.GetPosition(current_line.line_renderer.positionCount - 1),
+					if(hit.collider.gameObject.GetComponent<Puzzle_cube>().hit == false && Vector3.Distance(current_line.line_renderer.GetPosition(current_line.line_renderer.positionCount - 1),
 						hit.collider.gameObject.transform.position) < move_distance)
 					{
 						//If cube is red
@@ -169,13 +183,17 @@ public class LinePuzzleAgain : MonoBehaviour {
 						{
 							SetFinish(hit.collider.gameObject,ref blue_line);
 						}
-						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.green && current_line.line_renderer == green_line.line_renderer)
+						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == green_colour.color && current_line.line_renderer == green_line.line_renderer)
 						{
 							SetFinish(hit.collider.gameObject, ref green_line);
 						}	
-						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.magenta && current_line.line_renderer == magenta_line.line_renderer)
+						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == magenta_colour.color && current_line.line_renderer == magenta_line.line_renderer)
 						{
 							SetFinish(hit.collider.gameObject, ref magenta_line);
+						}	
+						else if(hit.collider.gameObject.GetComponent<Renderer> ().material.color == yellow_colour.color && current_line.line_renderer == yellow_line.line_renderer)
+						{
+							SetFinish(hit.collider.gameObject, ref yellow_line);
 						}	
 					}
 
@@ -204,6 +222,11 @@ public class LinePuzzleAgain : MonoBehaviour {
 						//Reset all line positions
 						Reset();
 					}
+					if (current_line.line_renderer == yellow_line.line_renderer && !yellow_line.line_complete ) 
+					{
+						//Reset all line positions
+						Reset();
+					}
 
 				}
 				//Unassign current line
@@ -217,6 +240,8 @@ public class LinePuzzleAgain : MonoBehaviour {
 	{
 		//Not using line anymore
 		using_line = false;
+
+		current_line.line_complete = false;
 
 		//Reset hit variable for all boxes that were hit
 		for(int i = 0;i<current_line.line_renderer.positionCount - 1 ;i++)
