@@ -4,13 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Screwdriver_Interaction : MonoBehaviour 
+public class Screwdriver_Interaction_new : MonoBehaviour 
 {
 	// Variables
 	int screw_counter;
 	GameObject activated_object;
 	Animator object_animator;
-	Rigidbody object_rigidbody;
 
 	void Start()
 	{
@@ -18,25 +17,17 @@ public class Screwdriver_Interaction : MonoBehaviour
 		screw_counter = 0;
 	}
 
-	public IEnumerator Interact(string object_name)
+	public void Interact(string object_name)
 	{
 		// Finds all the required components of the activated object
 		activated_object = GameObject.Find (object_name);
-		object_animator = activated_object.GetComponent<Animator> ();
-		object_rigidbody = activated_object.GetComponent<Rigidbody> ();
+		object_animator = activated_object.GetComponent<Animator>();
 
 		// If the object is not a cover, it must be a screw
 		if (object_name != "cover") 
 		{
 			// Play animation
-			object_animator.SetBool ("screw_play", true);
-			yield return new WaitForSeconds (1.0f);
-
-			// Turn off animator
-			object_animator.enabled = false;
-
-			// Turn on gravity
-			object_rigidbody.useGravity = true;
+			object_animator.SetBool ("play", true);
 
 			// Add one to the screw counter
 			screw_counter = screw_counter + 1;
@@ -48,17 +39,8 @@ public class Screwdriver_Interaction : MonoBehaviour
 			if (screw_counter == 4) 
 			{
 				// Play animation
-				object_animator.SetBool ("cover_play", true);
-				yield return new WaitForSeconds (1.0f);
-
-				// Turn off animator
-				object_animator.enabled = false;
-
-				// Make object kinematic and turn on gravity
-				object_rigidbody.isKinematic = false;
-				object_rigidbody.useGravity = true;
+				object_animator.SetBool ("play", true);
 			}
 		}
-
 	}
 }
