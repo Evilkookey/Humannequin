@@ -23,7 +23,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	{
 		if (pause_menu_object.activeInHierarchy == false) 
 		{
-			Debug.Log("pause dat game");
+			Debug.Log("pause game");
 			pause_menu_object.SetActive(true);
 			Time.timeScale = 0;
 		}
