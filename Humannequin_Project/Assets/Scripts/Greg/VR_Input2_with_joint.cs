@@ -166,16 +166,6 @@ public class VR_Input2_with_joint : MonoBehaviour
 			interact_object = null;
 			type_identifier = Interaction_Type.NONE;
 		}
-		
-		//set the type of object it is
-		/*if (other.tag == "Interact")
-		{
-			type_identifier = Interaction_Type.INTERACT;
-		}
-		if (other.tag == "Pick_Up")
-		{
-			type_identifier = Interaction_Type.HOLD;
-		}*/
 	}
 
 	//Creates joint
