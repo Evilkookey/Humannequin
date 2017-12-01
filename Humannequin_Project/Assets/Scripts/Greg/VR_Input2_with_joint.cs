@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class VR_Input2_with_joint : MonoBehaviour 
 {
-	//define the buttons
+	// Define the buttons
 	public Valve.VR.EVRButtonId trigger_button = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
 	public Valve.VR.EVRButtonId grip_button = Valve.VR.EVRButtonId.k_EButton_Grip;
 	public Valve.VR.EVRButtonId touch_pad = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
 
-	//define the controller object
+	// Define the controller object
 	public SteamVR_TrackedObject tracked_object;
 	public SteamVR_Controller.Device device;
+
+	// Define hand models
+	public GameObject hand_regular;
+	public GameObject hand_point;
+	public GameObject hand_wrench;
+	public GameObject hand_screwdriver;
+	public GameObject hand_pliers;
+	public GameObject hand_torch;
 
 	public enum Interaction_Type
 	{
@@ -22,13 +30,14 @@ public class VR_Input2_with_joint : MonoBehaviour
 	}
 	public Interaction_Type type_identifier;
 
-	//object to save what object is held
+	// Object to save what object is held, collided with or used
 	public GameObject held_object;
+	public GameObject collide_object;
 	public GameObject interact_object;
 
 	public Transform tool_transform;
 
-	//using tools
+	// Using tools
 	public enum Tool
 	{
 		NONE,
@@ -42,24 +51,27 @@ public class VR_Input2_with_joint : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		//get the tracked object
+		// Get the tracked object
 		tracked_object = GetComponent<SteamVR_TrackedObject>();
 
-		//initialise interact type
+		// Initialise interact type
 		type_identifier = Interaction_Type.NONE;
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		//take input ID from controller
+		// Take input ID from controller
 		device = SteamVR_Controller.Input((int)tracked_object.index);
 
-		//press trigger
+		// Press trigger
 		if (device.GetPressDown(trigger_button))
 		{
 			if (type_identifier != Interaction_Type.NONE)
 			{
+				// Set the interact object to the collide object
+				interact_object = collide_object;
+				// Check the identifier
 				switch (type_identifier)
 				{
 				case Interaction_Type.INTERACT:
@@ -70,105 +82,133 @@ public class VR_Input2_with_joint : MonoBehaviour
 					Debug.Log("object picked up");
 					held_object = interact_object.gameObject;
 
+					// Connect the object with a fixed joint
 					FixedJoint joint = AddFixedJoint(); //FixedJoint
 					joint.connectedBody = held_object.GetComponent<Rigidbody>();
-
-					/*held_object.transform.parent = gameObject.transform;
-					Rigidbody rb = held_object.GetComponent<Rigidbody> ();
-					rb.isKinematic = true;*/
+				
 					break;
 				case Interaction_Type.TOOL:
 					if (active_tool == Tool.NONE)
 					{
-						//remove tool from belt
+						// Remove tool from belt
 						Debug.Log("tool selected");
 						interact_object.SetActive(false);
 
-						//check the name of the tool and apply to hand 
+						// Check the name of the tool and apply to hand 
 						switch (interact_object.name)
 						{
 						case "Wrench":
+							// Set the active tool to WRENCH
 							active_tool = Tool.WRENCH;
+							// Disable all hands
+							Disable_Hands();
+							// Set correct hands to active
+							hand_wrench.SetActive(true);
 							break;
 						case "Screwdriver":
+							// Set the active tool to SCREWDRIVER
 							active_tool = Tool.SCREWDRIVER;
+							// Disable all hands
+							Disable_Hands();
+							// Set correct hands to active
+							hand_screwdriver.SetActive(true);
 							break;
 						case "Torch":
+							// Set the active tool to TORCH
 							active_tool = Tool.TORCH;
+							// Disable all hands
+							Disable_Hands();
+							// Set correct hands to active
+							hand_torch.SetActive(true);
 							break;
 						case "Pliers":
+							// Set the active tool to PLIERS
 							active_tool = Tool.PLIERS;
+							// Disable all hands
+							Disable_Hands();
+							// Set correct hands to active
+							hand_pliers.SetActive(true);
 							break;
 						}
 					}
-					//if the player has a tool and the tool is not in the slot
+					// If the player has a tool and the tool is not in the slot
 					else if (active_tool != Tool.NONE && interact_object.activeInHierarchy == false)
 					{
-						//put the tool back in the belt
+						// Put the tool back in the belt
 						interact_object.SetActive(true);
 						Debug.Log("tool put back");
+						// Set active tool to NONE
 						active_tool = Tool.NONE;
+						// Disable all hands
+						Disable_Hands();
+						// Set hand back to standard
+						hand_regular.SetActive(true);
 					}
 					break;
 				}
 			}
 		}
-		//release trigger
+		// Release trigger
 		if (device.GetPressUp(trigger_button))
 		{
-			//if the player is holding an object drop it
+			// If there is an interact object
+			if (interact_object) 
+			{
+				// Send a deactivate call the the interact object
+				interact_object.SendMessage("Deactivate");
+				// Set interact object to null
+				interact_object = null;
+			}
+			// If the player is holding an object drop it
 			if (held_object)
 			{
 				Debug.Log("object dropped");
+				// Remove the fixed joint
 				ReleaseObject();
-
-				/*Rigidbody rb = held_object.GetComponent<Rigidbody> ();
-				rb.isKinematic = false;
-				held_object.transform.parent = null;
-				held_object = null;*/
 			}
 		}
 	}
 
 	void OnTriggerEnter(Collider other)
 	{
-		//set the type of object it is
+		// Set the type of object it is
 		if (other.tag == "Interact")
 		{
-			//set the object to the one to be interacted with
-			interact_object = other.gameObject;
+			// Set the object to the one collided with
+			collide_object = other.gameObject;
 
 			type_identifier = Interaction_Type.INTERACT;
 		}
 		if (other.tag == "Pick_Up")
 		{
-			//set the object to the one to be interacted with
-			interact_object = other.gameObject;
+			// Set the object to the one collided with
+			collide_object = other.gameObject;
 
 			type_identifier = Interaction_Type.HOLD;
 		}
 		if (other.tag == "ToolSlot")
 		{
-			//find tool from transform
-			///*Transform*/ tool_transform = other.GetComponentInChildren<Transform>();
-			//interact_object = tool_transform.gameObject;
-			interact_object = other.transform.GetChild(0).gameObject;
+			// Find the tool in the slot
+			collide_object = other.transform.GetChild(0).gameObject;
 
+			// Set identifier to TOOL
 			type_identifier = Interaction_Type.TOOL;
 		}
 	}
 
 	void OnTriggerExit(Collider other)
 	{
-		//set the object to the one to be interacted with
-		if (interact_object)
+		// Check if there is an object collided with
+		if (collide_object)
 		{
-			interact_object = null;
+			// Set collide object to null
+			collide_object = null;
+			// Remove identifier
 			type_identifier = Interaction_Type.NONE;
 		}
 	}
 
-	//Creates joint
+	// Creates joint
 	FixedJoint AddFixedJoint()
 	{
 		FixedJoint fx = gameObject.AddComponent<FixedJoint>();
@@ -177,7 +217,7 @@ public class VR_Input2_with_joint : MonoBehaviour
 		return fx;
 	}
 
-	//For dropping the object
+	// For dropping the object
 	void ReleaseObject()
 	{
 		if (GetComponent<FixedJoint>())
@@ -190,5 +230,17 @@ public class VR_Input2_with_joint : MonoBehaviour
 			held_object.GetComponent<Rigidbody>().angularVelocity = -device.angularVelocity;
 		}
 		held_object = null;
+	}
+
+	// RECODE: Swapping out prefabs would be more efficient
+	// Set hands to inactive
+	void Disable_Hands()
+	{
+		hand_regular.SetActive(false);
+		hand_point.SetActive(false);
+		hand_wrench.SetActive(false);
+		hand_screwdriver.SetActive(false);
+		hand_pliers.SetActive(false);
+		hand_torch.SetActive(false);
 	}
 }
