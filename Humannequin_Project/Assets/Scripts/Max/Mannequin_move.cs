@@ -54,7 +54,7 @@ public class Mannequin_move : MonoBehaviour {
 		} else if (CameraRigPlayer.activeInHierarchy == true) 
 		{
 			player = CameraRigPlayer.transform;
-			Debug.Log ("AACTIVE");
+		//	Debug.Log ("AACTIVE");
 		}
 
 		// For interacting with objects ingame
@@ -98,7 +98,7 @@ public class Mannequin_move : MonoBehaviour {
 					Debug.Log ("BreakNeck");
 					head.rotation = Quaternion.Euler(new Vector3(0.0f,90.0f,0.0f));
 				}
-				Debug.Log (difference);
+				//Debug.Log (difference);
 //				test.LookAt (player);
 //				rotationY = test.rotation.eulerAngles.y;
 //

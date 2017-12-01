@@ -23,8 +23,8 @@ public class Toolbelt_Follow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		Debug.Log(player_body.transform.eulerAngles);
-		Debug.Log(total_height/2);
+	//	Debug.Log(player_body.transform.eulerAngles);
+	//	Debug.Log(total_height/2);
 		gameObject.transform.position = (player_head.transform.position - (Vector3.up * (total_height / 2)));
 		gameObject.transform.eulerAngles = new Vector3(0.0f, player_body.transform.eulerAngles.y, 0.0f);
 	}
