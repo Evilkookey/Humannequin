@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -1256,8 +1256,15 @@ MonoBehaviour:
   grip_button: 2
   touch_pad: 32
   tracked_object: {fileID: 0}
+  hand_regular: {fileID: 0}
+  hand_point: {fileID: 0}
+  hand_wrench: {fileID: 0}
+  hand_screwdriver: {fileID: 0}
+  hand_pliers: {fileID: 0}
+  hand_torch: {fileID: 0}
   type_identifier: 0
   held_object: {fileID: 0}
+  collide_object: {fileID: 0}
   interact_object: {fileID: 0}
   tool_transform: {fileID: 0}
   active_tool: 0
