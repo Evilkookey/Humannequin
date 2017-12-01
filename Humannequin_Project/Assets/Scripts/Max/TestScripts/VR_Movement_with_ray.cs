@@ -63,14 +63,17 @@ public class VR_Movement_with_ray : MonoBehaviour
 
 
 				RaycastHit hit;
-				Ray collision_ray = new Ray (rig.position + (Vector3.up * difference), (controller_object.transform.right * axis.x + controller_object.transform.forward * axis.y)); // This should lock the y position
+				// TEST FIX
+				Vector3 test_fix = (controller_object.transform.right * axis.x + controller_object.transform.forward * axis.y);
+				test_fix.y = 0;
+				Ray collision_ray = new Ray (rig.position + (Vector3.up * difference), test_fix); // This should lock the y position
 
-				Debug.DrawRay (collision_ray.origin,collision_ray.direction);
+				Debug.DrawRay (collision_ray.origin,collision_ray.direction,Color.red);
 			
 
 				if (Physics.Raycast (collision_ray.origin, collision_ray.direction, out hit, raycast_distance)) 
 				{
-					//Debug.Log (hit.collider.name);
+					Debug.Log (hit.collider.name);
 
 				} else 
 				{
@@ -92,7 +95,7 @@ public class VR_Movement_with_ray : MonoBehaviour
 		Ray check_ray = new Ray (ray_origin, (camera.transform.position - ray_origin)); // This should lock the y position
 
 		//Debug.Log(ray_origin);
-		Debug.DrawRay (check_ray.origin, check_ray.direction);
+		Debug.DrawRay (check_ray.origin, check_ray.direction,Color.blue);
 
 		//check the raycast
 		if (Physics.Raycast (check_ray.origin, check_ray.direction, Vector3.Distance(check_ray.origin, camera.transform.position) + 0.175f)) 

@@ -390,6 +390,7 @@ GameObject:
   - component: {fileID: 4354866459303674}
   - component: {fileID: 95550470714805580}
   - component: {fileID: 65923030935187626}
+  - component: {fileID: 114978915162325998}
   m_Layer: 0
   m_Name: Hand_Pliers
   m_TagString: Untagged
@@ -550,7 +551,7 @@ Transform:
   m_GameObject: {fileID: 1849852029560344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.30588484, y: 2.7559922e-16, z: 0.08811474}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4988314937768688}
   - {fileID: 4745931298173368}
@@ -1037,7 +1038,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1849852029560344}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.059414357, y: 0.11484563, z: 0.0902383}
@@ -1059,6 +1060,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114978915162325998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1849852029560344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67ff01a9e7672d4fb6e90c08dc255ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!137 &137483639540026468
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
