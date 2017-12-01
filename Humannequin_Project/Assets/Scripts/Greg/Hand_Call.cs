@@ -9,14 +9,14 @@ public class Hand_Call : MonoBehaviour
 	// When something enters the trigger
 	void OnTriggerEnter(Collider other)
 	{
-		// Call the parent object
+		// Call the parent object to say it has entered
 		gameObject.SendMessageUpwards("ParentOnTriggerEnter", other);
 	}
 
 	// When something exits the trigger
 	void OnTriggerExit(Collider other)
 	{
-		// Call the parent object
+		// Call the parent object to say it has exited
 		gameObject.SendMessageUpwards("ParentOnTriggerExit", other);
 	}
 }
