@@ -169,7 +169,7 @@ public class VR_Input2_with_joint : MonoBehaviour
 		}
 	}
 
-	void OnTriggerEnter(Collider other)
+	void ParentOnTriggerEnter(Collider other)
 	{
 		// Set the type of object it is
 		if (other.tag == "Interact")
@@ -196,7 +196,7 @@ public class VR_Input2_with_joint : MonoBehaviour
 		}
 	}
 
-	void OnTriggerExit(Collider other)
+	void ParentOnTriggerExit(Collider other)
 	{
 		// Check if there is an object collided with
 		if (collide_object)
