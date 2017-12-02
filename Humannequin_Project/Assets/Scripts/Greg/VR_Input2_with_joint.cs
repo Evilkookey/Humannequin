@@ -64,6 +64,30 @@ public class VR_Input2_with_joint : MonoBehaviour
 		// Take input ID from controller
 		device = SteamVR_Controller.Input((int)tracked_object.index);
 
+		// Check grip for pointing
+		if (device.GetPressDown(grip_button))
+		{
+			// Make sure you arent holding a tool
+			if (active_tool == Tool.NONE)
+			{
+				// Disable all hands
+				Disable_Hands();
+				// Set current hand to point
+				hand_point.SetActive(true);
+			}
+		}
+
+		if (device.GetPressUp(grip_button))
+		{
+			if (hand_point.activeInHierarchy)
+			{
+				// Disable all hands
+				Disable_Hands();
+				// Set current hand to point
+				hand_regular.SetActive(true);
+			}
+		}
+
 		// Press trigger
 		if (device.GetPressDown(trigger_button))
 		{
