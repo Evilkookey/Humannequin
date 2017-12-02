@@ -16,7 +16,7 @@ public class Button : MonoBehaviour {
 	//Activate is called when the player interacts with this object
 	void Activate (string active_tool)
 	{
-		//Debug.Log("input in button");
+		Debug.Log("input in button");
 		// If the player is not holding a tool
 		if (active_tool == "NONE")
 		{

@@ -19,7 +19,6 @@ public class Keypad : MonoBehaviour {
 	public const int sequence_length = 6;					//the length of the sequence 
 	public int[] sequence;				//the sequence to be replicated
 	public int number_pointer;					//the number that currently needs to be input
-	public int player_input;			//the colour the player input
 	public int[] player_sequence;		// The sequence the player has input
 	public float timer;							//a timer
 
@@ -39,14 +38,13 @@ public class Keypad : MonoBehaviour {
 		//initialise variables
 		sequence = new int[sequence_length];
 		number_pointer = 0;
-		player_input = 0;
 		player_sequence = new int[sequence_length];
 		timer = 0.0f;
 
 		current_state = game_state.GENERATE;
 		is_on = false;
 
-		flickering_light = GameObject.Find("Enemy_Light").GetComponent<Light>();
+	//	flickering_light = GameObject.Find("Enemy_Light").GetComponent<Light>();
 	}
 	
 	// Update is called once per frame
@@ -85,33 +83,33 @@ public class Keypad : MonoBehaviour {
 		
 	void Get_Player_Input(int input_number)
 	{
-		//add to player sequence
+		// Add to player sequence
 		player_sequence[number_pointer] = input_number;
 
-		//TODO
-		//keypad_screen.text.Insert(4, player_input.ToString());
+		// Add input to display
+		keypad_screen.text = (keypad_screen.text + input_number.ToString());
 
 		// Move pointer
 		number_pointer++;
 
-		//compare the input with the part of sequence
+		// Compare the input with the part of sequence
 		if (number_pointer >= sequence_length)
 		{
-			//check sequences
+			// Check sequences
 			if (player_sequence == sequence)
 			{
-				//player wins
+				// Player wins
 				Debug.Log("correct");
 				current_state = game_state.WIN;
 			}
 			else
 			{
 				Debug.Log("incorrect");
-				//reset pointer before allowing another try
+				// Reset pointer before allowing another try
 				number_pointer = 0;
 
-				//TODO
-				//Clear the screen
+				// Clear the screen
+				keypad_screen.text.Remove(0);
 
 				//turn light off and on again
 				flickering_light.enabled = false;

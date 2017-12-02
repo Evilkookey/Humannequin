@@ -59,6 +59,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4837627273496688}
+  - component: {fileID: 114573765000209552}
   m_Layer: 0
   m_Name: Keypad
   m_TagString: Untagged
@@ -321,9 +322,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1280341486907786}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.639, y: 1.336, z: 2.274}
-  m_LocalScale: {x: 0.35321206, y: 0.35321206, z: 0.35321206}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 1.121, y: 0.7402478, z: 7.966495}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4860402059768264}
   - {fileID: 4569205496751728}
@@ -337,7 +338,7 @@ Transform:
   - {fileID: 4797566779923270}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4860402059768264
 Transform:
   m_ObjectHideFlags: 1
@@ -1618,7 +1619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3b562b76196044a933c27c7bd6df85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input_number: 0
+  input_number: 9
   puzzle_object: {fileID: 0}
 --- !u!114 &114209832731782620
 MonoBehaviour:
@@ -1631,7 +1632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3b562b76196044a933c27c7bd6df85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input_number: 0
+  input_number: 6
   puzzle_object: {fileID: 0}
 --- !u!114 &114236495237466328
 MonoBehaviour:
@@ -1644,7 +1645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3b562b76196044a933c27c7bd6df85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input_number: 0
+  input_number: 7
   puzzle_object: {fileID: 0}
 --- !u!114 &114267294005924724
 MonoBehaviour:
@@ -1657,7 +1658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3b562b76196044a933c27c7bd6df85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input_number: 0
+  input_number: 3
   puzzle_object: {fileID: 0}
 --- !u!114 &114395350921503032
 MonoBehaviour:
@@ -1670,8 +1671,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3b562b76196044a933c27c7bd6df85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input_number: 0
+  input_number: 5
   puzzle_object: {fileID: 0}
+--- !u!114 &114573765000209552
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1280341486907786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75f2bfd5f61659b42b7206363e385f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sequence: 
+  number_pointer: 0
+  player_input: 0
+  player_sequence: 
+  timer: 0
+  current_state: 0
+  is_on: 0
+  flickering_light: {fileID: 0}
+  light_timer: 0
+  entrance_door: {fileID: 0}
+  keypad_screen: {fileID: 0}
 --- !u!114 &114702449485647952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1683,7 +1706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3b562b76196044a933c27c7bd6df85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input_number: 0
+  input_number: 4
   puzzle_object: {fileID: 0}
 --- !u!114 &114754461551435114
 MonoBehaviour:
@@ -1696,7 +1719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3b562b76196044a933c27c7bd6df85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input_number: 0
+  input_number: 1
   puzzle_object: {fileID: 0}
 --- !u!114 &114909065367328250
 MonoBehaviour:
@@ -1709,7 +1732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3b562b76196044a933c27c7bd6df85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input_number: 0
+  input_number: 8
   puzzle_object: {fileID: 0}
 --- !u!114 &114986489372104104
 MonoBehaviour:
@@ -1722,5 +1745,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3b562b76196044a933c27c7bd6df85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input_number: 0
+  input_number: 2
   puzzle_object: {fileID: 0}

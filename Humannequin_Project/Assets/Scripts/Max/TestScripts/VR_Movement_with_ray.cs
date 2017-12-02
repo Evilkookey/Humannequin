@@ -73,7 +73,7 @@ public class VR_Movement_with_ray : MonoBehaviour
 
 				if (Physics.Raycast (collision_ray.origin, collision_ray.direction, out hit, raycast_distance)) 
 				{
-					Debug.Log (hit.collider.name);
+				//	Debug.Log (hit.collider.name);
 
 				} else 
 				{
