@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Hand_Call : MonoBehaviour 
 {
+	public bool is_pliers;
+
 	// When something enters the trigger
 	void OnTriggerEnter(Collider other)
 	{
@@ -19,4 +21,6 @@ public class Hand_Call : MonoBehaviour
 		// Call the parent object to say it has exited
 		gameObject.SendMessageUpwards("ParentOnTriggerExit", other);
 	}
+
+
 }

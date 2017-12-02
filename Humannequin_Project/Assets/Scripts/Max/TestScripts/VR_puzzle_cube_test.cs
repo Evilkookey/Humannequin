@@ -46,13 +46,15 @@ public class VR_puzzle_cube_test : MonoBehaviour {
 	//Called when cube is not interacted with
 	void Deactivate()
 	{
+		Debug.Log(gameObject.name);
 		if(type == cube_type.START)
 		{
-			puzzle_board.GetComponent<Line_puzzle_VR>().Get_finish_input(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
+			puzzle_board.GetComponent<Line_puzzle_VR>().Check_line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
+
 		}
 		else if(type == cube_type.EMPTY)
 		{
-			//puzzle_board.GetComponent<Line_puzzle_VR>().Get_reset_input();
+			//puzzle_board.GetComponent<Line_puzzle_VR>().Get_reset_input(); 					//this wont work
 		}
 	}
 
@@ -69,10 +71,17 @@ public class VR_puzzle_cube_test : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(type == cube_type.EMPTY)
-		{
-			puzzle_board.GetComponent<Line_puzzle_VR>().Get_empty_input(hit, gameObject);
+		if(other.GetComponent<Hand_Call>().is_pliers)
+		{			
+			if(type == cube_type.EMPTY)
+			{
+				puzzle_board.GetComponent<Line_puzzle_VR>().Get_empty_input(hit, gameObject);
+			}
+			else
+			{
+				Debug.Log("SET FINISH");
+				//puzzle_board.GetComponent<Line_puzzle_VR>().Check_line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
+			}
 		}
-
 	}
 }

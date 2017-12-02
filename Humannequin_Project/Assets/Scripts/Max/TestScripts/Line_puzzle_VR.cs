@@ -178,7 +178,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 				empty_cube.GetComponent<VR_puzzle_cube_test>().SetHit(true);
 
 				//Add the hit cube to the array of boxes
-				current_line.boxes[current_line.line_renderer.positionCount -1] = empty_cube;
+				current_line.boxes[current_line.line_renderer.positionCount/* -1*/] = empty_cube;
 
 				//Make a new position for the line renderer and set it to the hix box position
 				current_line.line_renderer.positionCount++;
@@ -187,41 +187,48 @@ public class Line_puzzle_VR : MonoBehaviour {
 		}
 	}
 
-	public void Get_finish_input(Color color, bool hit, GameObject cube)
+	public void Check_line(Color color, bool hit, GameObject cube)
 	{
-		//If the distance between last position and new position is less than the set move distance
-		if(hit == false && Vector3.Distance(current_line.line_renderer.GetPosition(current_line.line_renderer.positionCount - 1), cube.transform.position) < move_distance)
+		//Debug.Log(current_line.boxes[current_line.line_renderer.positionCount - 1].GetComponent<Renderer>().material.name);
+
+		if(current_line.boxes[0].GetComponent<Renderer>().material.name == current_line.boxes[current_line.line_renderer.positionCount - 1].GetComponent<Renderer>().material.name && 
+			current_line.line_renderer.positionCount > 2)
 		{
-			//If cube is red
-			if(color == Color.red && current_line.line_renderer == red_line.line_renderer)
+			//If the distance between last position and new position is less than the set move distance
+			if(hit == false && Vector3.Distance(current_line.line_renderer.GetPosition(current_line.line_renderer.positionCount - 1), cube.transform.position) < move_distance)
 			{
-				SetFinish(cube, ref red_line);
+				//If cube is red
+				if(color == Color.red && current_line.line_renderer == red_line.line_renderer)
+				{
+					SetFinish(cube, ref red_line);
+				}
+				else if(color == Color.blue && current_line.line_renderer == blue_line.line_renderer)
+				{
+					SetFinish(cube, ref blue_line);
+				}
+				else if(color == green_colour.color && current_line.line_renderer == green_line.line_renderer)
+				{
+					SetFinish(cube, ref green_line);
+				}	
+				else if(color == magenta_colour.color && current_line.line_renderer == magenta_line.line_renderer)
+				{
+					SetFinish(cube, ref magenta_line);
+				}	
+				else if(color == yellow_colour.color && current_line.line_renderer == yellow_line.line_renderer)
+				{
+					SetFinish(cube, ref yellow_line);
+				}	
 			}
-			else if(color == Color.blue && current_line.line_renderer == blue_line.line_renderer)
-			{
-				SetFinish(cube, ref blue_line);
-			}
-			else if(color == green_colour.color && current_line.line_renderer == green_line.line_renderer)
-			{
-				SetFinish(cube, ref green_line);
-			}	
-			else if(color == magenta_colour.color && current_line.line_renderer == magenta_line.line_renderer)
-			{
-				SetFinish(cube, ref magenta_line);
-			}	
-			else if(color == yellow_colour.color && current_line.line_renderer == yellow_line.line_renderer)
-			{
-				SetFinish(cube, ref yellow_line);
-			}	
+		}
+		else
+		{	
+			Debug.Log("This should reset");
+			Reset();
 		}
 
-
 	}
 
-	public void Get_reset_input()
-	{
-
-	}
+	
 	/*
 	void OnTriggerExit(Collider collider)
 	{
@@ -375,7 +382,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 		current_line.line_complete = false;
 
 		//Reset hit variable for all boxes that were hit
-		for(int i = 0;i<current_line.line_renderer.positionCount - 1 ;i++)
+		for(int i = 0;i < current_line.line_renderer.positionCount/*-1*/; i++)
 		{
 			current_line.boxes[i].SendMessage("SetHit", false);
 
