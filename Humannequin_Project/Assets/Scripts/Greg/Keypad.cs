@@ -32,6 +32,8 @@ public class Keypad : MonoBehaviour {
 
 	public Text keypad_screen;			// The screen on the keypad
 
+	public GameObject keycard;			// The keycard you can find
+
 	// Use this for initialization
 	void Start ()
     {
@@ -43,6 +45,9 @@ public class Keypad : MonoBehaviour {
 
 		current_state = game_state.GENERATE;
 		is_on = false;
+
+		// Set the keycard
+		keycard = GameObject.Find("keycard");
 
 	//	flickering_light = GameObject.Find("Enemy_Light").GetComponent<Light>();
 	}
@@ -70,14 +75,18 @@ public class Keypad : MonoBehaviour {
 
 	void Generate_Random_Numbers()
 	{
-		//loop through sequence length
+		// Loop through sequence length
 		for (int i = 0; i < sequence_length; i++)
 		{
-			//set this member of sequence to random colour
+			// Set this member of sequence to random colour
 			int rando = Random.Range(1, 10);
 			sequence[i] = rando;
 		}
-		//change to display state;
+
+		// Send code to card
+		keycard.SendMessage("Set_Code", sequence);
+
+		// Change to display state;
 		current_state = game_state.INPUT;
 	}
 		
@@ -109,10 +118,10 @@ public class Keypad : MonoBehaviour {
 				number_pointer = 0;
 
 				// Clear the screen
-				keypad_screen.text.Remove(0);
+				keypad_screen.text = "";
 
 				//turn light off and on again
-				flickering_light.enabled = false;
+//				flickering_light.enabled = false;
 				InvokeRepeating("Turn_On_Light", 1.0f, Time.deltaTime);
 
 				//MAKE MANNEQUIN ANGRY HERE//
