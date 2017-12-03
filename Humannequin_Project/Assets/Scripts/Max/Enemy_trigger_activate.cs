@@ -19,7 +19,13 @@ public class Enemy_trigger_activate : MonoBehaviour {
 	}
 	void OnTriggerEnter()
 	{
+		//turn on the enemy follow script
 		enemy.gameObject.GetComponentInChildren<Mannequin_move> ().enabled = true;
+
+		// turn on light
 		main_light.gameObject.SetActive (true);
+
+		// Play sound for light turning on
+		gameObject.GetComponent<AudioSource>().Play();
 	}
 }

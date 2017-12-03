@@ -49,7 +49,7 @@ public class Keypad : MonoBehaviour {
 		// Set the keycard
 		keycard = GameObject.Find("keycard");
 
-		flickering_light = GameObject.Find("Enemy_Light").GetComponent<Light>();
+		//flickering_light = GameObject.Find("Enemy_Light").GetComponent<Light>();
 	}
 	
 	// Update is called once per frame

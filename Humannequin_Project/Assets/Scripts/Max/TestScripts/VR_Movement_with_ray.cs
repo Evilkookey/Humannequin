@@ -74,12 +74,14 @@ public class VR_Movement_with_ray : MonoBehaviour
 				if (Physics.Raycast (collision_ray.origin, collision_ray.direction, out hit, raycast_distance)) 
 				{
 				//	Debug.Log (hit.collider.name);
-
+					//gameObject.GetComponent<AudioSource>().Stop();
 				} else 
 				{
 					//Move rig in position of the axis with delta time and speed variables
 					rig.position += (transform.right * axis.x + transform.forward * axis.y) * Time.deltaTime * speed;
 					rig.position = new Vector3(rig.position.x, 0, rig.position.z);
+
+
 				}
 
 			}

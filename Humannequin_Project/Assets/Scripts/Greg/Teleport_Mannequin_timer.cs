@@ -70,8 +70,12 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		// If mannequin is unseen
 		if (!this.GetComponent<Renderer> ().isVisible)
 		{
+			
 			//set mannequin position
 			mannequin.transform.position = current_position;
+
+			//play mannequin move sound
+			gameObject.GetComponent<AudioSource>().Play();
 		}
 	}
 
@@ -96,4 +100,6 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		index++;
 
 	}
+
+
 }

@@ -22,6 +22,7 @@ public class Button : MonoBehaviour {
 		{
 			// Send the colour to the puzzle script
 			gameObject.SendMessageUpwards ("Get_Player_Input", input_number);
+			gameObject.GetComponent<AudioSource>().Play();
 		}
 
 	}

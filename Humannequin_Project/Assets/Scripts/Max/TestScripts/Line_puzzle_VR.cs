@@ -46,6 +46,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 
 	public GameObject[] end_cubes;
 	public bool finished;
+	bool played_sound;
 	public GameObject entrance_door;
 
 	// Use this for initialization
@@ -72,6 +73,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 		//current_line = red_line;
 		using_line = false;
 		finished = false;
+		played_sound = false;
 	}
 
 
@@ -83,7 +85,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 			Debug.Log("WIN");
 		}
 
-		for(int i = 0; i< end_cubes.Length; i++)
+		for(int i = 0; i < end_cubes.Length; i++)
 		{
 			if(end_cubes[i].GetComponent<VR_puzzle_cube_test>().hit == true)
 			{
@@ -98,6 +100,11 @@ public class Line_puzzle_VR : MonoBehaviour {
 		{
 			//Debug.Log("ITS DONE");
 			//open door here
+			if(!played_sound)
+			{
+				gameObject.GetComponent<AudioSource>().Play();
+				played_sound = true;
+			}
 			entrance_door.SendMessage("Activate");
 		}
 	
