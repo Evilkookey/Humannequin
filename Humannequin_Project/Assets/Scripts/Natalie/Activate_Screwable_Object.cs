@@ -41,9 +41,20 @@ public class Activate_Screwable_Object : MonoBehaviour
 				object_name = gameObject.name;
 				// Calls the interact function 
 				Debug.Log(object_name);
+
+
+				screw_controller.SendMessage ("Interact", object_name);
+				
+			}
+		}
+		else if(tag == "NONE")
+		{
+			if(gameObject.name == "cover")
+			{
 				screw_controller.SendMessage ("Interact", object_name);
 			}
 		}
+
 	}
 
 	void Fall_Down()

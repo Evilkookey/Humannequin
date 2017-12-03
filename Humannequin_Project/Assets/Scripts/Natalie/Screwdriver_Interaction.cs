@@ -44,7 +44,7 @@ public class Screwdriver_Interaction : MonoBehaviour
 		if (object_name == "cover") 
 		{
 			// If screw counter is 4 then all screws have been interacted with
-			if (screw_counter == 4) 
+			if (screw_counter >= 4) 
 			{
 				// Play animation
 				object_animator.SetBool ("play", true);
