@@ -45,7 +45,9 @@ public class Line_puzzle_VR : MonoBehaviour {
 	public Material yellow_colour, magenta_colour, green_colour;
 
 	public GameObject[] end_cubes;
-	bool finished;
+	public bool finished;
+	public GameObject entrance_door;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -94,7 +96,9 @@ public class Line_puzzle_VR : MonoBehaviour {
 		}
 		if(finished)
 		{
-			Debug.Log("ITS DONE");
+			//Debug.Log("ITS DONE");
+			//open door here
+			entrance_door.SendMessage("Activate");
 		}
 	
 		/*if (device.GetPressUp(trigger_button))

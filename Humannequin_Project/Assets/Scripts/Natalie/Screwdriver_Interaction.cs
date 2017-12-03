@@ -4,12 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Screwdriver_Interaction_new : MonoBehaviour 
+public class Screwdriver_Interaction : MonoBehaviour 
 {
 	// Variables
 	int screw_counter;
 	GameObject activated_object;
 	Animator object_animator;
+	public GameObject cover;
 
 	void Start()
 	{
@@ -31,6 +32,13 @@ public class Screwdriver_Interaction_new : MonoBehaviour
 
 			// Add one to the screw counter
 			screw_counter = screw_counter + 1;
+			// Check screw count
+			if (screw_counter >= 4)
+			{
+				// Set the tag of the cover
+				cover.tag = "Interact";
+			}
+			Debug.Log(screw_counter);
 		}
 		// If the object is a cover 
 		if (object_name == "cover") 

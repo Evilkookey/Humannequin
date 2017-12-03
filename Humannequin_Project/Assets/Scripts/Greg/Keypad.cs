@@ -49,7 +49,7 @@ public class Keypad : MonoBehaviour {
 		// Set the keycard
 		keycard = GameObject.Find("keycard");
 
-	//	flickering_light = GameObject.Find("Enemy_Light").GetComponent<Light>();
+		flickering_light = GameObject.Find("Enemy_Light").GetComponent<Light>();
 	}
 	
 	// Update is called once per frame
@@ -105,11 +105,12 @@ public class Keypad : MonoBehaviour {
 		if (number_pointer >= sequence_length)
 		{
 			// Check sequences
-			if (player_sequence == sequence)
+			if (Check_Input())
 			{
 				// Player wins
 				Debug.Log("correct");
 				current_state = game_state.WIN;
+				Victory();
 			}
 			else
 			{
@@ -121,7 +122,7 @@ public class Keypad : MonoBehaviour {
 				keypad_screen.text = "";
 
 				//turn light off and on again
-//				flickering_light.enabled = false;
+				flickering_light.enabled = false;
 				InvokeRepeating("Turn_On_Light", 1.0f, Time.deltaTime);
 
 				//MAKE MANNEQUIN ANGRY HERE//
@@ -151,5 +152,22 @@ public class Keypad : MonoBehaviour {
 			light_timer = 0.0f;
 			CancelInvoke();
 		}
+	}
+
+	// Compare the sequence with the player input
+	bool Check_Input()
+	{
+		// Loop through sequence
+		for (int i = 0; i < 6; i++)
+		{
+			//Check if these parts of the array are different
+			if (player_sequence[i] != sequence[i])
+			{
+				// If they differ return false
+				return false;
+			}
+		}
+		// If none were different return true
+		return true;
 	}
 }

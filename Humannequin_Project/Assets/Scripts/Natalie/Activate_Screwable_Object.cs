@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Activate_Screwable_Object_new : MonoBehaviour 
+public class Activate_Screwable_Object : MonoBehaviour 
 {
 	// Variables 
 	string object_name;
@@ -28,20 +28,19 @@ public class Activate_Screwable_Object_new : MonoBehaviour
 
 	public void Activate(string tag)
 	{
-		// Sets activated to true
-		is_activated = true;
-
 		Debug.Log(tag);
 
 		if(tag == "SCREWDRIVER")
 		{
 			// Checks if it has been activated previously
-			if (gameObject.GetComponent<Animator> ().enabled == true) 
+			if (is_activated == false) 
 			{
+				// Sets activated to true
+				is_activated = true;
 				// Gets the objects name
 				object_name = gameObject.name;
 				// Calls the interact function 
-				//Debug.Log(object_name);
+				Debug.Log(object_name);
 				screw_controller.SendMessage ("Interact", object_name);
 			}
 		}
