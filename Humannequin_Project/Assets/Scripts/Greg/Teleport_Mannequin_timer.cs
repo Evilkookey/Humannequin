@@ -28,6 +28,8 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		// Looks through all the positions in the enemy positions object and adds it to the array
 		enemy_positions = position_parent.GetComponentsInChildren<Transform> ();
 
+		current_position = mannequin.transform.position;
+
 	}
 
 	// Update is called once per frame
@@ -45,7 +47,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 				// If the array is still full
 				if(index < enemy_positions.Length) 
 				{
-					//Debug.Log (index);
+					Debug.Log (index);
 
 					// Move the enemy
 					Move_enemy ();
