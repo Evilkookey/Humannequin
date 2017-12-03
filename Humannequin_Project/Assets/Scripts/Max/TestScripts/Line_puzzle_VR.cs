@@ -35,7 +35,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 	//This could be an array
 	public lines_struct red_line, blue_line, green_line, magenta_line, yellow_line;
 
-	public int MAX_LENGTH = 10;
+	public int MAX_LENGTH = 100;
 	public float move_distance = 0.12f;
 
 	//To hold all the empty cubes in the puzzle
@@ -44,6 +44,8 @@ public class Line_puzzle_VR : MonoBehaviour {
 	//Custom colours to pass in
 	public Material yellow_colour, magenta_colour, green_colour;
 
+	public GameObject[] end_cubes;
+	bool finished;
 	// Use this for initialization
 	void Start () 
 	{
@@ -67,7 +69,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 
 		//current_line = red_line;
 		using_line = false;
-
+		finished = false;
 	}
 
 
@@ -77,6 +79,22 @@ public class Line_puzzle_VR : MonoBehaviour {
 		if(red_line.line_complete && blue_line.line_complete && green_line.line_complete && magenta_line.line_complete && yellow_line.line_complete) // add new colour here
 		{
 			Debug.Log("WIN");
+		}
+
+		for(int i = 0; i< end_cubes.Length; i++)
+		{
+			if(end_cubes[i].GetComponent<VR_puzzle_cube_test>().hit == true)
+			{
+				finished = true;
+			}
+			else
+			{
+				finished = false;
+			}
+		}
+		if(finished)
+		{
+			Debug.Log("ITS DONE");
 		}
 	
 		/*if (device.GetPressUp(trigger_button))
@@ -165,7 +183,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 
 	public void Get_empty_input(bool hit, GameObject empty_cube)
 	{
-		Debug.Log("Collided with empty");
+		//Debug.Log("Collided with empty");
 		//If there is a current line set
 		if(current_line.line_renderer != null)
 		{
@@ -190,6 +208,10 @@ public class Line_puzzle_VR : MonoBehaviour {
 	public void Check_line(Color color, bool hit, GameObject cube)
 	{
 		//Debug.Log(current_line.boxes[current_line.line_renderer.positionCount - 1].GetComponent<Renderer>().material.name);
+
+		//Add the hit cube to the array of boxes
+		//current_line.boxes[current_line.line_renderer.positionCount -1] = cube;
+
 
 		if(current_line.boxes[0].GetComponent<Renderer>().material.name == current_line.boxes[current_line.line_renderer.positionCount - 1].GetComponent<Renderer>().material.name && 
 			current_line.line_renderer.positionCount > 2)
@@ -226,9 +248,31 @@ public class Line_puzzle_VR : MonoBehaviour {
 			Reset();
 		}
 
+		using_line = false;
+
 	}
 
-	
+	public void Reset_all()
+	{
+		Debug.Log("RESET ALL");
+
+		//Removes all positions from line renderers
+		red_line.line_renderer.positionCount = 1;							// Add new colour here
+		blue_line.line_renderer.positionCount = 1;
+		green_line.line_renderer.positionCount = 1;
+		magenta_line.line_renderer.positionCount = 1;
+		yellow_line.line_renderer.positionCount = 1;
+
+		//Resets variables
+		using_line = false;
+		current_line.line_complete = false;
+
+		//Reset every cube hit bool
+		for(int i =0;i<cubes.Length;i++)
+		{
+			cubes[i].gameObject.GetComponent<VR_puzzle_cube_test>().SetHit(false);
+		}
+	}
 	/*
 	void OnTriggerExit(Collider collider)
 	{
@@ -418,9 +462,9 @@ public class Line_puzzle_VR : MonoBehaviour {
 		//This will reset the line if clicked on the start cube again when the line is completed
 		else if(current_line.line_complete)
 		{
-			Reset();
+			//Reset();
 
-			line.line_complete = false;
+			//line.line_complete = false;
 			//hit.GetComponent<Puzzle_cube>().SetHit(true);
 
 		}

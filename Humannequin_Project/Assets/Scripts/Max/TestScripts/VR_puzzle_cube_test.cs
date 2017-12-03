@@ -10,7 +10,8 @@ public class VR_puzzle_cube_test : MonoBehaviour {
 	public enum cube_type
 	{
 		EMPTY,
-		START
+		START,
+		RESET
 	};
 	public cube_type type;
 
@@ -29,12 +30,18 @@ public class VR_puzzle_cube_test : MonoBehaviour {
 	void Activate(string tool_type)
 	{	
 		//Debug.Log(tool_type);
-		
+
+	
 		if(tool_type == "PLIERS")
 		{
 			if(type == cube_type.START)
 			{
 				puzzle_board.GetComponent<Line_puzzle_VR>().Get_start_input(gameObject.GetComponent<Renderer>().material.color,hit,gameObject);
+			}
+			if(type == cube_type.RESET)
+			{
+				puzzle_board.GetComponent<Line_puzzle_VR>().Reset_all();
+			
 			}
 //			if(type == cube_type.EMPTY)
 //			{
@@ -77,10 +84,11 @@ public class VR_puzzle_cube_test : MonoBehaviour {
 			{
 				puzzle_board.GetComponent<Line_puzzle_VR>().Get_empty_input(hit, gameObject);
 			}
-			else
+			else if(type == cube_type.START)
 			{
 				Debug.Log("SET FINISH");
 				//puzzle_board.GetComponent<Line_puzzle_VR>().Check_line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
+				puzzle_board.GetComponent<Line_puzzle_VR>().Get_empty_input(hit, gameObject);
 			}
 		}
 	}
