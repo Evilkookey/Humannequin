@@ -24,6 +24,7 @@ public class Activate_Screwable_Object : MonoBehaviour
 		object_rigidbody = gameObject.GetComponent<Rigidbody> ();
 		is_activated = false;
 		colliding_object = null;
+		object_name = gameObject.name;
 	}
 
 	public void Activate(string tag)
@@ -51,6 +52,7 @@ public class Activate_Screwable_Object : MonoBehaviour
 		{
 			if(gameObject.name == "cover")
 			{
+				
 				screw_controller.SendMessage ("Interact", object_name);
 			}
 		}
