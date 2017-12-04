@@ -104,7 +104,7 @@ public class Line_puzzle_working : MonoBehaviour {
 					//Reset every cube hit bool
 					for(int i =0;i<cubes.Length;i++)
 					{
-						cubes[i].gameObject.GetComponent<Puzzle_cube>().Set_Hit(false);
+						cubes[i].gameObject.GetComponent<Puzzle_Cube>().Set_Hit(false);
 					}
 				}
 
@@ -115,12 +115,12 @@ public class Line_puzzle_working : MonoBehaviour {
 					if(current_line.line_renderer != null)
 					{
 						//If cube is not already hit AND if the distance between last position and new position is less than the set move distance
-						if(hit.collider.gameObject.GetComponent<Puzzle_cube>().hit == false && 
+						if(hit.collider.gameObject.GetComponent<Puzzle_Cube>().hit == false && 
 							Vector3.Distance(current_line.line_renderer.GetPosition(current_line.line_renderer.positionCount - 1),
 								hit.collider.gameObject.transform.position) < move_distance)
 						{
 							//Set the cube hit variable to true
-							hit.collider.gameObject.GetComponent<Puzzle_cube>().Set_Hit(true);
+							hit.collider.gameObject.GetComponent<Puzzle_Cube>().Set_Hit(true);
 
 							//Add the hit cube to the array of boxes
 							current_line.boxes[current_line.line_renderer.positionCount -1] = hit.collider.gameObject;
@@ -194,7 +194,7 @@ public class Line_puzzle_working : MonoBehaviour {
 			using_line = true;
 
 			//Set the cube hit variable to true
-			hit.GetComponent<Puzzle_cube>().Set_Hit(true);
+			hit.GetComponent<Puzzle_Cube>().Set_Hit(true);
 
 			//Set the line renderer to the red one
 			current_line.line_renderer = line;
@@ -222,7 +222,7 @@ public class Line_puzzle_working : MonoBehaviour {
 		using_line =false;
 
 		//Set the cube hit variable to true
-		hit.GetComponent<Puzzle_cube>().Set_Hit(true);
+		hit.GetComponent<Puzzle_Cube>().Set_Hit(true);
 
 		//Add the hit cube to the array of boxes
 		current_line.boxes[current_line.line_renderer.positionCount -1] = hit;

@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mannequin_teleport : MonoBehaviour {
+public class Mannequin_Teleport : MonoBehaviour {
 
 	public Transform[] enemy_positions; 		// Positions to teleport to
 	public GameObject position_parent;			// Empty object that holds all the enemy positions

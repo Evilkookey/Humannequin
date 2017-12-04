@@ -1,11 +1,11 @@
-﻿//MUSIC_MANAGER.CS
-//MAX MILLS
-
+﻿// MUSIC_MANAGER.CS
+// MAX MILLS
+ 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Music_manager : MonoBehaviour {
+public class Music_Manager : MonoBehaviour {
 
 	//Ambient Music
 	public AudioSource ambience;

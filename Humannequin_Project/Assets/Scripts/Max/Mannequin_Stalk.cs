@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 
-public class Mannequin_move : MonoBehaviour {
+public class Mannequin_Stalk : MonoBehaviour {
 
 	public Transform player;			// Location of the Player
 	public float min_dist;				// Distance which the enemy stops at from the player

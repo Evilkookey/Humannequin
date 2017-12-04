@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Puzzle_cube : MonoBehaviour {
+public class Puzzle_Cube : MonoBehaviour {
 
 	// Changed true when cube has been interacted with
 	public bool hit = false;

@@ -71,7 +71,7 @@ public class Line_renderer_puzzle : MonoBehaviour {
 
 						red_Line.line_renderer.SetPosition (red_Line.line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 
-						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
+						hit.collider.GetComponent<Puzzle_Cube> ().Set_Hit (true);
 
 					} 
 					else if (hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.blue && !blue_Line.line_complete && !already_using) 
@@ -87,7 +87,7 @@ public class Line_renderer_puzzle : MonoBehaviour {
 						blue_Line.line_renderer.SetPosition (blue_Line.line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 
 
-						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
+						hit.collider.GetComponent<Puzzle_Cube> ().Set_Hit (true);
 					}
 
 				}
@@ -97,13 +97,13 @@ public class Line_renderer_puzzle : MonoBehaviour {
 			{
 				if (hit.collider.gameObject.tag == "empty")
 				{
-					if (hit.collider.GetComponent<Puzzle_cube> ().hit == false && !current_line.line_complete) 
+					if (hit.collider.GetComponent<Puzzle_Cube> ().hit == false && !current_line.line_complete) 
 					{
 						current_line.line_renderer.positionCount++;
 					
 						current_line.line_renderer.SetPosition (current_line.line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 						
-						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
+						hit.collider.GetComponent<Puzzle_Cube> ().Set_Hit (true);
 
 					} 
 				}
@@ -155,7 +155,7 @@ public class Line_renderer_puzzle : MonoBehaviour {
 						red_Line.line_renderer.positionCount++;
 						red_Line.line_renderer.SetPosition (red_Line.line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 
-						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
+						hit.collider.GetComponent<Puzzle_Cube> ().Set_Hit (true);
 
 						if (red_Line.line_complete == false) {
 							red_Line.line_complete = true;
@@ -170,7 +170,7 @@ public class Line_renderer_puzzle : MonoBehaviour {
 						blue_Line.line_renderer.positionCount++;
 						blue_Line.line_renderer.SetPosition (blue_Line.line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 
-						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
+						hit.collider.GetComponent<Puzzle_Cube> ().Set_Hit (true);
 
 						if (blue_Line.line_complete == false) {
 							blue_Line.line_complete = true;

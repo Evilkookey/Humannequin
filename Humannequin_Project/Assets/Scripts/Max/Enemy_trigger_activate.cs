@@ -23,7 +23,7 @@ public class Enemy_trigger_activate : MonoBehaviour
 	void OnTriggerEnter()
 	{
 		// Turn on the enemy follow script
-		enemy.gameObject.GetComponentInChildren<Mannequin_move> ().enabled = true;
+		enemy.gameObject.GetComponentInChildren<Mannequin_Stalk> ().enabled = true;
 
 		// Turn on light
 		main_light.gameObject.SetActive (true);

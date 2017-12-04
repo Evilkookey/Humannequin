@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move_wall_trigger : MonoBehaviour {
+public class Move_Wall_Trigger : MonoBehaviour {
 
 	// Objects to move 
 	public GameObject wall;

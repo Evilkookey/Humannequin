@@ -1,8 +1,14 @@
-﻿using System.Collections;
+﻿// LINE_PUZZLE_VR.CS
+// MAX MILLS
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Line_puzzle_VR : MonoBehaviour {
+public class Line_Puzzle_VR : MonoBehaviour 
+{
+	// 'Line' referes to a wire 
+	// 'Cube' refers to a node to connect the wire to
 
 
 	//public Valve.VR.EVRButtonId trigger_button = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
@@ -87,7 +93,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 
 		for(int i = 0; i < end_cubes.Length; i++)
 		{
-			if(end_cubes[i].GetComponent<VR_puzzle_cube_test>().hit == true)
+			if(end_cubes[i].GetComponent<VR_Puzzle_Cube>().hit == true)
 			{
 				finished = true;
 			}
@@ -150,7 +156,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 	}
 
 
-	public void Get_start_input(Color color, bool hit, GameObject collider)
+	public void Get_Start_Input(Color color, bool hit, GameObject collider)
 	{
 		Debug.Log("Collided with start");
 
@@ -162,37 +168,37 @@ public class Line_puzzle_VR : MonoBehaviour {
 			{						
 				//Set the line renderer to the red one
 				current_line = red_line;
-				SetStart(collider,ref red_line);
+				Set_Start(collider,ref red_line);
 			}
 			else if(color == Color.blue) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 			{	
 				//Set the line renderer to the blue one
 				current_line = blue_line;
-				SetStart(collider,ref blue_line);
+				Set_Start(collider,ref blue_line);
 			}
 			else if(color == green_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 			{	
 				//Set the line renderer to the green one
 				current_line = green_line;
-				SetStart(collider,ref green_line);
+				Set_Start(collider,ref green_line);
 			}
 			else if(color == magenta_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 			{	
 				//Set the line renderer to the green one
 				current_line = magenta_line;
-				SetStart(collider,ref magenta_line);
+				Set_Start(collider,ref magenta_line);
 			}
 			else if(color == yellow_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 			{	
 				//Set the line renderer to the green one
 				current_line = yellow_line;
-				SetStart(collider,ref yellow_line);
+				Set_Start(collider,ref yellow_line);
 			}
 		}
 
 	}
 
-	public void Get_empty_input(bool hit, GameObject empty_cube)
+	public void Get_Empty_Input(bool hit, GameObject empty_cube)
 	{
 		//Debug.Log("Collided with empty");
 		//If there is a current line set
@@ -204,7 +210,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 			{
 				Debug.Log("hit empty");
 				//Set the cube hit variable to true
-				empty_cube.GetComponent<VR_puzzle_cube_test>().Set_Hit(true);
+				empty_cube.GetComponent<VR_Puzzle_Cube>().Set_Hit(true);
 
 				//Add the hit cube to the array of boxes
 				current_line.boxes[current_line.line_renderer.positionCount/* -1*/] = empty_cube;
@@ -216,7 +222,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 		}
 	}
 
-	public void Check_line(Color color, bool hit, GameObject cube)
+	public void Check_Line(Color color, bool hit, GameObject cube)
 	{
 		//Debug.Log(current_line.boxes[current_line.line_renderer.positionCount - 1].GetComponent<Renderer>().material.name);
 
@@ -233,23 +239,23 @@ public class Line_puzzle_VR : MonoBehaviour {
 				//If cube is red
 				if(color == Color.red && current_line.line_renderer == red_line.line_renderer)
 				{
-					SetFinish(cube, ref red_line);
+					Set_Finish(cube, ref red_line);
 				}
 				else if(color == Color.blue && current_line.line_renderer == blue_line.line_renderer)
 				{
-					SetFinish(cube, ref blue_line);
+					Set_Finish(cube, ref blue_line);
 				}
 				else if(color == green_colour.color && current_line.line_renderer == green_line.line_renderer)
 				{
-					SetFinish(cube, ref green_line);
+					Set_Finish(cube, ref green_line);
 				}	
 				else if(color == magenta_colour.color && current_line.line_renderer == magenta_line.line_renderer)
 				{
-					SetFinish(cube, ref magenta_line);
+					Set_Finish(cube, ref magenta_line);
 				}	
 				else if(color == yellow_colour.color && current_line.line_renderer == yellow_line.line_renderer)
 				{
-					SetFinish(cube, ref yellow_line);
+					Set_Finish(cube, ref yellow_line);
 				}	
 			}
 		}
@@ -263,7 +269,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 
 	}
 
-	public void Reset_all()
+	public void Reset_All()
 	{
 		Debug.Log("RESET ALL");
 
@@ -281,7 +287,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 		//Reset every cube hit bool
 		for(int i =0;i<cubes.Length;i++)
 		{
-			cubes[i].gameObject.GetComponent<VR_puzzle_cube_test>().Set_Hit(false);
+			cubes[i].gameObject.GetComponent<VR_Puzzle_Cube>().Set_Hit(false);
 		}
 	}
 	/*
@@ -300,23 +306,23 @@ public class Line_puzzle_VR : MonoBehaviour {
 					//If cube is red
 					if(collider.gameObject.GetComponent<Renderer> ().material.color == Color.red && current_line.line_renderer == red_line.line_renderer)
 					{
-						SetFinish(collider.gameObject,ref red_line);
+						Set_Finish(collider.gameObject,ref red_line);
 					}
 					else if(collider.gameObject.GetComponent<Renderer> ().material.color == Color.blue && current_line.line_renderer == blue_line.line_renderer)
 					{
-						SetFinish(collider.gameObject,ref blue_line);
+						Set_Finish(collider.gameObject,ref blue_line);
 					}
 					else if(collider.gameObject.GetComponent<Renderer> ().material.color == green_colour.color && current_line.line_renderer == green_line.line_renderer)
 					{
-						SetFinish(collider.gameObject, ref green_line);
+						Set_Finish(collider.gameObject, ref green_line);
 					}	
 					else if(collider.gameObject.GetComponent<Renderer> ().material.color == magenta_colour.color && current_line.line_renderer == magenta_line.line_renderer)
 					{
-						SetFinish(collider.gameObject, ref magenta_line);
+						Set_Finish(collider.gameObject, ref magenta_line);
 					}	
 					else if(collider.gameObject.GetComponent<Renderer> ().material.color == yellow_colour.color && current_line.line_renderer == yellow_line.line_renderer)
 					{
-						SetFinish(collider.gameObject, ref yellow_line);
+						Set_Finish(collider.gameObject, ref yellow_line);
 					}	
 				}
 
@@ -344,31 +350,31 @@ public class Line_puzzle_VR : MonoBehaviour {
 					{						
 						//Set the line renderer to the red one
 						current_line = red_line;
-						SetStart(collider.gameObject,ref red_line);
+						Set_Start(collider.gameObject,ref red_line);
 					}
 					else if(collider.gameObject.GetComponent<Renderer> ().material.color == Color.blue) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 					{	
 						//Set the line renderer to the blue one
 						current_line = blue_line;
-						SetStart(collider.gameObject,ref blue_line);
+						Set_Start(collider.gameObject,ref blue_line);
 					}
 					else if(collider.gameObject.GetComponent<Renderer> ().material.color == green_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 					{	
 						//Set the line renderer to the green one
 						current_line = green_line;
-						SetStart(collider.gameObject,ref green_line);
+						Set_Start(collider.gameObject,ref green_line);
 					}
 					else if(collider.gameObject.GetComponent<Renderer> ().material.color == magenta_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 					{	
 						//Set the line renderer to the green one
 						current_line = magenta_line;
-						SetStart(collider.gameObject,ref magenta_line);
+						Set_Start(collider.gameObject,ref magenta_line);
 					}
 					else if(collider.gameObject.GetComponent<Renderer> ().material.color == yellow_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 					{	
 						//Set the line renderer to the green one
 						current_line = yellow_line;
-						SetStart(collider.gameObject,ref yellow_line);
+						Set_Start(collider.gameObject,ref yellow_line);
 					}
 				}
 
@@ -448,7 +454,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 	}
 
 	//This will set the first cube in the line and reset line if already completed line
-	void SetStart(GameObject hit, ref lines_struct line)
+	void Set_Start(GameObject hit, ref lines_struct line)
 	{
 		//If the line is not completed already
 		if(!line.line_complete && line.line_renderer.positionCount < 2)
@@ -457,7 +463,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 			using_line = true;
 
 			//Set the cube hit variable to true
-			hit.GetComponent<VR_puzzle_cube_test>().Set_Hit(true);
+			hit.GetComponent<VR_Puzzle_Cube>().Set_Hit(true);
 
 			//Set the line renderer to the red one
 			current_line = line;
@@ -481,13 +487,13 @@ public class Line_puzzle_VR : MonoBehaviour {
 		}
 	}
 	//This will set the last cube in the line
-	void SetFinish(GameObject hit,ref lines_struct line)
+	void Set_Finish(GameObject hit,ref lines_struct line)
 	{
 		//Finished using the line
 		using_line = false;
 
 		//Set the cube hit variable to true
-		hit.GetComponent<VR_puzzle_cube_test>().Set_Hit(true);
+		hit.GetComponent<VR_Puzzle_Cube>().Set_Hit(true);
 
 		//Add the hit cube to the array of boxes
 		line.boxes[line.line_renderer.positionCount -1] = hit;

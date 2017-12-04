@@ -192,7 +192,7 @@ public class Line_renderer_VR : MonoBehaviour {
 					lines [line_index].line_renderer.SetPosition (lines [line_index].line_renderer.positionCount - 1, other.gameObject.transform.position);
 					//line_renderer.SetPosition (counter+1, box3.transform.position);
 
-					other.GetComponent<Puzzle_cube> ().Set_Hit (true);
+					other.GetComponent<Puzzle_Cube> ().Set_Hit (true);
 				} 
 				else if(other.gameObject.GetComponent<Renderer> ().material.color == Color.blue)
 				{
@@ -202,16 +202,16 @@ public class Line_renderer_VR : MonoBehaviour {
 					lines [line_index].line_renderer.SetPosition (lines [line_index].line_renderer.positionCount - 1, other.gameObject.transform.position);
 					//line_renderer.SetPosition (counter+1, box3.transform.position);
 
-					other.GetComponent<Puzzle_cube> ().Set_Hit (true);
+					other.GetComponent<Puzzle_Cube> ().Set_Hit (true);
 				}
 			}
 			if (device.GetPress (trigger_button))
 			{
-				if (other.GetComponent<Puzzle_cube> ().hit == false) 
+				if (other.GetComponent<Puzzle_Cube> ().hit == false) 
 				{
 					lines [line_index].line_renderer.positionCount++;
 					lines [line_index].line_renderer.SetPosition (lines [line_index].line_renderer.positionCount - 1, other.gameObject.transform.position);
-					other.GetComponent<Puzzle_cube> ().Set_Hit (true);
+					other.GetComponent<Puzzle_Cube> ().Set_Hit (true);
 
 					if (lines [line_index].line_complete == false) 
 					{
@@ -224,13 +224,13 @@ public class Line_renderer_VR : MonoBehaviour {
 		{
 			if (device.GetPress(trigger_button))
 			{
-				if (other.GetComponent<Puzzle_cube> ().hit == false) {
+				if (other.GetComponent<Puzzle_Cube> ().hit == false) {
 					Debug.Log ("EMPTY");
 
 					lines[line_index].line_renderer.positionCount++;
 
 					lines[line_index].line_renderer.SetPosition(lines[line_index].line_renderer.positionCount - 1, other.gameObject.transform.position);
-					other.GetComponent<Puzzle_cube> ().Set_Hit (true);
+					other.GetComponent<Puzzle_Cube> ().Set_Hit (true);
 				} 
 			}
 		}
