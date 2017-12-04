@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_trigger_activate : MonoBehaviour 
+public class Enemy_Trigger_Activate : MonoBehaviour 
 {
 	// Objects to trigger if player hit the collider
 	public GameObject enemy; 		
