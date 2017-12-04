@@ -104,7 +104,7 @@ public class Line_puzzle_working : MonoBehaviour {
 					//Reset every cube hit bool
 					for(int i =0;i<cubes.Length;i++)
 					{
-						cubes[i].gameObject.GetComponent<Puzzle_cube>().SetHit(false);
+						cubes[i].gameObject.GetComponent<Puzzle_cube>().Set_Hit(false);
 					}
 				}
 
@@ -120,7 +120,7 @@ public class Line_puzzle_working : MonoBehaviour {
 								hit.collider.gameObject.transform.position) < move_distance)
 						{
 							//Set the cube hit variable to true
-							hit.collider.gameObject.GetComponent<Puzzle_cube>().SetHit(true);
+							hit.collider.gameObject.GetComponent<Puzzle_cube>().Set_Hit(true);
 
 							//Add the hit cube to the array of boxes
 							current_line.boxes[current_line.line_renderer.positionCount -1] = hit.collider.gameObject;
@@ -178,7 +178,7 @@ public class Line_puzzle_working : MonoBehaviour {
 		//Reset hit variable for all boxes that were hit
 		for(int i = 0;i<current_line.line_renderer.positionCount - 1 ;i++)
 		{
-			current_line.boxes[i].SendMessage("SetHit", false);
+			current_line.boxes[i].SendMessage("Set_Hit", false);
 
 		}
 
@@ -194,7 +194,7 @@ public class Line_puzzle_working : MonoBehaviour {
 			using_line = true;
 
 			//Set the cube hit variable to true
-			hit.GetComponent<Puzzle_cube>().SetHit(true);
+			hit.GetComponent<Puzzle_cube>().Set_Hit(true);
 
 			//Set the line renderer to the red one
 			current_line.line_renderer = line;
@@ -212,7 +212,7 @@ public class Line_puzzle_working : MonoBehaviour {
 
 			current_line.line_renderer = line;
 			current_line.line_complete = false;
-			//hit.GetComponent<Puzzle_cube>().SetHit(true);
+			//hit.GetComponent<Puzzle_cube>().Set_Hit(true);
 
 		}
 	}
@@ -222,7 +222,7 @@ public class Line_puzzle_working : MonoBehaviour {
 		using_line =false;
 
 		//Set the cube hit variable to true
-		hit.GetComponent<Puzzle_cube>().SetHit(true);
+		hit.GetComponent<Puzzle_cube>().Set_Hit(true);
 
 		//Add the hit cube to the array of boxes
 		current_line.boxes[current_line.line_renderer.positionCount -1] = hit;

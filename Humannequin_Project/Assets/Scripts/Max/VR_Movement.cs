@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿// VR_MOVEMENT.CS
+// MAX MILLS
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +13,11 @@ public class VR_Movement : MonoBehaviour
 	//Button initialisation
 	private Valve.VR.EVRButtonId touchpad = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad; 	
 
-	//defining controller and tracked object
+	// Defining controller and tracked object
 	private SteamVR_Controller.Device controller;// { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
 	private SteamVR_TrackedObject tracked_obj;
 
-	//define Vector2 to store the touchpad axis
+	// Vector2 to store the touchpad axis
 	private Vector2 axis = Vector2.zero;
 
 

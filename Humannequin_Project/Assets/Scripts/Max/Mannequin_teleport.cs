@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿// MANNEQUIN_TELEPORT.CS
+// MAX MILLS
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

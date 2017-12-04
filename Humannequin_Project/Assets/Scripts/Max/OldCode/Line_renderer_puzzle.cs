@@ -71,7 +71,7 @@ public class Line_renderer_puzzle : MonoBehaviour {
 
 						red_Line.line_renderer.SetPosition (red_Line.line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 
-						hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 
 					} 
 					else if (hit.collider.gameObject.GetComponent<Renderer> ().material.color == Color.blue && !blue_Line.line_complete && !already_using) 
@@ -87,7 +87,7 @@ public class Line_renderer_puzzle : MonoBehaviour {
 						blue_Line.line_renderer.SetPosition (blue_Line.line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 
 
-						hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 					}
 
 				}
@@ -103,7 +103,7 @@ public class Line_renderer_puzzle : MonoBehaviour {
 					
 						current_line.line_renderer.SetPosition (current_line.line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 						
-						hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 
 					} 
 				}
@@ -118,7 +118,7 @@ public class Line_renderer_puzzle : MonoBehaviour {
 							red_Line.line_renderer.positionCount++;
 							red_Line.line_renderer.SetPosition (red_Line.line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 
-							hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+							hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 
 							if (red_Line.line_complete == false) {
 								red_Line.line_complete = true;
@@ -131,7 +131,7 @@ public class Line_renderer_puzzle : MonoBehaviour {
 							blue_Line.line_renderer.positionCount++;
 							blue_Line.line_renderer.SetPosition (blue_Line.line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 
-							hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+							hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 
 							if (blue_Line.line_complete == false) {
 								blue_Line.line_complete = true;
@@ -155,7 +155,7 @@ public class Line_renderer_puzzle : MonoBehaviour {
 						red_Line.line_renderer.positionCount++;
 						red_Line.line_renderer.SetPosition (red_Line.line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 
-						hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 
 						if (red_Line.line_complete == false) {
 							red_Line.line_complete = true;
@@ -170,7 +170,7 @@ public class Line_renderer_puzzle : MonoBehaviour {
 						blue_Line.line_renderer.positionCount++;
 						blue_Line.line_renderer.SetPosition (blue_Line.line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 
-						hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 
 						if (blue_Line.line_complete == false) {
 							blue_Line.line_complete = true;
@@ -231,14 +231,14 @@ public class Line_renderer_puzzle : MonoBehaviour {
 	{
 		for (int i = 0; i < empty_boxes.Length; i++) {
 			
-			empty_boxes[i].gameObject.SendMessage ("SetHit", false);
+			empty_boxes[i].gameObject.SendMessage ("Set_Hit", false);
 
-			//start_boxes[i].gameObject.SendMessage ("SetHit", false);
+			//start_boxes[i].gameObject.SendMessage ("Set_Hit", false);
 
 
 		}
 		for (int i = 0; i < start_boxes.Length; i++) {
-			start_boxes[i].gameObject.SendMessage ("SetHit", false);
+			start_boxes[i].gameObject.SendMessage ("Set_Hit", false);
 
 		}
 	}

@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿// ENEMY_TRIGGER_ACTIVATE.CS
+// MAX MILLS
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_trigger_activate : MonoBehaviour {
-	
-	public GameObject enemy;
+public class Enemy_trigger_activate : MonoBehaviour 
+{
+	// Objects to trigger if player hit the collider
+	public GameObject enemy; 		
 	public Light main_light;
 
 	// Use this for initialization
@@ -19,10 +22,10 @@ public class Enemy_trigger_activate : MonoBehaviour {
 	}
 	void OnTriggerEnter()
 	{
-		//turn on the enemy follow script
+		// Turn on the enemy follow script
 		enemy.gameObject.GetComponentInChildren<Mannequin_move> ().enabled = true;
 
-		// turn on light
+		// Turn on light
 		main_light.gameObject.SetActive (true);
 
 		// Play sound for light turning on

@@ -70,7 +70,7 @@ public class Line_renderer_VR : MonoBehaviour {
 //						lines [line_index].line_renderer.SetPosition (lines [line_index].line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 //						//line_renderer.SetPosition (counter+1, box3.transform.position);
 //
-//						hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+//						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 //					} else {
 //						Debug.Log ("BLUEEE!");
 //						line_index = 1;
@@ -78,7 +78,7 @@ public class Line_renderer_VR : MonoBehaviour {
 //						lines [line_index].line_renderer.SetPosition (lines [line_index].line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 //						//line_renderer.SetPosition (counter+1, box3.transform.position);
 //
-//						hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+//						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 //					}
 //				}
 //			}
@@ -92,7 +92,7 @@ public class Line_renderer_VR : MonoBehaviour {
 //						lines[line_index].line_renderer.positionCount++;
 //
 //						lines[line_index].line_renderer.SetPosition(lines[line_index].line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
-//						hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+//						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 //					} 
 //				}
 //				if (hit.collider.gameObject.tag == "start")
@@ -100,7 +100,7 @@ public class Line_renderer_VR : MonoBehaviour {
 //					if (hit.collider.GetComponent<Puzzle_cube> ().hit == false) {
 //						lines[line_index].line_renderer.positionCount++;
 //						lines[line_index].line_renderer.SetPosition (lines[line_index].line_renderer.positionCount -1, hit.collider.gameObject.transform.position);
-//						hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+//						hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 //						if (lines[line_index].line_complete == false) {
 //							lines[line_index].line_complete = true;
 //						}
@@ -167,13 +167,13 @@ public class Line_renderer_VR : MonoBehaviour {
 	{
 		for (int i = 0; i < empty_boxes.Length; i++) 
 		{
-			empty_boxes[i].gameObject.SendMessage ("SetHit", false);
-			//start_boxes[i].gameObject.SendMessage ("SetHit", false);
+			empty_boxes[i].gameObject.SendMessage ("Set_Hit", false);
+			//start_boxes[i].gameObject.SendMessage ("Set_Hit", false);
 
 		}
 		for (int i = 0; i < start_boxes.Length; i++) 
 		{
-			start_boxes[i].gameObject.SendMessage ("SetHit", false);
+			start_boxes[i].gameObject.SendMessage ("Set_Hit", false);
 		}
 	}
 
@@ -192,7 +192,7 @@ public class Line_renderer_VR : MonoBehaviour {
 					lines [line_index].line_renderer.SetPosition (lines [line_index].line_renderer.positionCount - 1, other.gameObject.transform.position);
 					//line_renderer.SetPosition (counter+1, box3.transform.position);
 
-					other.GetComponent<Puzzle_cube> ().SetHit (true);
+					other.GetComponent<Puzzle_cube> ().Set_Hit (true);
 				} 
 				else if(other.gameObject.GetComponent<Renderer> ().material.color == Color.blue)
 				{
@@ -202,7 +202,7 @@ public class Line_renderer_VR : MonoBehaviour {
 					lines [line_index].line_renderer.SetPosition (lines [line_index].line_renderer.positionCount - 1, other.gameObject.transform.position);
 					//line_renderer.SetPosition (counter+1, box3.transform.position);
 
-					other.GetComponent<Puzzle_cube> ().SetHit (true);
+					other.GetComponent<Puzzle_cube> ().Set_Hit (true);
 				}
 			}
 			if (device.GetPress (trigger_button))
@@ -211,7 +211,7 @@ public class Line_renderer_VR : MonoBehaviour {
 				{
 					lines [line_index].line_renderer.positionCount++;
 					lines [line_index].line_renderer.SetPosition (lines [line_index].line_renderer.positionCount - 1, other.gameObject.transform.position);
-					other.GetComponent<Puzzle_cube> ().SetHit (true);
+					other.GetComponent<Puzzle_cube> ().Set_Hit (true);
 
 					if (lines [line_index].line_complete == false) 
 					{
@@ -230,7 +230,7 @@ public class Line_renderer_VR : MonoBehaviour {
 					lines[line_index].line_renderer.positionCount++;
 
 					lines[line_index].line_renderer.SetPosition(lines[line_index].line_renderer.positionCount - 1, other.gameObject.transform.position);
-					other.GetComponent<Puzzle_cube> ().SetHit (true);
+					other.GetComponent<Puzzle_cube> ().Set_Hit (true);
 				} 
 			}
 		}
@@ -247,7 +247,7 @@ public class Line_renderer_VR : MonoBehaviour {
 //				lines [line_index].line_renderer.SetPosition (lines [line_index].line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 //				//line_renderer.SetPosition (counter+1, box3.transform.position);
 //
-//				hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+//				hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 //			} else {
 //				Debug.Log ("BLUEEE!");
 //				line_index = 1;
@@ -255,7 +255,7 @@ public class Line_renderer_VR : MonoBehaviour {
 //				lines [line_index].line_renderer.SetPosition (lines [line_index].line_renderer.positionCount - 1, hit.collider.gameObject.transform.position);
 //				//line_renderer.SetPosition (counter+1, box3.transform.position);
 //
-//				hit.collider.GetComponent<Puzzle_cube> ().SetHit (true);
+//				hit.collider.GetComponent<Puzzle_cube> ().Set_Hit (true);
 //			}
 //
 //		}

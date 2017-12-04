@@ -1,18 +1,23 @@
-﻿using System.Collections;
+﻿// VR_PUZZLE_CUBE_TEST.CS
+// MAX MILLS
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VR_puzzle_cube_test : MonoBehaviour {
+public class VR_puzzle_cube_test : MonoBehaviour 
+{
+	public bool hit;					// Set when oject is interacted with
+	public GameObject puzzle_board;		// Gameobject that contains the puzzle script
 
-	public bool hit;
-	public GameObject puzzle_board;
-
+	// Types of cubes
 	public enum cube_type
 	{
 		EMPTY,
 		START,
 		RESET
 	};
+
+	// This cubes type
 	public cube_type type;
 
 	// Use this for initialization
@@ -26,65 +31,69 @@ public class VR_puzzle_cube_test : MonoBehaviour {
 	{
 	
 	}
-	//called when cube is interacted with
+	// Called when cube is interacted with
 	void Activate(string tool_type)
 	{	
 		//Debug.Log(tool_type);
 
-	
+		// If current tool is the pliers 
 		if(tool_type == "PLIERS")
 		{
+			// If colliding with start cube, call start function in puzzle script
 			if(type == cube_type.START)
 			{
 				puzzle_board.GetComponent<Line_puzzle_VR>().Get_start_input(gameObject.GetComponent<Renderer>().material.color,hit,gameObject);
 			}
+
+			// If colliding with reset cube, call reset function in puzzle script
 			if(type == cube_type.RESET)
 			{
-				puzzle_board.GetComponent<Line_puzzle_VR>().Reset_all();
-			
+				puzzle_board.GetComponent<Line_puzzle_VR>().Reset_all();			
 			}
-//			if(type == cube_type.EMPTY)
-//			{
-//				puzzle_board.GetComponent<Line_puzzle_VR>().Get_empty_input(hit, gameObject);
-//			}
-		}
 
+			//if(type == cube_type.EMPTY)
+			//{
+			//	puzzle_board.GetComponent<Line_puzzle_VR>().Get_empty_input(hit, gameObject);
+			//}
+		}
 	}
-	//Called when cube is not interacted with
+
+	// Called when cube is not interacted with
 	void Deactivate()
 	{
 		Debug.Log(gameObject.name);
+
+		//This will check if the first interacted cube was a start, and will then check if line was completed or not in the puzzle script
 		if(type == cube_type.START)
 		{
 			puzzle_board.GetComponent<Line_puzzle_VR>().Check_line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
 
 		}
-		else if(type == cube_type.EMPTY)
-		{
-			//puzzle_board.GetComponent<Line_puzzle_VR>().Get_reset_input(); 					//this wont work
-		}
 	}
 
-	bool GetHit()
+	bool Get_Hit()
 	{
 		Debug.Log ("GETHIT");
 		return hit;
 	}
-	public void SetHit (bool t)
+	// Used for setting the hit variable
+	public void Set_Hit (bool t)
 	{
 		//Debug.Log ("SETHIT");
 		hit = t;
 	}
-
+		
 	void OnTriggerEnter(Collider other)
 	{
+		// If object in hand is pliers
 		if(other.GetComponent<Hand_Call>().is_pliers)
 		{			
+			// If you collide with an empty cube, call empty cube function in puzzle script
 			if(type == cube_type.EMPTY)
 			{
 				puzzle_board.GetComponent<Line_puzzle_VR>().Get_empty_input(hit, gameObject);
 			}
-			else if(type == cube_type.START)
+			else if(type == cube_type.START) // If you collide with an start cube, call empty cube function in puzzle script 
 			{
 				Debug.Log("SET FINISH");
 				//puzzle_board.GetComponent<Line_puzzle_VR>().Check_line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);

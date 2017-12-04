@@ -204,7 +204,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 			{
 				Debug.Log("hit empty");
 				//Set the cube hit variable to true
-				empty_cube.GetComponent<VR_puzzle_cube_test>().SetHit(true);
+				empty_cube.GetComponent<VR_puzzle_cube_test>().Set_Hit(true);
 
 				//Add the hit cube to the array of boxes
 				current_line.boxes[current_line.line_renderer.positionCount/* -1*/] = empty_cube;
@@ -281,7 +281,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 		//Reset every cube hit bool
 		for(int i =0;i<cubes.Length;i++)
 		{
-			cubes[i].gameObject.GetComponent<VR_puzzle_cube_test>().SetHit(false);
+			cubes[i].gameObject.GetComponent<VR_puzzle_cube_test>().Set_Hit(false);
 		}
 	}
 	/*
@@ -393,7 +393,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 			//Reset every cube hit bool
 			for(int i =0;i<cubes.Length;i++)
 			{
-				cubes[i].gameObject.GetComponent<Puzzle_cube>().SetHit(false);
+				cubes[i].gameObject.GetComponent<Puzzle_cube>().Set_Hit(false);
 			}
 		}
 
@@ -414,7 +414,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 					{
 						Debug.Log("hit empty");
 						//Set the cube hit variable to true
-						collider.gameObject.GetComponent<Puzzle_cube>().SetHit(true);
+						collider.gameObject.GetComponent<Puzzle_cube>().Set_Hit(true);
 
 						//Add the hit cube to the array of boxes
 						current_line.boxes[current_line.line_renderer.positionCount -1] = collider.gameObject;
@@ -439,7 +439,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 		//Reset hit variable for all boxes that were hit
 		for(int i = 0;i < current_line.line_renderer.positionCount/*-1*/; i++)
 		{
-			current_line.boxes[i].SendMessage("SetHit", false);
+			current_line.boxes[i].SendMessage("Set_Hit", false);
 
 		}
 
@@ -457,7 +457,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 			using_line = true;
 
 			//Set the cube hit variable to true
-			hit.GetComponent<VR_puzzle_cube_test>().SetHit(true);
+			hit.GetComponent<VR_puzzle_cube_test>().Set_Hit(true);
 
 			//Set the line renderer to the red one
 			current_line = line;
@@ -476,7 +476,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 			//Reset();
 
 			//line.line_complete = false;
-			//hit.GetComponent<Puzzle_cube>().SetHit(true);
+			//hit.GetComponent<Puzzle_cube>().Set_Hit(true);
 
 		}
 	}
@@ -487,7 +487,7 @@ public class Line_puzzle_VR : MonoBehaviour {
 		using_line = false;
 
 		//Set the cube hit variable to true
-		hit.GetComponent<VR_puzzle_cube_test>().SetHit(true);
+		hit.GetComponent<VR_puzzle_cube_test>().Set_Hit(true);
 
 		//Add the hit cube to the array of boxes
 		line.boxes[line.line_renderer.positionCount -1] = hit;
