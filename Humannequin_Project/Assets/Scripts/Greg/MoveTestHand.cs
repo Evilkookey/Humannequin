@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// MOVETESTHAND.CS
+// GREG BABIRNIE
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,10 +55,10 @@ public class MoveTestHand : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		//set the type of object it is
+		// Set the type of object it is
 		if (other.tag == "ToolSlot")
 		{
-			//set the object to the one to be interacted with
+			// Set the object to the one to be interacted with
 			Debug.Log("hello");
 		}
 	}

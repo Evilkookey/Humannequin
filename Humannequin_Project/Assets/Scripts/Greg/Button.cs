@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// BUTTON.CS
+//GREG BALBIRNIE
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,13 +9,13 @@ public class Button : MonoBehaviour {
 	public int input_number;	// The number of the button
 	public GameObject puzzle_object;		// The object the puzzle is on
 
-	//start is called when the scene starts
+	// Start is called when the scene starts
 	void Start ()
 	{
 		puzzle_object = GameObject.Find("control_panel");
 	}
 
-	//Activate is called when the player interacts with this object
+	// Activate is called when the player interacts with this object
 	void Activate (string active_tool)
 	{
 		Debug.Log("input in button");

@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿// KEYPAD.CS
+// GREG BALBIRNIE
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Keypad : MonoBehaviour {
 
-	public enum game_state	//the state the game is in
+	public enum game_state	// The state the game is in
 	{
 		INACTIVE,
 		GENERATE,
@@ -16,17 +18,17 @@ public class Keypad : MonoBehaviour {
 	}
 
 
-	public const int sequence_length = 6;					//the length of the sequence 
-	public int[] sequence;				//the sequence to be replicated
-	public int number_pointer;					//the number that currently needs to be input
+	public const int sequence_length = 6;					// The length of the sequence 
+	public int[] sequence;				// The sequence to be replicated
+	public int number_pointer;					// The number that currently needs to be input
 	public int[] player_sequence;		// The sequence the player has input
-	public float timer;							//a timer
+	public float timer;							// A timer
 
-	public game_state current_state;			//the state the game is in
-	public bool is_on;							//if the light is on
+	public game_state current_state;			// The state the game is in
+	public bool is_on;							// If the light is on
 
-	public Light flickering_light;				//the light that turns off and moves the mannequin 
-	public float light_timer;					//a timer for the light
+	public Light flickering_light;				// The light that turns off and moves the mannequin 
+	public float light_timer;					// A timer for the light
 
 	public GameObject entrance_door;
 
@@ -37,7 +39,7 @@ public class Keypad : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-		//initialise variables
+		// Initialise variables
 		sequence = new int[sequence_length];
 		number_pointer = 0;
 		player_sequence = new int[sequence_length];
@@ -55,7 +57,7 @@ public class Keypad : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		//switch for game states
+		// Switch for game states
 		switch (current_state)
 		{
 		case game_state.GENERATE:
@@ -125,29 +127,28 @@ public class Keypad : MonoBehaviour {
 				flickering_light.enabled = false;
 				InvokeRepeating("Turn_On_Light", 1.0f, Time.deltaTime);
 
-				//MAKE MANNEQUIN ANGRY HERE//
+				// Make mannequin closer to attacking
 			}	
 		}
 	}
 		
 	void Victory()
 	{
-		//open door here
+		// Open door here
 		entrance_door.SendMessage("Activate");
 
-		//set state to complete
+		// Set state to complete
 		current_state = game_state.COMPLETE;
 	}
 
 	void Turn_On_Light()
 	{
-		//time the light
+		// Time the light
 		light_timer += Time.deltaTime;
-		//after one second
+		// After one second
 		if (light_timer >= 1.0f)
 		{
-			Debug.Log("NOPE");
-			//turn light back on, rest timer and stop repeating
+			// Turn light back on, rest timer and stop repeating
 			flickering_light.enabled = true;
 			light_timer = 0.0f;
 			CancelInvoke();

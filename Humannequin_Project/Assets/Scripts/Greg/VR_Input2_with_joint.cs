@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//VR_INPUT2_WITH_JOINT.CS
+//GREG BALBIRNIE
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -256,7 +258,6 @@ public class VR_Input2_with_joint : MonoBehaviour
 		held_object = null;
 	}
 
-	// RECODE: Swapping out prefabs would be more efficient
 	// Set hands to inactive
 	void Disable_Hands()
 	{

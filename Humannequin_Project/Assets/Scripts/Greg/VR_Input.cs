@@ -1,20 +1,22 @@
-﻿using System.Collections;
+﻿// VR_INPUT.CS
+// GREG BALBIRNIE
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class VR_Input : MonoBehaviour 
 {
-	//define the buttons
+	// Define the buttons
 	public Valve.VR.EVRButtonId trigger_button = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
 	public Valve.VR.EVRButtonId grip_button = Valve.VR.EVRButtonId.k_EButton_Grip;
 	public Valve.VR.EVRButtonId touch_pad = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
 	public Valve.VR.EVRButtonId pause_button = Valve.VR.EVRButtonId.k_EButton_ApplicationMenu;	// NAT
 
-	//define the controller object
+	// Define the controller object
 	public SteamVR_TrackedObject tracked_object;
 	public SteamVR_Controller.Device device;
 
-	//object to save what object is held
+	// Object to save what object is held
 	GameObject held_object;
 
 	// Pause menu controller
@@ -23,7 +25,7 @@ public class VR_Input : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		//get the tracked object
+		// Get the tracked object
 		tracked_object = GetComponent<SteamVR_TrackedObject>();
 
 		// Get the pause menu controller
@@ -51,7 +53,7 @@ public class VR_Input : MonoBehaviour
 		if (device.GetPress (pause_button)) 
 		{
 			Debug.Log("pause button pressed");
-			// enables the pause menu
+			// Enables the pause menu
 			pause_menu_controller.SendMessage ("Activate");
 		}
 		if (device.GetPressUp(trigger_button))

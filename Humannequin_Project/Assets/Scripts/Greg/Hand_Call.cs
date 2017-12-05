@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// HAND_CALL.CS
+// GREG BALBIRNIE
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,6 +23,4 @@ public class Hand_Call : MonoBehaviour
 		// Call the parent object to say it has exited
 		gameObject.SendMessageUpwards("ParentOnTriggerExit", other);
 	}
-
-
 }

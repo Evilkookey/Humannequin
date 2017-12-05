@@ -1,13 +1,16 @@
-﻿using System.Collections;
+﻿// INCRIMENTED_TURN.CS
+// GREG BALBIRNIE
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Incrimented_Turn : MonoBehaviour 
 {
-	//define the buttons
+	// Define the buttons
 	public Valve.VR.EVRButtonId touch_pad = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
 
-	//define the controller object
+	// Define the controller object
 	public SteamVR_TrackedObject tracked_object;
 	public SteamVR_Controller.Device device;
 
@@ -17,7 +20,7 @@ public class Incrimented_Turn : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		//get the tracked object
+		// Get the tracked object
 		tracked_object = GetComponent<SteamVR_TrackedObject>();
 		turn_incriment = 30.0f; 
 	}
@@ -25,7 +28,7 @@ public class Incrimented_Turn : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		//take input ID from controller
+		// Take input ID from controller
 		device = SteamVR_Controller.Input((int)tracked_object.index);
 
 		if (device.GetPressDown(touch_pad))

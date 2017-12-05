@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// TEST_BUTTON_INPUT.CS
+// GREG BALBIRNIE
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +24,7 @@ public class Test_button_input : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		//take player input (placeholder)
+		// Take player input (placeholder)
 		switch (Input.inputString)
 		{
 		case "z":

@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿// SIMON_PUZZLE.CS
+// GREG BABIRNIE
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Simon_Puzzle : MonoBehaviour {
 
-	public enum colour_name						//the different colours that could be shown
+	public enum colour_name						// The different colours that could be shown
 	{
 		NULL,
 		RED,
@@ -15,7 +17,7 @@ public class Simon_Puzzle : MonoBehaviour {
 		WHITE
 	}
 
-	public enum game_state	//the state the game is in
+	public enum game_state	// The state the game is in
 	{
 		INACTIVE,
 		GENERATE,
@@ -26,31 +28,31 @@ public class Simon_Puzzle : MonoBehaviour {
 		COMPLETE
 	}
 
-	public int round_number;					//the round the player is on
-	public int final_round;						//the last round before victory
-	public int sequence_length;					//the length of the sequence this round 
-	public colour_name[] sequence;				//the sequence to be replicated
-	public int colour_pointer;					//the colour that currently needs to be input
-	public colour_name player_input;			//the colour the player input
-	public float timer;							//a timer
+	public int round_number;					// The round the player is on
+	public int final_round;						// The last round before victory
+	public int sequence_length;					// The length of the sequence this round 
+	public colour_name[] sequence;				// The sequence to be replicated
+	public int colour_pointer;					// The colour that currently needs to be input
+	public colour_name player_input;			// The colour the player input
+	public float timer;							// A timer
+ 
+	public game_state current_state;			// The state the game is in
+	public bool is_on;							// If the light is on
+ 
+	public int fail_count;						// The amount of times the player has failed
+	public int lose_value;						// The amount of fails that loses the game
 
-	public game_state current_state;			//the state the game is in
-	public bool is_on;							//if the light is on
+	public Light flickering_light;				// The light that turns off and moves the mannequin 
+	public float light_timer;					// A timer for the light
 
-	public int fail_count;						//the amount of times the player has failed
-	public int lose_value;						//the amount of fails that loses the game
-
-	public Light flickering_light;				//the light that turns off and moves the mannequin 
-	public float light_timer;					//a timer for the light
-
-	public Light[] coloured_lights;				//the coloured lights that indicate the sequence
+	public Light[] coloured_lights;				// The coloured lights that indicate the sequence
 
 	public GameObject entrance_door;
 
 	// Use this for initialization
 	void Start ()
     {
-		//initialise variables
+		// Initialise variables
 		round_number = 0;
 		sequence = new colour_name[10];
 		colour_pointer = 0;
@@ -65,14 +67,14 @@ public class Simon_Puzzle : MonoBehaviour {
 		coloured_lights = new Light[6];
 		coloured_lights = gameObject.GetComponentsInChildren<Light>();
 
-		//turn off all lights
+		// Turn off all lights
 		Turn_Lights_Off();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-		//switch for game states
+		// Switch for game states
 		switch (current_state)
 		{
 		case game_state.GENERATE:
@@ -101,7 +103,7 @@ public class Simon_Puzzle : MonoBehaviour {
 
 	void Generate_Random_Colours()
 	{
-		//choose sequence length based on round number
+		// Choose sequence length based on round number
 		switch (round_number)
 		{
 		case 0:
@@ -114,7 +116,7 @@ public class Simon_Puzzle : MonoBehaviour {
 			sequence_length = 7;
 			break;
 		}
-		//loop through sequence length
+		// Loop through sequence length
 		for (int i = 0; i < sequence_length; i++)
 		{
 			//set this member of sequence to random colour
@@ -141,33 +143,33 @@ public class Simon_Puzzle : MonoBehaviour {
 				break;
 			}
 		}
-		//change to display state;
+		// Change to display state;
 		current_state = game_state.DISPLAY;
 	}
 
 	void Display_sequence()
 	{
-		//update timer
+		// Update timer
 		timer += Time.deltaTime;
-		//if half a second has passed 
+		// If half a second has passed 
 		if (timer > 0.5f)
 		{
-			//reset timer
+			// Reset timer
 			timer = 0.0f;
-			//change true/false
+			// Change true/false
 			is_on = !is_on;
-			//if it went off
+			// If it went off
 
-			//if there is more in sequence
+			// If there is more in sequence
 			if (colour_pointer < sequence_length)
 			{
 				if (!is_on)
 				{
-					//iterate through to next in sequence
+					// Iterate through to next in sequence
 					Lights_Change(sequence[colour_pointer], is_on);
 					colour_pointer++;
 				}
-				//if it went on
+				// If it went on
 				else if (is_on)
 				{
 					//show colour;
@@ -177,7 +179,7 @@ public class Simon_Puzzle : MonoBehaviour {
 			}
 			else if (colour_pointer >= sequence_length)
 			{
-				//reset colour pointer and is_on and change state
+				// Reset colour pointer and is_on and change state
 				colour_pointer = 0;
 				is_on = false;
 				current_state = game_state.INPUT;
@@ -187,10 +189,10 @@ public class Simon_Puzzle : MonoBehaviour {
 
 	void Get_Player_Input(string input_text)
 	{
-		//if the game is in the input stage
+		// If the game is in the input stage
 		if (current_state == game_state.INPUT) 
 		{
-			//take player input
+			// Take player input
 			switch (input_text) 
 			{
 			case "red":
@@ -213,31 +215,31 @@ public class Simon_Puzzle : MonoBehaviour {
 				break;
 			}
 
-			//light up the input
+			// Light up the input
 			Turn_Lights_Off();
 			Lights_Change(player_input, true);
 
-			//compare the input with the part of sequence
+			// Compare the input with the part of sequence
 			if (player_input == sequence[colour_pointer])
 			{
-				//move to next member
+				// Move to next member
 				colour_pointer++;
 				Debug.Log("correct");
-				//if it is complete
+				// If it is complete
 				if (colour_pointer >= sequence_length)
 				{
-					//move to next round
+					// Move to next round
 					Turn_Lights_Off();
 					Debug.Log("You win round " + round_number);
 					round_number++;
-					//if last round is done, win game
+					// If last round is done, win game
 					if (round_number >= final_round)
 					{
 						current_state = game_state.WIN;
 					}
 					else
 					{
-						//reset pointer 
+						// Reset pointer 
 						colour_pointer = 0;
 						current_state = game_state.GENERATE;
 					}
@@ -245,20 +247,20 @@ public class Simon_Puzzle : MonoBehaviour {
 			}
 			else
 			{
-				//turn lights off
+				// Turn lights off
 				Turn_Lights_Off();
-				//display again and add to fail
+				// Display again and add to fail
 				Debug.Log("incorrect");
-				//reset pointer before reshowing
+				// Reset pointer before reshowing
 				colour_pointer = 0;
 				fail_count++;
 
-				//turn light off and on again
+				// Turn light off and on again
 				flickering_light.enabled = false;
 				InvokeRepeating("Turn_On_Light", 1.0f, Time.deltaTime);
 				Debug.Log(1/Time.deltaTime);
 
-				//if failed enough to lose
+				// If failed enough to lose
 				if (fail_count >= lose_value)
 				{
 					current_state = game_state.FAIL;
@@ -280,13 +282,13 @@ public class Simon_Puzzle : MonoBehaviour {
 
 	void Turn_On_Light()
 	{
-		//time the light
+		// Time the light
 		light_timer += Time.deltaTime;
-		//after one second
+		// After one second
 		if (light_timer >= 1.0f)
 		{
 			Debug.Log("NOPE");
-			//turn light back on, rest timer and stop repeating
+			// Turn light back on, rest timer and stop repeating
 			flickering_light.enabled = true;
 			light_timer = 0.0f;
 			CancelInvoke();
@@ -297,7 +299,7 @@ public class Simon_Puzzle : MonoBehaviour {
 	{
 		int light_num = 0;
 
-		//pick light
+		// Pick light
 		switch (light_colour)
 		{
 		case colour_name.RED :
@@ -320,7 +322,7 @@ public class Simon_Puzzle : MonoBehaviour {
 			break;
 		}
 
-		//turn on or off
+		// Turn on or off
 		if (colour_on) 
 		{
 			coloured_lights[light_num].enabled = true;
@@ -333,7 +335,7 @@ public class Simon_Puzzle : MonoBehaviour {
 
 	void Turn_Lights_Off()
 	{
-		//turn off all lights
+		// Turn off all lights
 		for (int i = 0; i < coloured_lights.Length; i++)
 		{
 			coloured_lights[i].enabled = false;
@@ -341,14 +343,11 @@ public class Simon_Puzzle : MonoBehaviour {
 	}
 	void Victory()
 	{
-		//Debug.Log ("hello");
-		//open door here//////////////////////////////
+
+		// Open door
 		entrance_door.SendMessage("Activate");
 
-		//set state to complete
+		// Set state to complete
 		current_state = game_state.COMPLETE;
 	}
 }
-
-//put input stuff in one function. 
-//You no longer need newInput as the function is only called when player inputs.

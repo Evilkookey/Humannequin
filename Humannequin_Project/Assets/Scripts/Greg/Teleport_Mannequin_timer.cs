@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿// TELEPORT_MANNEQUIN_TIMER.CS
+// GREG BALBIRNIE
+// Please note this is a modification of Max Mills' "Mannequin_Teleport" script. most of this code was written by him.
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,8 +57,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 				}
 				else
 				{
-					// Enemy is at last position, so it should kill you here //////////////
-					//Debug.Log("KILLL");
+					// Enemy is at last position, so it should kill you here 
 				}
 			}
 			// Reset timer
@@ -63,7 +65,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		}
 		else
 		{
-			//reset bools if light comes back on
+			// Reset bools if light comes back on
 			enemy_moved = false;
 		}
 
@@ -71,7 +73,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		if (!this.GetComponent<Renderer> ().isVisible)
 		{
 			
-			//set mannequin position
+			// Set mannequin position
 			mannequin.transform.position = current_position;
 
 			//play mannequin move sound
@@ -100,6 +102,4 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		index++;
 
 	}
-
-
 }
