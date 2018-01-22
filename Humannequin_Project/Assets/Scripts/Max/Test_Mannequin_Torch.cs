@@ -10,24 +10,8 @@ public class Test_Mannequin_Torch : MonoBehaviour {
 	float move_speed = 2.0f;
 	bool move = true;
 
-	public GameObject torch;
-	Vector3 cone_scale, cone_pos;
-
 	// Use this for initialization
 	void Start () {
-	
-
-		float angle = (torch.GetComponent<Light> ().spotAngle); // 38
-		float temp = 1 - (33/angle);
-
-		temp += 1;
-
-		cone_scale = new Vector3(temp, this.transform.localScale.y, temp);
-
-		cone_pos = new Vector3(this.transform.position.x,this.transform.position.y, torch.GetComponent<Light> ().range /2);
-
-		this.transform.localScale = cone_scale;
-		this.transform.position =cone_pos; 
 
 	}
 	
