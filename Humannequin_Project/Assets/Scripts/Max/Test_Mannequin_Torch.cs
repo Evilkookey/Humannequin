@@ -19,7 +19,8 @@ public class Test_Mannequin_Torch : MonoBehaviour {
 	void Update () 
 	{
 		
-		if (move) {
+		if (move) 
+		{
 			// Move and rotate towards player 
 			target_position = new Vector3 (player.position.x, 
 				this.transform.position.y, 
@@ -29,16 +30,23 @@ public class Test_Mannequin_Torch : MonoBehaviour {
 
 			transform.position += transform.forward * move_speed * Time.deltaTime;
 		}
-		move = true;
+
 	}
 
-	void OnTriggerEnter(Collider other)
+	void OnTriggerStay(Collider other)
 	{
-		if (other.gameObject.tag == "Light") {
+		if (other.gameObject.tag == "Light") 
+		{
 			move = false;
-		} else {
-			move = true;
+			//Debug.Log ("HIT");
 		}
 
+	}
+	void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.tag == "Light") 
+		{
+			move = true;
+		}
 	}
 }
