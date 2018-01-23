@@ -55,6 +55,9 @@ public class Line_Puzzle_VR : MonoBehaviour
 	bool played_sound;
 	public GameObject entrance_door;
 
+	int num; // To add up the number of connected cubes
+
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -80,6 +83,8 @@ public class Line_Puzzle_VR : MonoBehaviour
 		using_line = false;
 		finished = false;
 		played_sound = false;
+
+		num = 0;
 	}
 
 
@@ -91,26 +96,35 @@ public class Line_Puzzle_VR : MonoBehaviour
 			Debug.Log("WIN");
 		}
 
+		// Scans through the list of endcubes and increases a counter if they are all hit (completed)
 		for(int i = 0; i < end_cubes.Length; i++)
 		{
 			if(end_cubes[i].GetComponent<VR_Puzzle_Cube>().hit == true)
 			{
-				finished = true;
-			}
-			else
-			{
-				finished = false;
+				num++;
 			}
 		}
+
+		// Puzzle is completed if you complete all the lines
+		if (num == end_cubes.Length) 
+		{
+			finished = true;
+		} else 
+		{
+			// Reset num 
+			num = 0;
+		}
+
 		if(finished)
 		{
 			//Debug.Log("ITS DONE");
-			//open door here
+			// Open door here
 			if(!played_sound)
 			{
 				gameObject.GetComponent<AudioSource>().Play();
 				played_sound = true;
 			}
+			// Activates the door opening function on the door
 			entrance_door.SendMessage("Activate");
 		}
 	
