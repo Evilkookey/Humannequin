@@ -58,11 +58,13 @@ public class VR_Movement_with_ray : MonoBehaviour
 			// Set touch input to the axis Vector2
 			axis = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
 
+			print(axis);
+
 			// If there is a rig
 			if (rig != null)
 			{
 				// Move rig in position of the axis with delta time and speed variables
-				rig.Translate((transform.right * axis.x + transform.forward * axis.y) * Time.deltaTime * speed);
+				rig.Translate((transform.right * axis.x + transform.forward * axis.y) * Time.deltaTime * speed, Space.Self);
 				rig.position = new Vector3(rig.position.x, 0, rig.position.z);
 			}
 		}
