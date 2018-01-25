@@ -28,6 +28,9 @@ public class VR_Movement_with_ray : MonoBehaviour
 
 	void Start()
 	{
+		// Avoid certain collisions
+		Physics.IgnoreLayerCollision(8/*Player*/, 9/*Ignore_Player*/, true);
+
 		// Find the tracked object on the gameobject
 		trackedObj = GetComponent<SteamVR_TrackedObject>();
 
