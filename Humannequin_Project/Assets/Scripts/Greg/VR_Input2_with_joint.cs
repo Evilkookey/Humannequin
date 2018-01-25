@@ -252,7 +252,7 @@ public class VR_Input2_with_joint : MonoBehaviour
 			GetComponent<FixedJoint>().connectedBody = null;
 			Destroy(GetComponent<FixedJoint>());
 
-			held_object.GetComponent<Rigidbody>().velocity = new Vector3(-device.velocity.z,device.velocity.y,device.velocity.x) ;
+			held_object.GetComponent<Rigidbody>().velocity = (device.velocity.x * gameObject.transform.parent.right + device.velocity.y * gameObject.transform.parent.up + device.velocity.z * gameObject.transform.parent.forward);
 			held_object.GetComponent<Rigidbody>().angularVelocity = device.angularVelocity;
 		}
 		held_object = null;

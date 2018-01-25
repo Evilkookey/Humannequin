@@ -58,12 +58,6 @@ public class VR_Movement_with_ray : MonoBehaviour
 			// Set touch input to the axis Vector2
 			axis = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
 
-			print("Forward: " + rig.forward);
-			print("Right: " + rig.right);
-			print("Axis: " + axis);
-
-			print("Moves in: " + ((rig.right * axis.x) + (rig.forward * axis.y)));
-
 			// If there is a rig
 			if (rig != null)
 			{
