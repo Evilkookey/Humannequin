@@ -61,38 +61,9 @@ public class VR_Movement_with_ray : MonoBehaviour
 			// If there is a rig
 			if (rig != null)
 			{
-				
-				///Ray ray = Camera.main.ScreenPointToRay(new Vector3((Screen.width / 2), (Screen.height / 2)));
-				///Debug.DrawRay (ray.origin, ray.direction);
-
-				RaycastHit hit;
-
-				// TEST FIX
-				Vector3 test_fix = (controller_object.transform.right * axis.x + controller_object.transform.forward * axis.y);
-				test_fix.y = 0;
-
-				// Create ray from rig in the direction of the touchpad axis. but locked at 0 in the y axis 
-				Ray collision_ray = new Ray (rig.position + (Vector3.up * difference), test_fix); // This should lock the y position
-
-				// Draw the ray in the editor
-				Debug.DrawRay (collision_ray.origin,collision_ray.direction,Color.red);
-			
-
-				// Only move camerarig if ray does not hit anything
-				if (Physics.Raycast (collision_ray.origin, collision_ray.direction, out hit, raycast_distance)) 
-				{
-					Debug.Log (hit.collider.name);
-					//gameObject.GetComponent<AudioSource>().Stop();
-				} 
-				else 
-				{
-					// Move rig in position of the axis with delta time and speed variables
-					rig.position += (transform.right * axis.x + transform.forward * axis.y) * Time.deltaTime * speed;
-					rig.position = new Vector3(rig.position.x, 0, rig.position.z);
-
-					//TESTTTTTTT
-				}
-
+				// Move rig in position of the axis with delta time and speed variables
+				rig.Translate((transform.right * axis.x + transform.forward * axis.y) * Time.deltaTime * speed);
+				rig.position = new Vector3(rig.position.x, 0, rig.position.z);
 			}
 		}
 
