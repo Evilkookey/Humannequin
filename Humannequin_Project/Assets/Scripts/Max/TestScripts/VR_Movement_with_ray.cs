@@ -90,7 +90,7 @@ public class VR_Movement_with_ray : MonoBehaviour
 					rig.position += (transform.right * axis.x + transform.forward * axis.y) * Time.deltaTime * speed;
 					rig.position = new Vector3(rig.position.x, 0, rig.position.z);
 
-
+					//TESTTTTTTT
 				}
 
 			}
