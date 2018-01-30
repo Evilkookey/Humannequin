@@ -50,8 +50,6 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 				// If the array is still full
 				if(index < enemy_positions.Length) 
 				{
-					Debug.Log (index);
-
 					// Move the enemy
 					Move_enemy ();
 				}
