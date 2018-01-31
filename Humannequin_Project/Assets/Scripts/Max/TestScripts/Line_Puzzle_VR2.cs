@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Line_Puzzle_VR : MonoBehaviour 
+public class Line_Puzzle_VR2 : MonoBehaviour 
 {
 	// 'Line' referes to a wire 
 	// 'Cube' refers to a node to connect the wire to
@@ -97,13 +97,15 @@ public class Line_Puzzle_VR : MonoBehaviour
 		}
 
 		// Scans through the list of endcubes and increases a counter if they are all hit (completed)
-		for(int i = 0; i < end_cubes.Length; i++)
+		for(int i = 0; i <= end_cubes.Length; i++)
 		{
 			if(end_cubes[i].GetComponent<VR_Puzzle_Cube>().hit == true)
 			{
 				num++;
 			}
 		}
+
+		Debug.Log (num);
 
 		// Puzzle is completed if you complete all the lines
 		if (num == end_cubes.Length) 
@@ -127,7 +129,7 @@ public class Line_Puzzle_VR : MonoBehaviour
 			// Activates the door opening function on the door
 			entrance_door.SendMessage("Activate");
 		}
-	
+
 		/*if (device.GetPressUp(trigger_button))
 		{
 		
