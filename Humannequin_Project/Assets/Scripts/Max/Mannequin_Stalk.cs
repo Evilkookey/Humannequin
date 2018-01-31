@@ -16,9 +16,11 @@ public class Mannequin_Stalk : MonoBehaviour {
 	public Transform head;				// Head object used to rotate
 	//public Transform test;
 	public GameObject CameraRigPlayer, FPSController; // Used to determine if the player is in VR or using the FP controller
+	public float rotate_speed = 5.0f;
 
 	NavMeshAgent agent;					// Nav mesh agent stored on the enemy
 	Vector3 target_postition;			// Position to turn towards
+	Vector3 target_dir;
 
 	//float distance;
 	float rotationY;					// Y rotation variable
@@ -68,6 +70,10 @@ public class Mannequin_Stalk : MonoBehaviour {
 		//}
 
 
+
+
+
+
 		// If using the follow enemy
 		if (follow_enemy_type) 
 		{
@@ -83,20 +89,37 @@ public class Mannequin_Stalk : MonoBehaviour {
 				// Agent will advance to players position 
 				agent.SetDestination (player.position);
 
+				// Calculate vector
+				target_dir = target_postition - transform.position;
+
 				// Calculate difference in head rotation angle
-				float difference = Vector3.Angle (transform.forward, target_postition);
+				float difference = Vector3.Angle (target_dir, transform.forward);
 
 				// Look at target if head position is less than 90 degrees
-				if (difference < 90.0f) 
+				if (difference < 270.0f && difference < 90.0f)
 				{
 					head.LookAt (target_postition);
 				}
-				// Rotate angle for head is set at 90 degrees 
-				else 
+
+				//Debug.Log (head.localRotation.eulerAngles);
+				//Debug.Log (difference);
+
+				/* if(difference > 90.0f && difference < 180.0f)
 				{
-					Debug.Log ("BreakNeck");
-					head.rotation = Quaternion.Euler(new Vector3(0.0f,90.0f,0.0f));
-				}
+					Debug.Log ("Right");
+					head.localRotation = Quaternion.Euler(new Vector3(0.0f,90.0f,0.0f));
+				}*/
+						// Rotate angle for head is set at 90 degrees
+						/*if(difference <= 270.0f && difference >= 180.0f || difference >= -90.0f && difference <= -180.0f )
+				{
+					Debug.Log ("Left");
+					head.localRotation = Quaternion.Euler(new Vector3(0.0f,270.0f,0.0f));
+				}*/
+				
+
+				// Used to speed up the rotation of the enemy
+				Vector3 lookrotation = target_postition - transform.position;
+				transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (lookrotation), Time.deltaTime * rotate_speed);
 
 				// TEST CODE
 				//Debug.Log (difference);
