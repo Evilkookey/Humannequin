@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23748516717856328}
   - component: {fileID: 54478719553347026}
   - component: {fileID: 64537907512414930}
+  - component: {fileID: 208276135384784952}
   m_Layer: 9
   m_Name: Mannequin_Head
   m_TagString: Pick_Up
@@ -37,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1981686347706774}
   m_LocalRotation: {x: 0.019755151, y: -0.3554729, z: 0.00751505, w: 0.9344476}
-  m_LocalPosition: {x: 6.125483, y: 0.04247392, z: 11.0168705}
+  m_LocalPosition: {x: 6.125483, y: 0.127, z: 11.0168705}
   m_LocalScale: {x: 4.068358, y: 4.411749, z: 4.5657673}
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,7 +108,22 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
+  m_Convex: 1
+  m_InflateMesh: 1
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: ee7d1949aaf2b624c95bd29639bfc746, type: 3}
+--- !u!208 &208276135384784952
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1981686347706774}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.021000002, y: 0.025, z: 0.023000002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.016, z: 0.004}
+  m_TimeToStationary: 0.5

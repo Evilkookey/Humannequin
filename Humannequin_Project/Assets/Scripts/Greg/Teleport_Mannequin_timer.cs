@@ -75,7 +75,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 			mannequin.transform.position = current_position;
 
 			//play mannequin move sound
-			gameObject.GetComponent<AudioSource>().Play();
+			//gameObject.GetComponent<AudioSource>().Play();
 		}
 	}
 

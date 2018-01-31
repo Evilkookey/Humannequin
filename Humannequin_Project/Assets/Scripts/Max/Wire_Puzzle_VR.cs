@@ -105,7 +105,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 			}
 		}
 
-		Debug.Log (num);
+		//Debug.Log (num);
 
 		// Puzzle is completed if you complete all the lines
 		if (num == end_cubes.Length) 
