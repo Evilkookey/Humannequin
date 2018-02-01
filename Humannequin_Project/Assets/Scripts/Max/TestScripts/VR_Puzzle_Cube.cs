@@ -66,7 +66,7 @@ public class VR_Puzzle_Cube : MonoBehaviour
 		//This will check if the first interacted cube was a start, and will then check if line was completed or not in the puzzle script
 		if(type == cube_type.START)
 		{
-			puzzle_board.GetComponent<Wire_Puzzle_VR>().Check_Line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
+			//puzzle_board.GetComponent<Wire_Puzzle_VR>().Check_Line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
 
 		}
 	}
@@ -86,19 +86,21 @@ public class VR_Puzzle_Cube : MonoBehaviour
 	void OnTriggerEnter(Collider other)
 	{
 		// If object in hand is pliers
-		if(other.GetComponent<Hand_Call>().is_pliers)
-		{			
+		//if(other.GetComponent<Hand_Call>().is_pliers)
+		//{			
 			// If you collide with an empty cube, call empty cube function in puzzle script
 			if(type == cube_type.EMPTY)
 			{
-				puzzle_board.GetComponent<Wire_Puzzle_VR>().Get_Empty_Input(hit, gameObject);
+			puzzle_board.GetComponent<Wire_Puzzle_VR>().Get_Empty_Input(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
 			}
 			else if(type == cube_type.START) // If you collide with an start cube, call empty cube function in puzzle script 
 			{
-				Debug.Log("SET FINISH");
+				//Debug.Log("SET FINISH");
 				//puzzle_board.GetComponent<Line_puzzle_VR>().Check_line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
-				puzzle_board.GetComponent<Wire_Puzzle_VR>().Get_Empty_Input(hit, gameObject);
+			puzzle_board.GetComponent<Wire_Puzzle_VR>().Get_Empty_Input(gameObject.GetComponent<Renderer>().material.color,hit, gameObject);
 			}
-		}
+		//}
+
+
 	}
 }

@@ -1,4 +1,4 @@
-﻿// LINE_PUZZLE_VR.CS
+﻿// WIRE_PUZZLE_VR.CS
 // MAX MILLS
 
 using System.Collections;
@@ -214,7 +214,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 
 	}
 
-	public void Get_Empty_Input(bool hit, GameObject empty_cube)
+	public void Get_Empty_Input(Color color, bool hit, GameObject empty_cube)
 	{
 		//Debug.Log("Collided with empty");
 		//If there is a current line set
@@ -224,16 +224,39 @@ public class Wire_Puzzle_VR : MonoBehaviour
 			if(hit == false && Vector3.Distance(current_line.line_renderer.GetPosition(current_line.line_renderer.positionCount - 1),
 				empty_cube.transform.position) < move_distance)
 			{
-				Debug.Log("hit empty");
-				//Set the cube hit variable to true
-				empty_cube.GetComponent<VR_Puzzle_Cube>().Set_Hit(true);
 
-				//Add the hit cube to the array of boxes
-				current_line.boxes[current_line.line_renderer.positionCount/* -1*/] = empty_cube;
+				if (empty_cube.GetComponent<VR_Puzzle_Cube> ().type == VR_Puzzle_Cube.cube_type.EMPTY && !current_line.line_complete)
+				{
+					Debug.Log ("hit empty");
+					//Set the cube hit variable to true
+					empty_cube.GetComponent<VR_Puzzle_Cube> ().Set_Hit (true);
 
-				//Make a new position for the line renderer and set it to the hix box position
-				current_line.line_renderer.positionCount++;
-				current_line.line_renderer.SetPosition(current_line.line_renderer.positionCount -1, empty_cube.transform.position);
+					//Add the hit cube to the array of boxes
+					current_line.boxes [current_line.line_renderer.positionCount/* -1*/] = empty_cube;
+
+					//Make a new position for the line renderer and set it to the hix box position
+					current_line.line_renderer.positionCount++;
+					current_line.line_renderer.SetPosition (current_line.line_renderer.positionCount - 1, empty_cube.transform.position);
+				} else 
+				{
+					// If you collide with a start cube(to end the line)
+					Debug.Log("FINISH");
+
+					//If cube is red
+					if (color == Color.red && current_line.line_renderer == red_line.line_renderer) {
+						Set_Finish (empty_cube, ref red_line);
+					} else if (color == Color.blue && current_line.line_renderer == blue_line.line_renderer) {
+						Set_Finish (empty_cube, ref blue_line);
+					} else if (color == green_colour.color && current_line.line_renderer == green_line.line_renderer) {
+						Set_Finish (empty_cube, ref green_line);
+					} else if (color == magenta_colour.color && current_line.line_renderer == magenta_line.line_renderer) {
+						Set_Finish (empty_cube, ref magenta_line);
+					} else if (color == yellow_colour.color && current_line.line_renderer == yellow_line.line_renderer) {
+						Set_Finish (empty_cube, ref yellow_line);
+					}	
+
+				}
+
 			}
 		}
 	}
@@ -248,6 +271,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 
 		if(current_line.boxes[0].GetComponent<Renderer>().material.name == current_line.boxes[current_line.line_renderer.positionCount - 1].GetComponent<Renderer>().material.name && 
 			current_line.line_renderer.positionCount > 2)
+
 		{
 			//If the distance between last position and new position is less than the set move distance
 			if(hit == false && Vector3.Distance(current_line.line_renderer.GetPosition(current_line.line_renderer.positionCount - 1), cube.transform.position) < move_distance)
@@ -382,6 +406,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 
 		//Set line complete to true
 		line.line_complete = true;
+		current_line.line_complete = true;
 	}
 
 	/*
