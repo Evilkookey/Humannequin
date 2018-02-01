@@ -357,6 +357,7 @@ GameObject:
   - component: {fileID: 4354866459303674}
   - component: {fileID: 95550470714805580}
   - component: {fileID: 114003806507163358}
+  - component: {fileID: 65161719091528786}
   m_Layer: 0
   m_Name: Hand_Torch_2
   m_TagString: Untagged
@@ -614,7 +615,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1849852029560344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.42202425, y: -1.0788362e-17, z: 11.529324}
+  m_LocalPosition: {x: 0.7699766, y: -4.565055e-17, z: 15.564926}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4295080373124860}
@@ -949,6 +950,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1059270854159112}
   m_Mesh: {fileID: 4300006, guid: 427479ed05b527f4eb8818ce6c75288b, type: 3}
+--- !u!65 &65161719091528786
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1849852029560344}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.18700206, y: 0.22103453, z: 0.41199493}
+  m_Center: {x: 0.049158037, y: 0.056720853, z: 0.08791733}
 --- !u!95 &95550470714805580
 Animator:
   serializedVersion: 3
