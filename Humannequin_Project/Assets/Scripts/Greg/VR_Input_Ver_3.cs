@@ -24,18 +24,11 @@ public class VR_Input_Ver_3 : MonoBehaviour
 	public GameObject hand_pliers;
 	public GameObject hand_torch;
 
-	public enum Interaction_Type
-	{
-		NONE,
-		INTERACT,
-		HOLD,
-		TOOL
-	}
-	public Interaction_Type type_identifier;
-
 	// Object to save what object is held, collided with or used
 	public GameObject held_object;
-	public GameObject collide_object;
+	// public GameObject collide_object;
+	//FIX 3
+	public List<GameObject> collide_objects;
 	public GameObject interact_object;
 
 	public Transform tool_transform;
@@ -54,17 +47,31 @@ public class VR_Input_Ver_3 : MonoBehaviour
 	// Pause menu controller
 	GameObject pause_menu_controller;	// NAT
 
+	// The other hand
+	GameObject other_hand;
+
 	// Use this for initialization
 	void Start () 
 	{
 		// Get the tracked object
 		tracked_object = GetComponent<SteamVR_TrackedObject>();
 
-		// Initialise interact type
-		type_identifier = Interaction_Type.NONE;
-
 		// Get the pause menu controller
 		pause_menu_controller = GameObject.Find("pause_controller");
+
+		//FIX 4
+		// If this is the left hand
+		if (gameObject.name = "Controller (left)")
+		{
+			// Set the other hand to the right hand
+			other_hand = GameObject.Find("Controller (right)");
+		}
+		// If this is the right hand
+		else if (gameObject.name = "Controller (right)")
+		{
+			// Set the other hand to the left hand
+			other_hand = GameObject.Find("Controller (left)");
+		}
 	}
 
 	// Update is called once per frame
@@ -101,33 +108,37 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		// Press trigger
 		if (device.GetPressDown(trigger_button))
 		{
-			if (type_identifier != Interaction_Type.NONE)
+			// Loop through all objects colided with
+			foreach (GameObject collide in collide_objects)
 			{
 				// Set the interact object to the collide object
-				interact_object = collide_object;
+				interact_object = collide;
 				// Check the identifier
-				switch (type_identifier)
+				switch (interact_object.tag)
 				{
-				case Interaction_Type.INTERACT:
+				case "Interact":
 					Debug.Log("activate was sent");
 					interact_object.SendMessage("Activate", active_tool.ToString());
 					break;
-				case Interaction_Type.HOLD:
-					Debug.Log("object picked up");
-					held_object = interact_object.gameObject;
+				case "Pick_Up":
+					// Check if the player has a regular hand, not a tool
+					// FIX 5
+					if (hand_regular.activeInHierarchy)
+					{
+						Debug.Log("object picked up");
+						held_object = interact_object.gameObject;
+						//FIX 4
+						// Take this object from the other hand
+						other_hand.SendMessage("BreakJoint", held_object);
 
-					// Connect the object with a fixed joint
-					FixedJoint joint = AddFixedJoint(); //FixedJoint
-					joint.connectedBody = held_object.GetComponent<Rigidbody>();
-				
+						// Connect the object with a fixed joint
+						FixedJoint joint = AddFixedJoint(); //FixedJoint
+						joint.connectedBody = held_object.GetComponent<Rigidbody>();
+					}
 					break;
-				case Interaction_Type.TOOL:
+				case "ToolSlot":
 					if (active_tool == Tool.NONE)
 					{
-
-						//TODO
-						//Check if tool is in slot
-
 						// Remove tool from belt
 						Debug.Log("tool selected");
 						interact_object.SetActive(false);
@@ -170,7 +181,7 @@ public class VR_Input_Ver_3 : MonoBehaviour
 						}
 					}
 					// If the player has a tool and the tool is not in the slot
-					else if (active_tool != Tool.NONE && interact_object.activeInHierarchy == false)
+					else if (active_tool != Tool.NONE && !interact_object.activeInHierarchy)
 					{
 						// Put the tool back in the belt
 						interact_object.SetActive(true);
@@ -214,73 +225,44 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		}
 	}
 
-	// I hope this function will stop the hand from not noticing things if it touches more than one at once
-	// If some 
-	void ParentOnTriggerStay(Collider other)
+	void ParentOnTriggerEnter(Collider other)
 	{
 		// Set the type of object it is
 		if (other.tag == "Interact")
 		{
 			// Set the object to the one collided with
-			collide_object = other.gameObject;
-
-			type_identifier = Interaction_Type.INTERACT;
+			//FIX 3
+			collide_objects.Add(other.gameObject);
 		}
 		if (other.tag == "Pick_Up")
 		{
 			// Set the object to the one collided with
-			collide_object = other.gameObject;
-
-			type_identifier = Interaction_Type.HOLD;
+			//FIX 3
+			collide_objects.Add(other.gameObject);
 		}
 		if (other.tag == "ToolSlot")
 		{
-			// Find the tool in the slot
-			collide_object = other.transform.GetChild(0).gameObject;
-
-			// Set identifier to TOOL
-			type_identifier = Interaction_Type.TOOL;
-		}
-	}
-
-	/*void ParentOnTriggerEnter(Collider other)
-	{
-		// Set the type of object it is
-		if (other.tag == "Interact")
-		{
-			// Set the object to the one collided with
-			collide_object = other.gameObject;
-
-			type_identifier = Interaction_Type.INTERACT;
-		}
-		if (other.tag == "Pick_Up")
-		{
-			// Set the object to the one collided with
-			collide_object = other.gameObject;
-
-			type_identifier = Interaction_Type.HOLD;
-		}
-		if (other.tag == "ToolSlot")
-		{
-			// Find the tool in the slot
-			collide_object = other.transform.GetChild(0).gameObject;
-
-			// Set identifier to TOOL
-			type_identifier = Interaction_Type.TOOL;
+			// FIX 1
+			// Check if the tool in the slot is active
+			if (other.transform.GetChild (0).gameObject.activeInHierarchy) 
+			{
+				// Find the tool in the slot
+				//FIX 3
+				collide_objects.Add(other.transform.GetChild (0).gameObject);
+			}
 		}
 	}
 
 	void ParentOnTriggerExit(Collider other)
 	{
 		// Check if there is an object collided with
-		if (collide_object)
+		//FIX 3
+		if (collide_objects.Contains(other.gameObject))
 		{
-			// Set collide object to null
-			collide_object = null;
-			// Remove identifier
-			type_identifier = Interaction_Type.NONE;
+			// Remove object
+			collide_objects.Remove(other.gameObject);
 		}
-	}*/
+	}
 
 	// Creates joint
 	FixedJoint AddFixedJoint()
@@ -289,6 +271,21 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		fx.breakForce = 20000;
 		fx.breakTorque = 20000;
 		return fx;
+	}
+
+	// FIX 4
+	// Break the joint
+	void BreakJoint(GameObject new_held)
+	{
+		// Check if this hand is holding the object the other hand wants to pick up
+		if (held_object == new_held)
+		{
+			// Find the joint
+			FixedJoint fx = gameObject.GetComponent<FixedJoint>();
+
+			// Destroy the joint
+			Destroy(fx);
+		}
 	}
 
 	// For dropping the object
