@@ -36,12 +36,10 @@ public class Incrimented_Turn : MonoBehaviour
 			Vector2 axis = device.GetAxis(touch_pad);
 			if (axis.x > 0.5f)
 			{
-				Debug.Log("right");
 				player.transform.Rotate(Vector3.up * turn_incriment);
 			}
 			else if (axis.x < -0.5f)
 			{
-				Debug.Log("left");
 				player.transform.Rotate(Vector3.down * turn_incriment);
 			}
 		}

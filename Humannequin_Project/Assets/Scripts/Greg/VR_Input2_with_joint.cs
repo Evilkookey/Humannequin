@@ -10,6 +10,7 @@ public class VR_Input2_with_joint : MonoBehaviour
 	public Valve.VR.EVRButtonId trigger_button = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
 	public Valve.VR.EVRButtonId grip_button = Valve.VR.EVRButtonId.k_EButton_Grip;
 	public Valve.VR.EVRButtonId touch_pad = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
+	public Valve.VR.EVRButtonId pause_button = Valve.VR.EVRButtonId.k_EButton_ApplicationMenu;	// NAT
 
 	// Define the controller object
 	public SteamVR_TrackedObject tracked_object;
@@ -50,6 +51,9 @@ public class VR_Input2_with_joint : MonoBehaviour
 	}
 	public Tool active_tool;
 
+	// Pause menu controller
+	GameObject pause_menu_controller;	// NAT
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -58,6 +62,9 @@ public class VR_Input2_with_joint : MonoBehaviour
 
 		// Initialise interact type
 		type_identifier = Interaction_Type.NONE;
+
+		// Get the pause menu controller
+		pause_menu_controller = GameObject.Find("pause_controller");
 	}
 
 	// Update is called once per frame
@@ -193,6 +200,14 @@ public class VR_Input2_with_joint : MonoBehaviour
 				ReleaseObject();
 			}
 		}
+
+		// Press pause
+		if (device.GetPressDown (pause_button)) 
+		{
+			Debug.Log("pause button pressed");
+			// Enables the pause menu
+			pause_menu_controller.SendMessage ("Activate");
+		}
 	}
 
 	void ParentOnTriggerEnter(Collider other)
@@ -252,7 +267,7 @@ public class VR_Input2_with_joint : MonoBehaviour
 			GetComponent<FixedJoint>().connectedBody = null;
 			Destroy(GetComponent<FixedJoint>());
 
-			held_object.GetComponent<Rigidbody>().velocity = new Vector3(-device.velocity.z,device.velocity.y,device.velocity.x) ;
+			held_object.GetComponent<Rigidbody>().velocity = (device.velocity.x * gameObject.transform.parent.right + device.velocity.y * gameObject.transform.parent.up + device.velocity.z * gameObject.transform.parent.forward);
 			held_object.GetComponent<Rigidbody>().angularVelocity = device.angularVelocity;
 		}
 		held_object = null;
