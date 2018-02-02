@@ -81,28 +81,33 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		// Take input ID from controller
 		device = SteamVR_Controller.Input((int)tracked_object.index);
 
-		// Check grip for pointing
-		if (device.GetPressDown(grip_button))
+		// FIX 7
+		// Only point if there is no object being held
+		if (!held_object)
 		{
-			// Make sure you arent holding a tool
-			if (active_tool == Tool.NONE)
+			// Check grip for pointing
+			if (device.GetPressDown(grip_button))
 			{
-				// Disable all hands
-				Disable_Hands();
-				// Set current hand to point
-				hand_point.SetActive(true);
+				// Make sure you arent holding a tool
+				if (active_tool == Tool.NONE)
+				{
+					// Disable all hands
+					Disable_Hands();
+					// Set current hand to point
+					hand_point.SetActive(true);
+				}
 			}
-		}
 
-		// Check release of grip
-		if (device.GetPressUp(grip_button))
-		{
-			if (hand_point.activeInHierarchy)
+			// Check release of grip
+			if (device.GetPressUp(grip_button))
 			{
-				// Disable all hands
-				Disable_Hands();
-				// Set current hand to point
-				hand_regular.SetActive(true);
+				if (hand_point.activeInHierarchy)
+				{
+					// Disable all hands
+					Disable_Hands();
+					// Set current hand to point
+					hand_regular.SetActive(true);
+				}
 			}
 		}
 
@@ -137,68 +142,73 @@ public class VR_Input_Ver_3 : MonoBehaviour
 						joint.connectedBody = held_object.GetComponent<Rigidbody>();
 					}
 					break;
-				case "ToolSlot":				
-					// Set the interact object to the collide object's child (the tool)
-					interact_object = collide.transform.GetChild (0).gameObject;
-
-					// If the player has no tool and the tool is in the slot
-					if (active_tool == Tool.NONE && interact_object.activeInHierarchy)
+				case "ToolSlot":	
+					// FIX 7
+					// Only change to a tool if holding nothing
+					if (!held_object)
 					{
-						// Remove tool from belt
-						interact_object.SetActive(false);
+						// Set the interact object to the collide object's child (the tool)
+						interact_object = collide.transform.GetChild (0).gameObject;
 
-						// Check the name of the tool and apply to hand 
-						switch (interact_object.name)
+						// If the player has no tool and the tool is in the slot
+						if (active_tool == Tool.NONE && interact_object.activeInHierarchy)
 						{
-						case "Wrench":
-							// Set the active tool to WRENCH
-							active_tool = Tool.WRENCH;
-							// Disable all hands
-							Disable_Hands();
-							// Set correct hands to active
-							hand_wrench.SetActive(true);
-							break;
-						case "Screwdriver":
-							// Set the active tool to SCREWDRIVER
-							active_tool = Tool.SCREWDRIVER;
-							// Disable all hands
-							Disable_Hands();
-							// Set correct hands to active
-							hand_screwdriver.SetActive(true);
-							break;
-						case "Torch":
-							// Set the active tool to TORCH
-							active_tool = Tool.TORCH;
-							// Disable all hands
-							Disable_Hands();
-							// Set correct hands to active
-							hand_torch.SetActive(true);
-							break;
-						case "Pliers":
-							// Set the active tool to PLIERS
-							active_tool = Tool.PLIERS;
-							// Disable all hands
-							Disable_Hands();
-							// Set correct hands to active
-							hand_pliers.SetActive(true);
-							break;
+							// Remove tool from belt
+							interact_object.SetActive(false);
+
+							// Check the name of the tool and apply to hand 
+							switch (interact_object.name)
+							{
+							case "Wrench":
+								// Set the active tool to WRENCH
+								active_tool = Tool.WRENCH;
+								// Disable all hands
+								Disable_Hands();
+								// Set correct hands to active
+								hand_wrench.SetActive(true);
+								break;
+							case "Screwdriver":
+								// Set the active tool to SCREWDRIVER
+								active_tool = Tool.SCREWDRIVER;
+								// Disable all hands
+								Disable_Hands();
+								// Set correct hands to active
+								hand_screwdriver.SetActive(true);
+								break;
+							case "Torch":
+								// Set the active tool to TORCH
+								active_tool = Tool.TORCH;
+								// Disable all hands
+								Disable_Hands();
+								// Set correct hands to active
+								hand_torch.SetActive(true);
+								break;
+							case "Pliers":
+								// Set the active tool to PLIERS
+								active_tool = Tool.PLIERS;
+								// Disable all hands
+								Disable_Hands();
+								// Set correct hands to active
+								hand_pliers.SetActive(true);
+								break;
+							}
 						}
-					}
-					// If the player has a tool and the tool is not in the slot
-					else if (active_tool != Tool.NONE && !interact_object.activeInHierarchy)
-					{
-						// FIX 6
-						// Check if the tool in the slot is the active tool
-						if (interact_object.name.ToLower() == active_tool.ToString().ToLower())
+						// If the player has a tool and the tool is not in the slot
+						else if (active_tool != Tool.NONE && !interact_object.activeInHierarchy)
 						{
-							// Put the tool back in the belt
-							interact_object.SetActive(true);
-							// Set active tool to NONE
-							active_tool = Tool.NONE;
-							// Disable all hands
-							Disable_Hands();
-							// Set hand back to standard
-							hand_regular.SetActive(true);
+							// FIX 6
+							// Check if the tool in the slot is the active tool
+							if (interact_object.name.ToLower() == active_tool.ToString().ToLower())
+							{
+								// Put the tool back in the belt
+								interact_object.SetActive(true);
+								// Set active tool to NONE
+								active_tool = Tool.NONE;
+								// Disable all hands
+								Disable_Hands();
+								// Set hand back to standard
+								hand_regular.SetActive(true);
+							}
 						}
 					}
 					break;
