@@ -35,6 +35,8 @@ public class Mannequin_Stalk : MonoBehaviour {
 		TEST
 	};
 
+	public Light light;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -78,7 +80,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 		if (follow_enemy_type) 
 		{
 			// If the gameobject is not visible to the renderer and the distance between the player and enemy is less than min_dist
-			if (!this.GetComponent<Renderer> ().isVisible & Vector3.Distance (transform.position, player.position) >= min_dist) 
+			if (!this.GetComponent<Renderer> ().isVisible && Vector3.Distance (transform.position, player.position) >= min_dist || light.intensity == 0.0f) 
 			{
 				// Set target position to player position but using head y position + tilt 
 				target_postition = new Vector3 (player.position.x, 

@@ -58,6 +58,9 @@ public class Wire_Puzzle_VR : MonoBehaviour
 	int num; // To add up the number of connected cubes
 
 
+	public Light light;
+	public float heightScale, xScale,cap;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -85,12 +88,21 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		played_sound = false;
 
 		num = 0;
+
 	}
 
 
 	// Update is called once per frame
 	void Update () 
 	{
+		float height = heightScale * Mathf.PerlinNoise(Time.time * xScale, 0.0F);
+		if (height < cap) {
+			light.intensity = height;
+		} else {
+			light.intensity = 0.0f;
+		}
+		Debug.Log(height);
+
 		if(red_line.line_complete && blue_line.line_complete && green_line.line_complete && magenta_line.line_complete && yellow_line.line_complete) // add new colour here
 		{
 			Debug.Log("WIN");

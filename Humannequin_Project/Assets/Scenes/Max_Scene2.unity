@@ -937,6 +937,7 @@ MonoBehaviour:
   CameraRigPlayer: {fileID: 967520571}
   FPSController: {fileID: 885697654}
   rotate_speed: 5
+  light: {fileID: 0}
 --- !u!23 &228951016
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1193,11 +1194,11 @@ Light:
   m_GameObject: {fileID: 249588839}
   m_Enabled: 1
   serializedVersion: 8
-  m_Type: 1
+  m_Type: 2
   m_Color: {r: 0.9485294, g: 0.9485294, b: 0.9485294, a: 1}
   m_Intensity: 1.18
   m_Range: 27.193703
-  m_SpotAngle: 30
+  m_SpotAngle: 38
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -2695,6 +2696,26 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114632224646485204, guid: ae0fa887223e0b44f9300ddf3d330485,
+        type: 2}
+      propertyPath: light
+      value: 
+      objectReference: {fileID: 249588840}
+    - target: {fileID: 114632224646485204, guid: ae0fa887223e0b44f9300ddf3d330485,
+        type: 2}
+      propertyPath: heightScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114632224646485204, guid: ae0fa887223e0b44f9300ddf3d330485,
+        type: 2}
+      propertyPath: xScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114632224646485204, guid: ae0fa887223e0b44f9300ddf3d330485,
+        type: 2}
+      propertyPath: cap
+      value: 0.61
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ae0fa887223e0b44f9300ddf3d330485, type: 2}
   m_IsPrefabParent: 0
@@ -3632,6 +3653,7 @@ MonoBehaviour:
   CameraRigPlayer: {fileID: 967520571}
   FPSController: {fileID: 0}
   rotate_speed: 5
+  light: {fileID: 0}
 --- !u!23 &1093371276
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5186,7 +5208,7 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1772261879}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
