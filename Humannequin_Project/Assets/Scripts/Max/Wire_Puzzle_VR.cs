@@ -95,17 +95,18 @@ public class Wire_Puzzle_VR : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		float height = heightScale * Mathf.PerlinNoise(Time.time * xScale, 0.0F);
+		/*float height = heightScale * Mathf.PerlinNoise(Time.time * xScale, 0.0F);
 		if (height < cap) {
 			light.intensity = height;
 		} else {
 			light.intensity = 0.0f;
 		}
 		Debug.Log(height);
+		*/
 
 		if(red_line.line_complete && blue_line.line_complete && green_line.line_complete && magenta_line.line_complete && yellow_line.line_complete) // add new colour here
 		{
-			Debug.Log("WIN");
+			//Debug.Log("WIN");
 		}
 
 		// Scans through the list of endcubes and increases a counter if they are all hit (completed)
@@ -137,9 +138,12 @@ public class Wire_Puzzle_VR : MonoBehaviour
 			{
 				gameObject.GetComponent<AudioSource>().Play();
 				played_sound = true;
+
+				// Activates the door opening function on the door
+				entrance_door.SendMessage("Activate");
 			}
-			// Activates the door opening function on the door
-			entrance_door.SendMessage("Activate");
+
+
 		}
 
 		/*if (device.GetPressUp(trigger_button))

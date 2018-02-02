@@ -22,5 +22,7 @@ public class Double_Door_Opening : MonoBehaviour
 		door_animator.SetBool("opening", true);
 
 		gameObject.GetComponent<AudioSource>().Play();
+
+		Debug.Log("DOOR");
 	}
 }

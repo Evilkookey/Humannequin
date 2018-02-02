@@ -240,7 +240,8 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		if (device.GetPressDown (pause_button)) 
 		{
 			// Enables the pause menu
-			pause_menu_controller.SendMessage ("Activate");
+			//pause_menu_controller.SendMessage ("Activate");
+			StartCoroutine(Pause_Coroutine());
 		}
 	}
 
@@ -306,7 +307,7 @@ public class VR_Input_Ver_3 : MonoBehaviour
 			GetComponent<FixedJoint>().connectedBody = null;
 			Destroy(GetComponent<FixedJoint>());
 
-			held_object.GetComponent<Rigidbody>().velocity = new Vector3(-device.velocity.z,device.velocity.y,device.velocity.x) ;
+			held_object.GetComponent<Rigidbody>().velocity = (device.velocity.x * gameObject.transform.parent.right + device.velocity.y * gameObject.transform.parent.up + device.velocity.z * gameObject.transform.parent.forward);
 			held_object.GetComponent<Rigidbody>().angularVelocity = device.angularVelocity;
 		}
 		held_object = null;
@@ -324,5 +325,12 @@ public class VR_Input_Ver_3 : MonoBehaviour
 
 		// Clear the collide list
 		collide_objects.Clear();
+	}
+
+	IEnumerator Pause_Coroutine()
+	{
+		// Enables the pause menu
+		pause_menu_controller.SendMessage ("Activate");
+		yield return null;
 	}
 }
