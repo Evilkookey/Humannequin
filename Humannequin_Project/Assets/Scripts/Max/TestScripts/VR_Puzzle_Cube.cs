@@ -34,8 +34,6 @@ public class VR_Puzzle_Cube : MonoBehaviour
 	// Called when cube is interacted with
 	void Activate(string tool_type)
 	{	
-		//Debug.Log(tool_type);
-
 		// If current tool is the pliers 
 		if(tool_type == "PLIERS")
 		{
@@ -50,11 +48,6 @@ public class VR_Puzzle_Cube : MonoBehaviour
 			{
 				puzzle_board.GetComponent<Wire_Puzzle_VR>().Reset_All();			
 			}
-
-			//if(type == cube_type.EMPTY)
-			//{
-			//	puzzle_board.GetComponent<Line_puzzle_VR>().Get_empty_input(hit, gameObject);
-			//}
 		}
 	}
 
@@ -66,7 +59,7 @@ public class VR_Puzzle_Cube : MonoBehaviour
 		//This will check if the first interacted cube was a start, and will then check if line was completed or not in the puzzle script
 		if(type == cube_type.START)
 		{
-			//puzzle_board.GetComponent<Wire_Puzzle_VR>().Check_Line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
+			puzzle_board.GetComponent<Wire_Puzzle_VR>().Check_Line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
 
 		}
 	}

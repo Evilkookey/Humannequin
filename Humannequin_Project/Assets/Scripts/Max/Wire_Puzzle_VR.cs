@@ -195,6 +195,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		//If line is not already being used
 		if(!using_line)
 		{
+			
 			//If cube is red
 			if(color == Color.red) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 			{						
@@ -226,6 +227,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 				current_line = yellow_line;
 				Set_Start(collider,ref yellow_line);
 			}
+
 		}
 
 	}
@@ -359,9 +361,9 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		current_line.line_complete = false;
 
 		//Reset hit variable for all boxes that were hit
-		for(int i = 0;i < current_line.line_renderer.positionCount/*-1*/; i++)
+		for(int i = 0;i < current_line.boxes.Length;/* current_line.line_renderer.positionCount*//*-1*/ i++)
 		{
-			current_line.boxes[i].SendMessage("Set_Hit", false);
+			current_line.boxes[i].GetComponent<VR_Puzzle_Cube>().Set_Hit(false);
 
 		}
 
@@ -377,7 +379,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		{
 			//Currently using the line
 			using_line = true;
-
+			//What a big gay
 			//Set the cube hit variable to true
 			hit.GetComponent<VR_Puzzle_Cube>().Set_Hit(true);
 
@@ -395,9 +397,12 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		//This will reset the line if clicked on the start cube again when the line is completed
 		else if(current_line.line_complete)
 		{
-			//Reset();
 
-			//line.line_complete = false;
+			line.line_complete = false;
+			
+			Reset();
+
+
 			//hit.GetComponent<Puzzle_cube>().Set_Hit(true);
 
 		}
