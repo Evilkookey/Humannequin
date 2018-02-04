@@ -10,17 +10,9 @@ public class Wire_Puzzle_VR : MonoBehaviour
 	// 'Line' referes to a wire 
 	// 'Cube' refers to a node to connect the wire to
 
-
-	//public Valve.VR.EVRButtonId trigger_button = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
-	//public Valve.VR.EVRButtonId grip_button = Valve.VR.EVRButtonId.k_EButton_Grip;
-	//public Valve.VR.EVRButtonId touch_pad = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
-	//
-	//define the controller object
-	//public SteamVR_TrackedObject tracked_object;
-	////public SteamVR_Controller.Device device;
-
 	//Distance for the ray 
 	float raycast_distance = 3.0f;
+
 
 	//If a line renderer is being used
 	public bool using_line;
@@ -34,7 +26,6 @@ public class Wire_Puzzle_VR : MonoBehaviour
 
 	};
 
-
 	//Line which gets set when you press the start cube
 	public lines_struct current_line;
 
@@ -45,21 +36,24 @@ public class Wire_Puzzle_VR : MonoBehaviour
 	public float move_distance = 0.12f;
 
 	//To hold all the empty cubes in the puzzle
-	public GameObject[] cubes;
+	//public Transform[] cubes;
+	//public Transform[] end_cubes;
+	//public GameObject cubes_parent;
+	//public GameObject end_cubes_parent;
 
 	//Custom colours to pass in
 	public Material yellow_colour, magenta_colour, green_colour;
-
-	public GameObject[] end_cubes;
 	public bool finished;
+
+
 	bool played_sound;
-	public GameObject entrance_door;
-
-	int num; // To add up the number of connected cubes
-
-
-	public Light light;
 	public float heightScale, xScale,cap;
+
+	[Header("Things to be dragged in:")]
+
+	public GameObject entrance_door;
+	public Light light_flicker;
+
 
 	// Use this for initialization
 	void Start () 
@@ -82,12 +76,14 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		magenta_line.boxes = new GameObject[MAX_LENGTH];
 		yellow_line.boxes = new GameObject[MAX_LENGTH];
 
+		yellow_colour = Resources.Load("Materials/Yellow", typeof(Material)) as Material;
+		magenta_colour = Resources.Load("Materials/Magenta", typeof(Material)) as Material;
+		green_colour = Resources.Load("Materials/Green", typeof(Material)) as Material;
+
 		//current_line = red_line;
 		using_line = false;
 		finished = false;
 		played_sound = false;
-
-		num = 0;
 
 	}
 
@@ -97,9 +93,9 @@ public class Wire_Puzzle_VR : MonoBehaviour
 	{
 		/*float height = heightScale * Mathf.PerlinNoise(Time.time * xScale, 0.0F);
 		if (height < cap) {
-			light.intensity = height;
+			light_flicker.intensity = height;
 		} else {
-			light.intensity = 0.0f;
+			light_flicker.intensity = 0.0f;
 		}
 		Debug.Log(height);
 		*/
@@ -107,35 +103,38 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		if(red_line.line_complete && blue_line.line_complete && green_line.line_complete && magenta_line.line_complete && yellow_line.line_complete) // add new colour here
 		{
 			//Debug.Log("WIN");
+			finished = true;
 		}
 
 		// Scans through the list of endcubes and increases a counter if they are all hit (completed)
-		for(int i = 0; i < end_cubes.Length; i++)
+		/*for(int i = 0; i < end_cubes.Length; i++)
 		{
-			if(end_cubes[i].GetComponent<VR_Puzzle_Cube>().hit == true)
+			if(end_cubes[i].gameObject.GetComponent<VR_Puzzle_Cube>().hit == true)
 			{
 				num++;
 			}
-		}
+		}*/
 
 		//Debug.Log (num);
 
 		// Puzzle is completed if you complete all the lines
-		if (num == end_cubes.Length) 
+		/*if (num == end_cubes.Length) 
 		{
 			finished = true;
 		} else 
 		{
 			// Reset num 
 			num = 0;
-		}
+		}*/
 
 		if(finished)
 		{
-			//Debug.Log("ITS DONE");
+			
 			// Open door here
 			if(!played_sound)
 			{
+				Debug.Log("ITS DONE");
+
 				gameObject.GetComponent<AudioSource>().Play();
 				played_sound = true;
 
@@ -151,8 +150,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 
 	public void Reset_Line(Color color, bool empty)
 	{
-
-		Debug.Log("REset Line");
+		//Debug.Log("REset Line");
 		if(!empty)
 		{
 			//If cube is red
@@ -200,10 +198,6 @@ public class Wire_Puzzle_VR : MonoBehaviour
 				Reset(ref current_line);		
 			}
 		}
-
-		//}
-			//Unassign current line
-			//current_line.line_renderer = null;
 	}
 
 	public void Reset(ref lines_struct line)
@@ -242,10 +236,9 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		if(current_line.line_renderer != null && Vector3.Distance(current_line.line_renderer.GetPosition(current_line.line_renderer.positionCount - 1),
 			collider.transform.position) < move_distance && current_line.line_renderer.positionCount >2 )
 		{
-			Debug.Log("SHOuld complete");
-			// If you collide with a start cube(to end the line)
-			//Debug.Log("FINISH");
+			Debug.Log("Should complete");
 
+			// If you collide with a start cube(to end the line)
 			//If cube is red
 			if (color == Color.red && current_line.line_renderer == red_line.line_renderer) {
 				Set_Finish (collider, ref red_line);
@@ -259,6 +252,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 				Set_Finish (collider, ref yellow_line);
 			}	
 		}
+
 		//If line is not already being used
 		if(!using_line)
 		{
@@ -294,15 +288,13 @@ public class Wire_Puzzle_VR : MonoBehaviour
 				current_line = yellow_line;
 				Set_Start(collider,ref yellow_line);
 			}
-
 		}
-
-
 	}
 
 	public void Get_Empty_Input(Color color, bool hit, GameObject empty_cube)
 	{
 		//Debug.Log("Collided with empty");
+
 		//If there is a current line set
 		if(current_line.line_renderer != null)
 		{
@@ -323,77 +315,9 @@ public class Wire_Puzzle_VR : MonoBehaviour
 					//Make a new position for the line renderer and set it to the hix box position
 					current_line.line_renderer.positionCount++;
 					current_line.line_renderer.SetPosition (current_line.line_renderer.positionCount - 1, empty_cube.transform.position);
-				} 
-				/*else if (empty_cube.GetComponent<VR_Puzzle_Cube> ().type == VR_Puzzle_Cube.cube_type.START && current_line.line_complete)
-				{
-					// If you collide with a start cube(to end the line)
-					Debug.Log("FINISH");
-
-					//If cube is red
-					if (color == Color.red && current_line.line_renderer == red_line.line_renderer) {
-						Set_Finish (empty_cube, ref red_line);
-					} else if (color == Color.blue && current_line.line_renderer == blue_line.line_renderer) {
-						Set_Finish (empty_cube, ref blue_line);
-					} else if (color == green_colour.color && current_line.line_renderer == green_line.line_renderer) {
-						Set_Finish (empty_cube, ref green_line);
-					} else if (color == magenta_colour.color && current_line.line_renderer == magenta_line.line_renderer) {
-						Set_Finish (empty_cube, ref magenta_line);
-					} else if (color == yellow_colour.color && current_line.line_renderer == yellow_line.line_renderer) {
-						Set_Finish (empty_cube, ref yellow_line);
-					}	
-
-				}*/
-
+				}
 			}
 		}
-	}
-
-	public void Check_Line(Color color, bool hit, GameObject cube)
-	{
-		//Debug.Log(current_line.boxes[current_line.line_renderer.positionCount - 1].GetComponent<Renderer>().material.name);
-
-		//Add the hit cube to the array of boxes
-		//current_line.boxes[current_line.line_renderer.positionCount -1] = cube;
-
-
-		if(current_line.boxes[0].GetComponent<Renderer>().material.name == current_line.boxes[current_line.line_renderer.positionCount - 1].GetComponent<Renderer>().material.name && 
-			current_line.line_renderer.positionCount > 2)
-
-		{
-			//If the distance between last position and new position is less than the set move distance
-			if(hit == false && Vector3.Distance(current_line.line_renderer.GetPosition(current_line.line_renderer.positionCount - 1), cube.transform.position) < move_distance)
-			{
-				//If cube is red
-				if(color == Color.red && current_line.line_renderer == red_line.line_renderer)
-				{
-					Set_Finish(cube, ref red_line);
-				}
-				else if(color == Color.blue && current_line.line_renderer == blue_line.line_renderer)
-				{
-					Set_Finish(cube, ref blue_line);
-				}
-				else if(color == green_colour.color && current_line.line_renderer == green_line.line_renderer)
-				{
-					Set_Finish(cube, ref green_line);
-				}	
-				else if(color == magenta_colour.color && current_line.line_renderer == magenta_line.line_renderer)
-				{
-					Set_Finish(cube, ref magenta_line);
-				}	
-				else if(color == yellow_colour.color && current_line.line_renderer == yellow_line.line_renderer)
-				{
-					Set_Finish(cube, ref yellow_line);
-				}	
-			}
-		}
-		else
-		{	
-			Debug.Log("This should reset");
-			//Reset();
-		}
-
-		using_line = false;
-
 	}
 
 	public void Reset_All()
@@ -407,19 +331,25 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		magenta_line.line_renderer.positionCount = 1;
 		yellow_line.line_renderer.positionCount = 1;
 
+
 		//Resets variables
 		using_line = false;
 		current_line.line_complete = false;
+		red_line.line_complete = false;										// Add new colour here
+		blue_line.line_complete= false;
+		green_line.line_complete = false;
+		magenta_line.line_complete = false;
+		yellow_line.line_complete = false;
 
 		//Reset every cube hit bool
-		for(int i =0;i<cubes.Length;i++)
+		/*for(int i =0;i<cubes.Length;i++)
 		{
 			cubes[i].gameObject.GetComponent<VR_Puzzle_Cube>().Set_Hit(false);
 		}
 		for(int i =0;i<end_cubes.Length;i++)
 		{
 			end_cubes[i].gameObject.GetComponent<VR_Puzzle_Cube>().Set_Hit(false);
-		}
+		}*/
 	}
 
 
@@ -447,6 +377,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 			//Set a new position for the line renderer to the hix box position
 			current_line.line_renderer.SetPosition(current_line.line_renderer.positionCount -1, hit.transform.position);
 		}
+		/*
 		//This will reset the line if clicked on the start cube again when the line is completed
 		else if(current_line.line_complete)
 		{
@@ -458,7 +389,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 
 			//hit.GetComponent<Puzzle_cube>().Set_Hit(true);
 
-		}
+		}*/
 	}
 	//This will set the last cube in the line
 	void Set_Finish(GameObject hit,ref lines_struct line)
