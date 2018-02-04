@@ -66,7 +66,7 @@ public class VR_Movement_with_ray : MonoBehaviour
 			{
 				// Move rig in position of the axis with delta time and speed variables
 				rig.Translate(((Vector3.right * axis.x) + (Vector3.forward * axis.y)) * Time.deltaTime * speed/*, Space.Self*/);
-				rig.position = new Vector3(rig.position.x, 0, rig.position.z);
+				rig.position = new Vector3(rig.position.x, rig.position.y, rig.position.z);
 			}
 		}
 

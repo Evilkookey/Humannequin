@@ -66,9 +66,11 @@ public class VR_Puzzle_Cube : MonoBehaviour
 	{
 		Debug.Log(gameObject.name);
 
-
-		puzzle_board.GetComponent<Wire_Puzzle_VR>().Reset_Line(gameObject.GetComponent<Renderer>().material.color,true);
-
+		Debug.Log("dectivte");
+		if(type == cube_type.EMPTY)
+		{
+			puzzle_board.GetComponent<Wire_Puzzle_VR>().Reset_Line(gameObject.GetComponent<Renderer>().material.color,true);
+		}
 		//This will check if the first interacted cube was a start, and will then check if line was completed or not in the puzzle script
 		/*if(type == cube_type.START)
 		{
@@ -100,6 +102,11 @@ public class VR_Puzzle_Cube : MonoBehaviour
 			if(type == cube_type.EMPTY && puzzle_board.GetComponent<Wire_Puzzle_VR>().using_line)
 			{
 				puzzle_board.GetComponent<Wire_Puzzle_VR>().Get_Empty_Input(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
+			}
+
+			if(type == cube_type.START && !hit && puzzle_board.GetComponent<Wire_Puzzle_VR>().using_line)
+			{
+				puzzle_board.GetComponent<Wire_Puzzle_VR>().Get_Start_Input(gameObject.GetComponent<Renderer>().material.color,hit,gameObject);
 			}
 
 		//}

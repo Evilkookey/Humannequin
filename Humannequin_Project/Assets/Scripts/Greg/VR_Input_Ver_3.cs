@@ -45,7 +45,7 @@ public class VR_Input_Ver_3 : MonoBehaviour
 	// Pause menu controller
 	GameObject pause_menu_controller;	// NAT
 	// How long the pause button is held
-	float pause_timer;
+	public float pause_timer;
 
 	// The other hand
 	GameObject other_hand;
@@ -212,7 +212,7 @@ public class VR_Input_Ver_3 : MonoBehaviour
 					break;
 				}
 				// Reset interact object
-				interact_object = null;
+				//interact_object = null;
 			}
 		}
 		// Release trigger
@@ -243,6 +243,7 @@ public class VR_Input_Ver_3 : MonoBehaviour
 			// If the button is held for longer than a second
 			if (pause_timer >= 1.0f)
 			{
+				print ("Reset");
 				//Find the toolbelt
 				GameObject.Find("Toolbelt").SendMessage("Set_Toolbelt_Height");
 			}
@@ -254,9 +255,13 @@ public class VR_Input_Ver_3 : MonoBehaviour
 			//Check the pause timer is below 1 sec
 			if (pause_timer < 1.0f)
 			{
+				print ("Pause");
 				// Enables the pause menu
 				pause_menu_controller.SendMessage ("Activate");
 			}
+
+			// Reset pause timer
+			pause_timer = 0.0f;
 		} 
 	}
 
