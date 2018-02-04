@@ -37,11 +37,24 @@ public class VR_Puzzle_Cube : MonoBehaviour
 		// If current tool is the pliers 
 		if(tool_type == "PLIERS")
 		{
+			if (type == cube_type.START && hit) 
+			{
+				puzzle_board.GetComponent<Wire_Puzzle_VR>().Reset_Line(gameObject.GetComponent<Renderer>().material.color,false);
+			}
+
+			if (type == cube_type.EMPTY && hit) 
+			{
+				Debug.Log("Reset to here");
+			}
+
 			// If colliding with start cube, call start function in puzzle script
-			if(type == cube_type.START)
+			if(type == cube_type.START && !hit)
 			{
 				puzzle_board.GetComponent<Wire_Puzzle_VR>().Get_Start_Input(gameObject.GetComponent<Renderer>().material.color,hit,gameObject);
 			}
+
+
+
 
 			// If colliding with reset cube, call reset function in puzzle script
 			if(type == cube_type.RESET)
@@ -56,12 +69,15 @@ public class VR_Puzzle_Cube : MonoBehaviour
 	{
 		Debug.Log(gameObject.name);
 
+
+		puzzle_board.GetComponent<Wire_Puzzle_VR>().Reset_Line(gameObject.GetComponent<Renderer>().material.color,true);
+
 		//This will check if the first interacted cube was a start, and will then check if line was completed or not in the puzzle script
-		if(type == cube_type.START)
+		/*if(type == cube_type.START)
 		{
 			puzzle_board.GetComponent<Wire_Puzzle_VR>().Check_Line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
 
-		}
+		}*/
 	}
 
 	bool Get_Hit()
@@ -84,14 +100,14 @@ public class VR_Puzzle_Cube : MonoBehaviour
 			// If you collide with an empty cube, call empty cube function in puzzle script
 			if(type == cube_type.EMPTY)
 			{
-			puzzle_board.GetComponent<Wire_Puzzle_VR>().Get_Empty_Input(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
+				puzzle_board.GetComponent<Wire_Puzzle_VR>().Get_Empty_Input(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
 			}
-			else if(type == cube_type.START) // If you collide with an start cube, call empty cube function in puzzle script 
+			/*else if(type == cube_type.START) // If you collide with an start cube, call empty cube function in puzzle script 
 			{
 				//Debug.Log("SET FINISH");
 				//puzzle_board.GetComponent<Line_puzzle_VR>().Check_line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
-			puzzle_board.GetComponent<Wire_Puzzle_VR>().Get_Empty_Input(gameObject.GetComponent<Renderer>().material.color,hit, gameObject);
-			}
+				puzzle_board.GetComponent<Wire_Puzzle_VR>().Get_Empty_Input(gameObject.GetComponent<Renderer>().material.color,hit, gameObject);
+			}*/
 		//}
 
 
