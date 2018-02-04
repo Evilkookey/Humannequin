@@ -15,11 +15,8 @@ public class Toolbelt_Follow : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		down_ray = new Ray(player_head.transform.position, Vector3.down);
-		if (Physics.Raycast(down_ray.origin, down_ray.direction, out hit))
-		{
-			total_height = hit.distance;
-		}
+		//Initialise Toolbelt height
+		Set_Toolbelt_Height();
 	}
 	
 	// Update is called once per frame
@@ -27,5 +24,17 @@ public class Toolbelt_Follow : MonoBehaviour {
 	{
 		gameObject.transform.position = (player_head.transform.position - (Vector3.up * (total_height / 2)));
 		gameObject.transform.eulerAngles = new Vector3(0.0f, player_body.transform.eulerAngles.y, 0.0f);
+	}
+
+	// Calculate the height of the Toolbelt
+	void Set_Toolbelt_Height ()
+	{
+		// Raycast to the floor
+		down_ray = new Ray(player_head.transform.position, Vector3.down);
+		// Find player height from Ray
+		if (Physics.Raycast(down_ray.origin, down_ray.direction, out hit))
+		{
+			total_height = hit.distance;
+		}
 	}
 }

@@ -27,11 +27,9 @@ public class VR_Input_Ver_3 : MonoBehaviour
 	// Object to save what object is held, collided with or used
 	public GameObject held_object;
 
-	// public GameObject collide_object;
+	// The object th player is colliding with and will interact with
 	public List<GameObject> collide_objects;
 	public GameObject interact_object;
-
-	public Transform tool_transform;
 
 	// Using tools
 	public enum Tool
@@ -46,6 +44,8 @@ public class VR_Input_Ver_3 : MonoBehaviour
 
 	// Pause menu controller
 	GameObject pause_menu_controller;	// NAT
+	// How long the pause button is held
+	float pause_timer;
 
 	// The other hand
 	GameObject other_hand;
@@ -72,7 +72,8 @@ public class VR_Input_Ver_3 : MonoBehaviour
 			other_hand = GameObject.Find("Controller (left)");
 		}
 
-		print (active_tool.ToString());
+		// Initialise the pause timer
+		pause_timer = 0.0f;
 	}
 
 	// Update is called once per frame
@@ -81,7 +82,6 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		// Take input ID from controller
 		device = SteamVR_Controller.Input((int)tracked_object.index);
 
-		// FIX 7
 		// Only point if there is no object being held
 		if (!held_object)
 		{
@@ -128,8 +128,8 @@ public class VR_Input_Ver_3 : MonoBehaviour
 					interact_object.SendMessage("Activate", active_tool.ToString());
 					break;
 				case "Pick_Up":
-					// Check if the player has a regular hand, not a tool
-					if (hand_regular.activeInHierarchy)
+					// Check if the player has a regular hand, not a tool and there is no current held object
+					if (hand_regular.activeInHierarchy && !held_object)
 					{
 						// Set the held object to the collide object
 						held_object = collide; 
@@ -143,7 +143,6 @@ public class VR_Input_Ver_3 : MonoBehaviour
 					}
 					break;
 				case "ToolSlot":	
-					// FIX 7
 					// Only change to a tool if holding nothing
 					if (!held_object)
 					{
@@ -196,7 +195,6 @@ public class VR_Input_Ver_3 : MonoBehaviour
 						// If the player has a tool and the tool is not in the slot
 						else if (active_tool != Tool.NONE && !interact_object.activeInHierarchy)
 						{
-							// FIX 6
 							// Check if the tool in the slot is the active tool
 							if (interact_object.name.ToLower() == active_tool.ToString().ToLower())
 							{
@@ -236,13 +234,30 @@ public class VR_Input_Ver_3 : MonoBehaviour
 			}
 		}
 
-		//If the player presses pause
-		if (device.GetPressDown (pause_button)) 
+		//If the player holds pause
+		if (device.GetPress (pause_button)) 
 		{
-			// Enables the pause menu
-			//pause_menu_controller.SendMessage ("Activate");
-			StartCoroutine(Pause_Coroutine());
-		}
+			// Start the pause timer
+			pause_timer += Time.deltaTime;
+
+			// If the button is held for longer than a second
+			if (pause_timer >= 1.0f)
+			{
+				//Find the toolbelt
+				GameObject.Find("Toolbelt").SendMessage("Set_Toolbelt_Height");
+			}
+		} 
+
+		//If the player releases pause
+		if (device.GetPressUp (pause_button)) 
+		{
+			//Check the pause timer is below 1 sec
+			if (pause_timer < 1.0f)
+			{
+				// Enables the pause menu
+				pause_menu_controller.SendMessage ("Activate");
+			}
+		} 
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -325,12 +340,5 @@ public class VR_Input_Ver_3 : MonoBehaviour
 
 		// Clear the collide list
 		collide_objects.Clear();
-	}
-
-	IEnumerator Pause_Coroutine()
-	{
-		// Enables the pause menu
-		pause_menu_controller.SendMessage ("Activate");
-		yield return null;
 	}
 }
