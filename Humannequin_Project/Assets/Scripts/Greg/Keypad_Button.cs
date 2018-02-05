@@ -1,10 +1,10 @@
-﻿// BUTTON.CS
-//GREG BALBIRNIE
+﻿// KEYPAD_BUTTON.CS
+// GREG BALBIRNIE
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Button : MonoBehaviour {
+public class Keypad_Button : MonoBehaviour {
 
 	public int input_number;	// The number of the button
 	public GameObject puzzle_object;		// The object the puzzle is on
