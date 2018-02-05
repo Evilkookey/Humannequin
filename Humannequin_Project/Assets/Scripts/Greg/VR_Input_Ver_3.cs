@@ -244,8 +244,8 @@ public class VR_Input_Ver_3 : MonoBehaviour
 			if (pause_timer >= 1.0f)
 			{
 				print ("Reset");
-				//Find the toolbelt
-				GameObject.Find("Toolbelt").SendMessage("Set_Toolbelt_Height");
+				//Find the toolbelt and set it to hand height
+				GameObject.Find("Toolbelt").SendMessage("Set_Toolbelt_Height", gameObject.transform.position.y);
 			}
 		} 
 
