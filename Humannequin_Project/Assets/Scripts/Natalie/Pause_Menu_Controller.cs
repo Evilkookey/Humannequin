@@ -7,18 +7,24 @@ using UnityEngine.UI;
 
 public class Pause_Menu_Controller : MonoBehaviour 
 {
-	// Variables
-	// Get the canvases
+	// VARIABLES // 
+	// The canvas objects
 	GameObject pause_menu_object;
 	GameObject notes_menu_object;
 	GameObject note_screen_object;
 
-	// Get the button objects
+	// The button objects
 	GameObject notes_menu_button;
 	GameObject note_1_button;
 	GameObject note_2_button;
 	GameObject note_3_button;
 	GameObject note_4_button;
+
+	// The image objects
+	GameObject note_1_image;
+	GameObject note_2_image;
+	GameObject note_3_image;
+	GameObject note_4_image;
 
 	// Bool to determine whether or not other Update() scripts will run
 	public bool is_paused;
@@ -26,6 +32,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		// INITIALISATION // 
 		// Initialise the is_paused variable
 		is_paused = false;
 
@@ -35,11 +42,30 @@ public class Pause_Menu_Controller : MonoBehaviour
 		note_screen_object = GameObject.Find("note_screen");
 
 		// Initialise the buttons
+		notes_menu_button = GameObject.Find("notes_button");
+		note_1_button = GameObject.Find("note_1_button");
+		note_2_button = GameObject.Find("note_2_button");
+		note_3_button = GameObject.Find("note_3_button");
+		note_4_button = GameObject.Find("note_4_button");
+
+		// Initialise the images
+		note_1_image = GameObject.Find("note_1_image");
+		note_2_image = GameObject.Find("note_2_image");
+		note_3_image = GameObject.Find("note_3_image");
+		note_4_image = GameObject.Find("note_4_image");
+
+		// Set the buttons to be non-interactable
 		notes_menu_button.GetComponent<Button> ().interactable = false;
 		note_1_button.GetComponent<Button> ().interactable = false;
 		note_2_button.GetComponent<Button> ().interactable = false;
 		note_3_button.GetComponent<Button> ().interactable = false;
 		note_4_button.GetComponent<Button> ().interactable = false;
+
+		// Set the buttons to be inactive
+		note_1_image.SetActive(false);
+		note_2_image.SetActive(false);
+		note_3_image.SetActive(false);
+		note_4_image.SetActive(false);
 
 		// Set the canvases to be inactive
 		pause_menu_object.SetActive(false);
@@ -97,6 +123,22 @@ public class Pause_Menu_Controller : MonoBehaviour
 		note_screen_object.SetActive (true);
 
 		// Activate the appropriate note
+		if (note_num == 1) 
+		{
+			note_1_image.SetActive(true);
+		} 
+		else if (note_num == 2) 
+		{
+			note_2_image.SetActive(true);
+		}
+		else if (note_num == 3) 
+		{
+			note_3_image.SetActive(true);
+		}
+		else if (note_num == 4) 
+		{
+			note_4_image.SetActive(true);
+		}
 	}
 
 	// Function called when the back button is pressed on the note screen
@@ -107,6 +149,10 @@ public class Pause_Menu_Controller : MonoBehaviour
 		note_screen_object.SetActive (false);
 
 		// Deactivate all notes
+		note_1_image.SetActive(false);
+		note_2_image.SetActive(false);
+		note_3_image.SetActive(false);
+		note_4_image.SetActive(false);
 	}
 
 	// Function called when the quit button is pressed
