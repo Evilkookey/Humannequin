@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using cakeslice;
 
 public class VR_Input_Ver_3 : MonoBehaviour 
 {
@@ -267,6 +268,13 @@ public class VR_Input_Ver_3 : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
+		// If the object has an outline
+		if (other.gameObject.GetComponent<Outline>()) 
+		{
+			// Turn the outline on
+			other.gameObject.GetComponent<Outline> ().enabled = true;
+		}
+
 		// Set the type of object it is
 		if (other.tag == "Interact")
 		{
@@ -287,6 +295,13 @@ public class VR_Input_Ver_3 : MonoBehaviour
 
 	void OnTriggerExit(Collider other)
 	{
+		// If the object has an outline
+		if (other.gameObject.GetComponent<Outline>()) 
+		{
+			// Turn the outline off
+			other.gameObject.GetComponent<Outline> ().enabled = false;
+		}
+
 		// Check if there is an object collided with
 		if (collide_objects.Contains(other.gameObject))
 		{
