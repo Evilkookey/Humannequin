@@ -84,10 +84,7 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		device = SteamVR_Controller.Input((int)tracked_object.index);
 
 		// Take trigger axis value for test
-		if (device.GetAxis (trigger_button)) 
-		{
-			print (device.GetAxis (trigger_button));
-		}
+		//print (device.GetAxis (trigger_button));
 
 		// Only point if there is no object being held
 		if (!held_object)
@@ -250,7 +247,6 @@ public class VR_Input_Ver_3 : MonoBehaviour
 			// If the button is held for longer than a second
 			if (pause_timer >= 1.0f)
 			{
-				print ("Reset");
 				//Find the toolbelt and set it to hand height
 				GameObject.Find("Toolbelt").SendMessage("Set_Toolbelt_Height", gameObject.transform.position.y);
 			}
@@ -262,7 +258,6 @@ public class VR_Input_Ver_3 : MonoBehaviour
 			//Check the pause timer is below 1 sec
 			if (pause_timer < 1.0f)
 			{
-				print ("Pause");
 				// Enables the pause menu
 				pause_menu_controller.SendMessage ("Activate");
 			}
@@ -274,28 +269,32 @@ public class VR_Input_Ver_3 : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		// If the object has an outline
-		if (other.gameObject.GetComponent<Outline>()) 
+		// If the object can be used in some way
+		if (other.tag =="Interact" || other.tag == "Pick_Up" || other.tag == "ToolSlot")
 		{
-			// Turn the outline on
-			other.gameObject.GetComponent<Outline> ().enabled = true;
-		}
+			// If the object has no outline
+			if (!other.gameObject.GetComponent<Outline>()) 
+			{
+				// add an outline and turn it on
+				other.gameObject.AddComponent<Outline> ()/*.enabled = true*/;
+			}
 
-		// Set the type of object it is
-		if (other.tag == "Interact")
-		{
-			// Set the object to the one collided with
-			collide_objects.Add(other.gameObject);
-		}
-		if (other.tag == "Pick_Up")
-		{
-			// Set the object to the one collided with
-			collide_objects.Add(other.gameObject);
-		}
-		if (other.tag == "ToolSlot")
-		{
-			// Add the slot to the list
-			collide_objects.Add(other.gameObject);
+			// Set the type of object it is
+			if (other.tag == "Interact")
+			{
+				// Set the object to the one collided with
+				collide_objects.Add(other.gameObject);
+			}
+			if (other.tag == "Pick_Up")
+			{
+				// Set the object to the one collided with
+				collide_objects.Add(other.gameObject);
+			}
+			if (other.tag == "ToolSlot")
+			{
+				// Add the slot to the list
+				collide_objects.Add(other.gameObject);
+			}
 		}
 	}
 
@@ -304,8 +303,8 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		// If the object has an outline
 		if (other.gameObject.GetComponent<Outline>()) 
 		{
-			// Turn the outline off
-			other.gameObject.GetComponent<Outline> ().enabled = false;
+			// remove the outline
+			Component.Destroy(other.gameObject.GetComponent<Outline> ());
 		}
 
 		// Check if there is an object collided with
@@ -320,8 +319,12 @@ public class VR_Input_Ver_3 : MonoBehaviour
 	FixedJoint AddFixedJoint()
 	{
 		FixedJoint fx = gameObject.AddComponent<FixedJoint>();
-		fx.breakForce = 20000;
-		fx.breakTorque = 20000;
+		/*fx.breakForce = 20000;
+		fx.breakTorque = 20000;*/
+
+		fx.breakForce = Mathf.Infinity + 1.0f;
+		fx.breakTorque = Mathf.Infinity + 1.0f;
+
 		return fx;
 	}
 
@@ -367,9 +370,11 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		// Remove the outlines
 		foreach (GameObject obj in collide_objects)
 		{
-			if (obj.GetComponent<Outline>())
+			// If the object has an outline
+			if (obj.gameObject.GetComponent<Outline>()) 
 			{
-				obj.GetComponent<Outline>().enabled = false;
+				// remove the outline
+				Component.Destroy(obj.gameObject.GetComponent<Outline> ());
 			}
 		}
 
