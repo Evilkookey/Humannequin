@@ -83,6 +83,12 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		// Take input ID from controller
 		device = SteamVR_Controller.Input((int)tracked_object.index);
 
+		// Take trigger axis value for test
+		if (device.GetAxis (trigger_button)) 
+		{
+			print (device.GetAxis (trigger_button));
+		}
+
 		// Only point if there is no object being held
 		if (!held_object)
 		{
@@ -357,6 +363,15 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		hand_screwdriver.SetActive(false);
 		hand_pliers.SetActive(false);
 		hand_torch.SetActive(false);
+
+		// Remove the outlines
+		foreach (GameObject obj in collide_objects)
+		{
+			if (obj.GetComponent<Outline>())
+			{
+				obj.GetComponent<Outline>().enabled = false;
+			}
+		}
 
 		// Clear the collide list
 		collide_objects.Clear();
