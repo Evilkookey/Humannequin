@@ -24,8 +24,10 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 	//float distance;
 	float rotationY;					// Y rotation variable
-	float tilt = 0.4f;					// Used offset the enemy's target y position to tilt the enemy's head  
+	public float tilt = 0.3f;					// Used offset the enemy's target y position to tilt the enemy's head  
 	Vector3 test_rotation;
+	bool head_not_visible = false;
+
 
 	//[SerializeField]
 	public enum Enemy_Type
@@ -72,24 +74,26 @@ public class Mannequin_Stalk : MonoBehaviour {
 		//}
 
 
-
-
+		// For checking whether 
+		head_not_visible = head.GetComponent<Head_Visible>().Get_Not_Visible();
 
 
 		// If using the follow enemy
 		if (follow_enemy_type) 
 		{
 			// If the gameobject is not visible to the renderer and the distance between the player and enemy is less than min_dist
-			if (!this.GetComponent<Renderer> ().isVisible && Vector3.Distance (transform.position, player.position) >= min_dist)// || light.intensity == 0.0f) 
+			if (!this.GetComponent<Renderer> ().isVisible && head_not_visible)// || light.intensity == 0.0f) 
 			{
+				//gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
+
 				// Set target position to player position but using head y position + tilt 
 				target_postition = new Vector3 (player.position.x, 
 					//this.transform.position.y, 
 					head.position.y - tilt,
 					player.position.z);
 
-				// Agent will advance to players position 
-				agent.SetDestination (player.position);
+
 
 				// Calculate vector
 				target_dir = target_postition - transform.position;
@@ -106,38 +110,21 @@ public class Mannequin_Stalk : MonoBehaviour {
 				//Debug.Log (head.localRotation.eulerAngles);
 				//Debug.Log (difference);
 
-				/* if(difference > 90.0f && difference < 180.0f)
+				if(Vector3.Distance (transform.position, player.position) >= min_dist)
 				{
-					Debug.Log ("Right");
-					head.localRotation = Quaternion.Euler(new Vector3(0.0f,90.0f,0.0f));
-				}*/
-						// Rotate angle for head is set at 90 degrees
-						/*if(difference <= 270.0f && difference >= 180.0f || difference >= -90.0f && difference <= -180.0f )
-				{
-					Debug.Log ("Left");
-					head.localRotation = Quaternion.Euler(new Vector3(0.0f,270.0f,0.0f));
-				}*/
+					// Agent will advance to players position 
+					agent.SetDestination (player.position);
+
+					// Used to speed up the rotation of the enemy
+					Vector3 lookrotation = target_postition - transform.position;
+					transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (lookrotation), Time.deltaTime * rotate_speed);
 				
+					// Move enemy towards player
+					//transform.position += transform.forward * move_speed * Time.deltaTime;
 
-				// Used to speed up the rotation of the enemy
-				Vector3 lookrotation = target_postition - transform.position;
-				transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (lookrotation), Time.deltaTime * rotate_speed);
-
-				// TEST CODE
-				//Debug.Log (difference);
-				//test.LookAt (player);
-				//rotationY = test.rotation.eulerAngles.y;
-				//
-				//rotationY = head.rotation.y;
-				//rotationY = Mathf.Clamp (rotationY, -90f, 90f);
-				//head.rotation = Quaternion.Euler(0.0f, 0.0f, rotationY);
-
-
-				// Move enemy towards player
-				//transform.position += transform.forward * move_speed * Time.deltaTime;
-
-				// Set animation speed to 1
-				//GetComponent<Animator> ().speed = 1;
+					// Set animation speed to 1
+					//GetComponent<Animator> ().speed = 1;
+				}
 
 			} 
 			else 
@@ -148,6 +135,8 @@ public class Mannequin_Stalk : MonoBehaviour {
 				agent.SetDestination(transform.position);
 				transform.position = transform.position;
 				transform.rotation = transform.rotation;
+
+				//gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
 
 				// Freeze animations 
 				//GetComponent<Animator> ().speed = 0;
@@ -180,6 +169,9 @@ public class Mannequin_Stalk : MonoBehaviour {
 				//GetComponent<Animator> ().speed = 0;
 			}
 		}
+
+
+		//gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
 	}
 
 	void OnCollisionEnter(Collision other)

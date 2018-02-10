@@ -44,13 +44,12 @@ public class Wire_Puzzle_VR : MonoBehaviour
 	//Custom colours to pass in
 	public Material yellow_colour, magenta_colour, green_colour;
 	public bool finished;
-
-
 	bool played_sound;
+
+	//Test variables
 	public float heightScale, xScale,cap;
 
 	[Header("Things to be dragged in:")]
-
 	public GameObject entrance_door;
 	public Light light_flicker;
 
@@ -100,7 +99,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		Debug.Log(height);
 		*/
 
-		if(red_line.line_complete && blue_line.line_complete && green_line.line_complete && magenta_line.line_complete && yellow_line.line_complete) // add new colour here
+		if(red_line.line_complete && blue_line.line_complete && green_line.line_complete && /*magenta_line.line_complete &&*/ yellow_line.line_complete) // add new colour here
 		{
 			//Debug.Log("WIN");
 			finished = true;
@@ -174,14 +173,14 @@ public class Wire_Puzzle_VR : MonoBehaviour
 				//Set the line renderer to the green one
 				current_line = green_line;
 				Reset(ref green_line);						
-			}
+			}/*
 			else if(color == magenta_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 			{	
 				magenta_line.line_renderer.positionCount = 1;
 				//Set the line renderer to the green one
 				current_line = magenta_line;
 				Reset(ref magenta_line);					
-			}
+			}*/
 			else if(color == yellow_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 			{	
 				yellow_line.line_renderer.positionCount = 1;
@@ -234,26 +233,35 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		Debug.Log("Collided with start");
 
 		if(current_line.line_renderer != null && Vector3.Distance(current_line.line_renderer.GetPosition(current_line.line_renderer.positionCount - 1),
-			collider.transform.position) < move_distance && current_line.line_renderer.positionCount >2 )
+			collider.transform.position) < move_distance && current_line.line_renderer.positionCount >1 )
 		{
 			Debug.Log("Should complete");
 
-			// If you collide with a start cube(to end the line)
+			// If you collide with a start cube(to end the line)														//add new colour here
 			//If cube is red
-			if (color == Color.red && current_line.line_renderer == red_line.line_renderer) {
+			if (color == Color.red && current_line.line_renderer == red_line.line_renderer) 
+			{
 				Set_Finish (collider, ref red_line);
-			} else if (color == Color.blue && current_line.line_renderer == blue_line.line_renderer) {
+			} 
+			else if (color == Color.blue && current_line.line_renderer == blue_line.line_renderer) 
+			{
 				Set_Finish (collider, ref blue_line);
-			} else if (color == green_colour.color && current_line.line_renderer == green_line.line_renderer) {
+			} 
+			else if (color == green_colour.color && current_line.line_renderer == green_line.line_renderer) 
+			{
 				Set_Finish (collider, ref green_line);
-			} else if (color == magenta_colour.color && current_line.line_renderer == magenta_line.line_renderer) {
+			} /*
+			else if (color == magenta_colour.color && current_line.line_renderer == magenta_line.line_renderer) 
+			{
 				Set_Finish (collider, ref magenta_line);
-			} else if (color == yellow_colour.color && current_line.line_renderer == yellow_line.line_renderer) {
+			} */
+			else if (color == yellow_colour.color && current_line.line_renderer == yellow_line.line_renderer) 
+			{
 				Set_Finish (collider, ref yellow_line);
 			}	
 		}
 
-		//If line is not already being used
+		//If line is not already being used																		//add new colour here
 		if(!using_line)
 		{
 			
@@ -275,13 +283,13 @@ public class Wire_Puzzle_VR : MonoBehaviour
 				//Set the line renderer to the green one
 				current_line = green_line;
 				Set_Start(collider,ref green_line);
-			}
+			}/*
 			else if(color == magenta_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 			{	
 				//Set the line renderer to the green one
 				current_line = magenta_line;
 				Set_Start(collider,ref magenta_line);
-			}
+			}*/
 			else if(color == yellow_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
 			{	
 				//Set the line renderer to the green one
