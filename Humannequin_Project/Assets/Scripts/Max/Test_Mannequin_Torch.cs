@@ -8,7 +8,7 @@ public class Test_Mannequin_Torch : MonoBehaviour {
 	float min_dist = 2.0f;
 	Vector3 target_position;
 	float move_speed = 2.0f;
-	bool move = true;
+	bool move = false;
 
 	// Use this for initialization
 	void Start () {
@@ -19,7 +19,7 @@ public class Test_Mannequin_Torch : MonoBehaviour {
 	void Update () 
 	{
 		
-		if (move) 
+		if (move && Vector3.Distance (transform.position, player.position) >= 0.2f) 
 		{
 			// Move and rotate towards player 
 			target_position = new Vector3 (player.position.x, 
@@ -38,7 +38,7 @@ public class Test_Mannequin_Torch : MonoBehaviour {
 		if (other.gameObject.tag == "Light") 
 		{
 			move = false;
-			//Debug.Log ("HIT");
+			Debug.Log ("HIT");
 		}
 
 	}

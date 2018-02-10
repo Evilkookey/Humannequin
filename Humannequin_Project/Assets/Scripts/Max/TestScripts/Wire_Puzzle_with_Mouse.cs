@@ -40,6 +40,6 @@ public class Wire_Puzzle_with_Mouse : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		other.gameObject.SendMessage("Activate", "PLIERS");
+		//other.gameObject.SendMessage("Activate", "PLIERS");
 	}
 }
