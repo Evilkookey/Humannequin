@@ -51,6 +51,12 @@ public class VR_Input_Ver_3 : MonoBehaviour
 	// The other hand
 	GameObject other_hand;
 
+	// Animator for the hand and other variables for hand animations
+	public Animator hand_animator;
+	float trigger_axis;
+	Vector3 default_hand_size, default_hand_center;
+	BoxCollider hand_box_collider, point_hand_box_collider;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -75,6 +81,16 @@ public class VR_Input_Ver_3 : MonoBehaviour
 
 		// Initialise the pause timer
 		pause_timer = 0.0f;
+
+		// Initialise the animator and other variables
+		hand_animator = hand_regular.GetComponent<Animator>();
+		hand_box_collider = hand_regular.GetComponent<BoxCollider>();
+		point_hand_box_collider = hand_point.GetComponent<BoxCollider>();
+
+		default_hand_center = hand_box_collider.center;
+		default_hand_size = hand_box_collider.size;
+
+
 	}
 
 	// Update is called once per frame
@@ -84,33 +100,70 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		device = SteamVR_Controller.Input((int)tracked_object.index);
 
 		// Take trigger axis value for test
-		//print (device.GetAxis (trigger_button));
+		//print (device.GetAxis (trigger_button).x);
+
+		// Sets the grab value in the hand animator 
+		trigger_axis = device.GetAxis(trigger_button).x;
+		hand_animator.SetFloat("Grab", trigger_axis);
+		// TODO
+		// You gotta reset this value when you change back to the regular hand model
+
+		/*if(trigger_axis >= 0.5f)
+		{
+			hand_box_collider.center = new Vector3(default_hand_center.x,default_hand_center.y,0.01045922f);
+			hand_box_collider.size = new Vector3(default_hand_size.x,default_hand_size.y,0.2508576f);
+		}
+		else
+		{
+			hand_box_collider.center = default_hand_center;
+			hand_box_collider.size = default_hand_size;
+		}*/
 
 		// Only point if there is no object being held
 		if (!held_object)
 		{
+			
 			// Check grip for pointing
 			if (device.GetPressDown(grip_button))
 			{
 				// Make sure you arent holding a tool
 				if (active_tool == Tool.NONE)
 				{
+					// Plays the pointing hand animation in the animator
+					hand_animator.SetBool("Pointing",true);				
+
+					hand_box_collider.center = point_hand_box_collider.center;
+					hand_box_collider.size = point_hand_box_collider.size;
+
+					//TODO
+					// We could enable the box collider when animation is over (somehow)
+
+
 					// Disable all hands
-					Disable_Hands();
+					//Disable_Hands();
+
+					//if(hand_point.GetComponent<Animator>().
 					// Set current hand to point
-					hand_point.SetActive(true);
+					//hand_point.SetActive(true);
 				}
 			}
 
 			// Check release of grip
 			if (device.GetPressUp(grip_button))
 			{
+				// Stops to hand pointing animation;
+				hand_animator.SetBool("Pointing", false);
+
+				//Reset the hand box collider
+				hand_box_collider.center = default_hand_center;
+				hand_box_collider.size = default_hand_size;
+
 				if (hand_point.activeInHierarchy)
 				{
 					// Disable all hands
-					Disable_Hands();
+					//Disable_Hands();
 					// Set current hand to point
-					hand_regular.SetActive(true);
+					//hand_regular.SetActive(true);
 				}
 			}
 		}
