@@ -12,14 +12,14 @@ public class Hand_Grab : MonoBehaviour {
 	// Defining controller and tracked object
 	private SteamVR_TrackedObject trackedObj;
 
-	private SteamVR_Controller.Device device
-	{
-		get { return SteamVR_Controller.Input((int)trackedObj.index); }
-	}
+	//private SteamVR_Controller.Device device
+	//{
+	//	get { return SteamVR_Controller.Input((int)trackedObj.index); }
+	//}
 	// Set up tracked object
 	void Awake()
 	{
-		trackedObj = GetComponent<SteamVR_TrackedObject>();
+	//	trackedObj = GetComponent<SteamVR_TrackedObject>();
 	}
 
 	// Use this for initialization
@@ -30,8 +30,9 @@ public class Hand_Grab : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		trigger_axis = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
-		value = 1-trigger_axis;
+		//TEST IN VR
+		//trigger_axis = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger).x;
+		//value = 1-trigger_axis;
 
 		//value +=0.01f;
 
@@ -40,13 +41,14 @@ public class Hand_Grab : MonoBehaviour {
 		{
 			
 		}*/
+
 	}
 
 	void OnGUI()
 	{
 		value = anim.GetFloat("Grab");
 
-		value = GUI.HorizontalSlider(new Rect(10,10,100,20),value, 0,1);
+		value = GUI.HorizontalSlider(new Rect(10,10,100,20),value, 0,0.5f);
 
 		anim.SetFloat("Grab",value);
 	}
