@@ -288,6 +288,9 @@ public class VR_Input_Ver_3 : MonoBehaviour
 			{
 				// Remove the fixed joint
 				ReleaseObject();
+
+				trigger_axis = 1;
+				hand_animator.SetFloat("Grab", 1);
 			}
 		}
 

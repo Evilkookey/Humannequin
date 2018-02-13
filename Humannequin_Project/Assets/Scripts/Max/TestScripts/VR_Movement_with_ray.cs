@@ -24,7 +24,6 @@ public class VR_Movement_with_ray : MonoBehaviour
 	public float raycast_distance; 		 // Distance for the ray to travel
 	public GameObject camera_object; 	 // VR headset object -- Renamed from camera 
 	public GameObject controller_object; // VR controller to use
-	public float difference; 			 // Difference betweeen VR headset and the rig 
 
 	void Start()
 	{
@@ -36,9 +35,6 @@ public class VR_Movement_with_ray : MonoBehaviour
 
 		// Find the camera rig in the scene
 		rig = GameObject.Find ("[CameraRig]").transform;
-
-		// Calcluate difference
-		difference = /*rig.position - */camera_object.transform.position.y - rig.position.y;
 	}
 
 	void Update()
@@ -76,10 +72,8 @@ public class VR_Movement_with_ray : MonoBehaviour
 
 	void Blackout_Check()
 	{
-		//RaycastHit hit;
-
 		// Create ray from calclauted vr headset position in the direction of the headset movement
-		Vector3 ray_origin = rig.position + (Vector3.up * difference);
+		Vector3 ray_origin = new Vector3(rig.position.x, camera_object.transform.position.y, rig.position.z);
 		Ray check_ray = new Ray (ray_origin, (camera_object.transform.position - ray_origin)); 
 
 		//Debug.Log(ray_origin);

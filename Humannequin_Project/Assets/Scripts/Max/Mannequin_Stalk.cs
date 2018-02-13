@@ -86,6 +86,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 			{
 				//gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
+				agent.enabled = true;
 
 				// Set target position to player position but using head y position + tilt 
 				target_postition = new Vector3 (player.position.x, 
@@ -162,7 +163,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 			} else 
 			{
 				//agent.SetDestination (transform.position);
-				agent.SetDestination(transform.position);
+				agent.enabled = false;
 
 				transform.position = transform.position;
 				transform.rotation = transform.rotation;
