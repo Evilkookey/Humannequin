@@ -1,4 +1,4 @@
-﻿// PAUSE_MENU_CONTROLLER
+﻿// PAUSE_MENU_CONTROLLER.CS
 // NATALIE BAKER-HALL
 using System.Collections;
 using System.Collections.Generic;
@@ -26,17 +26,10 @@ public class Pause_Menu_Controller : MonoBehaviour
 	GameObject note_3_image;
 	GameObject note_4_image;
 
-	// Bool to determine whether or not other Update() scripts will run
-	public static bool is_paused;
-
-
 	// Use this for initialization
 	void Start () 
 	{
-		// INITIALISATION // 
-		// Initialise the is_paused variable
-		is_paused = false;
-
+		// INITIALISATION //
 		// Initialise the canvases
 		pause_menu_object = GameObject.Find("pause_screen");
 		notes_menu_object = GameObject.Find("notes_menu");
@@ -72,29 +65,33 @@ public class Pause_Menu_Controller : MonoBehaviour
 		pause_menu_object.SetActive(false);
 		notes_menu_object.SetActive(false);
 		note_screen_object.SetActive(false);
-
-		//Time.timeScale = 1;
 	}
 
 
 	// Update is called once per frame
 	public void Activate () 
 	{
-		if (pause_menu_object.activeInHierarchy == false) 
+		if (Game_State_Controller.current_state == Game_State_Controller.Game_States.PLAYING) 
 		{
-			is_paused = true;
+			// Set the current state to PAUSED
+			Game_State_Controller.Pause_Game ();
+
 			Debug.Log("pause game");
+
+			// Set the pause menu object to active
 			pause_menu_object.SetActive(true);
-			//Time.timeScale = 0;
 		}
-		else if (pause_menu_object.activeInHierarchy == true 
-				|| notes_menu_object.activeInHierarchy == true 
-				|| note_screen_object.activeInHierarchy == true)
+		else if (Game_State_Controller.current_state == Game_State_Controller.Game_States.PAUSED)
 		{
-			is_paused = false;
+			// Set the current state to PLAY
+			Game_State_Controller.Play_Game ();
+
 			Debug.Log("play game");
+
+			// Set all the canvases to inactive
 			pause_menu_object.SetActive(false);
-			//Time.timeScale = 1;
+			notes_menu_object.SetActive(false);
+			note_screen_object.SetActive(false);
 		}
 	}
 

@@ -9,21 +9,21 @@ using UnityEngine.SceneManagement;
 public class Splash_Screen : MonoBehaviour 
 {
 	// Variables
+	// Images for the team logo
 	public Image logo_image_0;
 	public Image logo_image_1;
 	public Image logo_image_2;
 	public Image logo_image_3;
 
+	// Images for the game title
 	public Image game_title_0;
 	public Image game_title_1;
 	public Image game_title_2;
 	public Image game_title_3;
 
-	public string load_level;
-
 	IEnumerator Start()
 	{
-		// Initialise alphas to 0.0f
+		// Initialise alphas of the images to 0.0f
 		logo_image_0.canvasRenderer.SetAlpha (0.0f);
 		logo_image_1.canvasRenderer.SetAlpha (0.0f);
 		logo_image_2.canvasRenderer.SetAlpha (0.0f);
@@ -45,7 +45,7 @@ public class Splash_Screen : MonoBehaviour
 		Fade_Out_Title ();
 		yield return new WaitForSeconds (2.5f);
 		// Load the next scene
-		SceneManager.LoadScene (load_level);
+		SceneManager.LoadScene (1);
 
 	}
 

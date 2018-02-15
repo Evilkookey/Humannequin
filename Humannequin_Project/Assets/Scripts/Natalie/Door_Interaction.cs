@@ -7,13 +7,18 @@ using UnityEngine;
 public class Door_Interaction : MonoBehaviour 
 {
 	// Variables
+	// Stores which type of door - exit or play
 	public string door_type;
+
+	// Stores the scene controller
 	public GameObject scene_controller;
+
+	// Stores the animator for the door
 	Animator door_animator;
 
 	void Start()
 	{
-		// Initialise variables
+		// Initialise the animator
 		door_animator = gameObject.GetComponent<Animator> ();
 	}
 
@@ -21,6 +26,7 @@ public class Door_Interaction : MonoBehaviour
 	{
 		// Play animation
 		door_animator.SetBool("opening", true);
+
 		// Call change scene
 		scene_controller.SendMessage ("Change_Scene", door_type);
 	}

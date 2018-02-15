@@ -7,7 +7,9 @@ using UnityEngine;
 public class Double_Door_Opening : MonoBehaviour 
 {
 	// Variables
+	// This holds the animator for the door to be opened
 	Animator door_animator;
+	// This bool is for checking whether or not the door is opening
 	bool is_opening;
 
 	void Start()
@@ -21,6 +23,7 @@ public class Double_Door_Opening : MonoBehaviour
 		// Play animation
 		door_animator.SetBool("opening", true);
 
+		// Play the sound
 		gameObject.GetComponent<AudioSource>().Play();
 
 		Debug.Log("DOOR");
