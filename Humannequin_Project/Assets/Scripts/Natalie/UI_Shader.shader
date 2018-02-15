@@ -1,4 +1,5 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+﻿// UI_SHADER.SHADER
+// DanSuperGP at: https://answers.unity.com/questions/878667/world-space-canvas-on-top-of-everything.html
 
 Shader "UI/UI_Shader"
  {

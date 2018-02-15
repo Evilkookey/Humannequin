@@ -7,9 +7,16 @@ using UnityEngine;
 public class Screwdriver_Interaction : MonoBehaviour 
 {
 	// Variables
+	// An int to hold the number of screws that have been activated
 	int screw_counter;
+
+	// A game object to store the current activated object
 	GameObject activated_object;
+
+	// This hold the activated object's animator
 	Animator object_animator;
+
+	// This is to identify which of the objects is the cover
 	public GameObject cover;
 
 	void Start()

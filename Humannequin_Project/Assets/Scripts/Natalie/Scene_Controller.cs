@@ -8,13 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class Scene_Controller : MonoBehaviour 
 {
-	// Variables
-	public int scene_to_load;
-
 	void Start()
 	{
 		// Load next scene in the background of the current scene
-		SceneManager.LoadSceneAsync (scene_to_load,LoadSceneMode.Additive);
+		SceneManager.LoadSceneAsync (2, LoadSceneMode.Additive);
 		// Unload last scene in background of the current scene
 		SceneManager.UnloadSceneAsync (0);
 	}
@@ -40,9 +37,9 @@ public class Scene_Controller : MonoBehaviour
 	void OnTriggerEnter(Collider other)
 	{
 		// Checks if colliding with player, if so then move player object to next scene
-		if(other.gameObject.name == "[CameraRig] (1)")
+		if(other.gameObject.name == "[CameraRig]")
 		{
-			SceneManager.MoveGameObjectToScene(GameObject.Find("[CameraRig] (1)").gameObject,SceneManager.GetSceneByBuildIndex(scene_to_load));
+			SceneManager.MoveGameObjectToScene(GameObject.Find("[CameraRig]").gameObject, SceneManager.GetSceneByBuildIndex(2));
 			Debug.Log ("COLLIDE");
 			// Unload main menu scene
 			SceneManager.UnloadSceneAsync (1);
