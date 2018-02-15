@@ -39,32 +39,37 @@ public class VR_Movement_with_ray : MonoBehaviour
 
 	void Update()
 	{
-		//Debug.Log(camera_object.transform.position);
-
-		// Error checking for controller initialisation
-		if (controller == null)
+		if(!Pause_Menu_Controller.is_paused)
 		{
-			Debug.Log("Controller not initialized");
-			return;
-		}
+			
+			//Debug.Log(camera_object.transform.position);
 
-		// Get input from the controller object
-		var device = SteamVR_Controller.Input((int)trackedObj.index);
-
-		// Get touch input from the controller
-		if (controller.GetTouch(touchpad))
-		{			
-			// Set touch input to the axis Vector2
-			axis = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
-
-			// If there is a rig
-			if (rig != null)
+			// Error checking for controller initialisation
+			if (controller == null)
 			{
-				// Move rig in position of the axis with delta time and speed variables
-				rig.Translate(((Vector3.right * axis.x) + (Vector3.forward * axis.y)) * Time.deltaTime * speed/*, Space.Self*/);
-				rig.position = new Vector3(rig.position.x, rig.position.y, rig.position.z);
+				Debug.Log("Controller not initialized");
+				return;
+			}
+
+			// Get input from the controller object
+			var device = SteamVR_Controller.Input((int)trackedObj.index);
+
+			// Get touch input from the controller
+			if (controller.GetTouch(touchpad))
+			{			
+				// Set touch input to the axis Vector2
+				axis = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
+
+				// If there is a rig
+				if (rig != null)
+				{
+					// Move rig in position of the axis with delta time and speed variables
+					rig.Translate(((Vector3.right * axis.x) + (Vector3.forward * axis.y)) * Time.deltaTime * speed/*, Space.Self*/);
+					rig.position = new Vector3(rig.position.x, rig.position.y, rig.position.z);
+				}
 			}
 		}
+
 
 		// Fade out screen if head is placed in an object
 		Blackout_Check();

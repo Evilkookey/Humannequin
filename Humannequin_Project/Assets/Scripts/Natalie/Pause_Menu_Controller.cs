@@ -27,7 +27,8 @@ public class Pause_Menu_Controller : MonoBehaviour
 	GameObject note_4_image;
 
 	// Bool to determine whether or not other Update() scripts will run
-	public bool is_paused;
+	public static bool is_paused;
+
 
 	// Use this for initialization
 	void Start () 

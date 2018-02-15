@@ -185,8 +185,8 @@ public class VR_Input_Ver_3 : MonoBehaviour
 					interact_object.SendMessage("Activate", active_tool.ToString());
 					break;
 				case "Pick_Up":
-					// Check if the player has a regular hand, not a tool and there is no current held object
-					if (hand_regular.activeInHierarchy && !held_object)
+					// Check if the player has a regular hand, not a tool and there is no current held object and player is not pointing
+					if (hand_regular.activeInHierarchy && !held_object && !hand_animator.GetBool("Pointing"))
 					{
 						// Set the held object to the collide object
 						held_object = collide; 
@@ -248,6 +248,9 @@ public class VR_Input_Ver_3 : MonoBehaviour
 								hand_pliers.SetActive(true);
 								break;
 							}
+
+							// Reset hand animation
+							hand_animator.SetFloat("Grab", 1.0f);
 						}
 						// If the player has a tool and the tool is not in the slot
 						else if (active_tool != Tool.NONE && !interact_object.activeInHierarchy)
@@ -289,7 +292,7 @@ public class VR_Input_Ver_3 : MonoBehaviour
 				// Remove the fixed joint
 				ReleaseObject();
 
-				trigger_axis = 1;
+				//trigger_axis = 1;
 				hand_animator.SetFloat("Grab", 1);
 			}
 		}
@@ -417,7 +420,7 @@ public class VR_Input_Ver_3 : MonoBehaviour
 	void Disable_Hands()
 	{
 		hand_regular.SetActive(false);
-		hand_point.SetActive(false);
+		//hand_point.SetActive(false);
 		hand_wrench.SetActive(false);
 		hand_screwdriver.SetActive(false);
 		hand_pliers.SetActive(false);
