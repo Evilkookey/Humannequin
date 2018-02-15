@@ -440,4 +440,36 @@ public class VR_Input_Ver_3 : MonoBehaviour
 		// Clear the collide list
 		collide_objects.Clear();
 	}
+
+	// Activate a tool in the toolbelt
+	void Collect_Tool (string tool_name)
+	{
+		//Find all the tools in the hierarchy
+		GameObject wrench, screwdriver, torch, pliers;
+
+		wrench = GameObject.Find("Wrench");
+		screwdriver = GameObject.Find("Screwdriver");
+		torch = GameObject.Find("Torch");
+		pliers = GameObject.Find("Pliers");
+
+		// Set to lowercase to reduce bug chance
+		tool_name = tool_name.ToLower();
+
+		// Check which tool was picked up
+		switch (tool_name)
+		{
+		case "wrench":
+			wrench.SetActive(true);
+			break;
+		case "torch":
+			torch.SetActive(true);
+			break;
+		case "pliers":
+			pliers.SetActive(true);
+			break;
+		case "screwdriver":
+			screwdriver.SetActive(true);
+			break;
+		}
+	}
 }
