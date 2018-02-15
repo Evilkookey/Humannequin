@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pick_Up_Tool : MonoBehaviour 
+public class Toolbelt : MonoBehaviour 
 {
 
 	// Use this for initialization
@@ -13,12 +13,6 @@ public class Pick_Up_Tool : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () 
-	{
-		
-	}
-
-	// Activate is called when the player interacts with this object
-	void Activate ()
 	{
 		
 	}
