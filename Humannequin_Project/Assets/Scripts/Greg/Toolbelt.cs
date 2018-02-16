@@ -54,7 +54,7 @@ public class Toolbelt : MonoBehaviour
 			return false;
 		}
 
-		// Check if tool is active and aquired
+		// Check if tool is in the belt and aquired
 		if (tools[tool_pointer].is_acquired && tools[tool_pointer].is_in_belt)
 		{
 			// Deactivate tool
@@ -73,7 +73,44 @@ public class Toolbelt : MonoBehaviour
 
 	bool Return_Tool (string tool_name)
 	{
+		int tool_pointer;
 
+		// Make tool name lower case
+		tool_name = tool_name.ToLower();
+
+		switch (tool_name)
+		{
+		case "wrench":
+			tool_pointer = 0;
+			break;
+		case "torch":
+			tool_pointer = 1;
+			break;
+		case "screwdriver":
+			tool_pointer = 2;
+			break;
+		case "pliers":
+			tool_pointer = 3;
+			break;
+		default:
+			return false;
+		}
+
+		// Check if tool is not in the belt and aquired
+		if (tools[tool_pointer].is_acquired && !tools[tool_pointer].is_in_belt)
+		{
+			// Reactivate tool
+			tools[tool_pointer].tool_object.SetActive(true);
+
+			// Put tool back in belt belt
+			tools[tool_pointer].is_in_belt = true;
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	void New_Tool(string tool_name)
