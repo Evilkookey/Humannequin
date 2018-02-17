@@ -10,15 +10,28 @@ public class Elevator_Control : MonoBehaviour
 	// This holds the animator for the elevator doors to be opened
 	Animator door_animator;
 
+	Collider door_collider;
+
 	// Use this for initialization
-	IEnumerator Start () 
+	void Start () 
 	{
-		
+		// Set door_animator to be the elevators animator
+		door_animator = gameObject.GetComponentInParent<Animator> ();
+
+		// Play the animation
+		door_animator.SetBool("opening", true);
 	}
-	
-	// Update is called once per frame
-	void Update () 
+
+	// Check for collisions wit the player
+	void OnTriggerEnter(Collider col)
 	{
-		
+		// Checks if colliding with player, if so then move player object to next scene
+		//if(col.gameObject.name == "[CameraRig]")
+		if(col.gameObject.name == "FPSController")
+		{
+			// Play the animation
+			door_animator.SetBool("closing", true);
+			door_animator.SetBool("opening", false);
+		}
 	}
 }
