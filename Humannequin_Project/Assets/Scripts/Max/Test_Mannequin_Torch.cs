@@ -10,16 +10,19 @@ public class Test_Mannequin_Torch : MonoBehaviour {
 	float move_speed = 2.0f;
 	bool move = false;
 
-	// Use this for initialization
-	void Start () {
+	public Light room_light;
 
+	// Use this for initialization
+	void Start () 
+	{
+		//room_light = GameObject.Find("");
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		
-		if (move && Vector3.Distance (transform.position, player.position) >= 0.2f) 
+		if (move && Vector3.Distance (transform.position, player.position) >= 0.2f && room_light.enabled == false) 
 		{
 			// Move and rotate towards player 
 			target_position = new Vector3 (player.position.x, 
@@ -38,7 +41,7 @@ public class Test_Mannequin_Torch : MonoBehaviour {
 		if (other.gameObject.tag == "Light") 
 		{
 			move = false;
-			Debug.Log ("HIT");
+			//Debug.Log ("HIT");
 		}
 
 	}
