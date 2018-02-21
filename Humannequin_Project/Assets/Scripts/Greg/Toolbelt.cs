@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Toolbelt : MonoBehaviour 
 {
-	struct tool
+	[System.Serializable]
+	public struct tool
 	{
 		public GameObject tool_object;
 		public bool is_in_belt;
@@ -12,47 +13,58 @@ public class Toolbelt : MonoBehaviour
 	}
 
 	// The tools
-	static tool wrench, torch, screwdriver, pliers;
+	public static tool wrench, torch, screwdriver, pliers;
 
 	// An array of tools
-	tool[] tools = new tool[4] {wrench, torch, screwdriver, pliers}; 
+	public tool[] tools = new tool[4] {wrench, torch, screwdriver, pliers}; 
 
-	/*// Use this for initialization
+	// Use this for initialization
 	void Start () 
 	{
-		
+		for (int i = 0; i < tools.Length; i++)
+		{
+			// Set all to not aquired
+			tools[i].is_acquired = false;
+
+			// Set all to out of belt
+			tools[i].is_in_belt = false;
+
+			// Deactive all tools
+			tools[i].tool_object.SetActive(false);
+		}
 	}
 	
-	// Update is called once per frame
+	/*// Update is called once per frame
 	void Update () 
 	{
 		
 	}*/
 
-	bool Take_Tool (string tool_name)
+	int Find_Tool_Pointer (string tool_name)
 	{
-		int tool_pointer;
-
 		// Make tool name lower case
 		tool_name = tool_name.ToLower();
 
 		switch (tool_name)
 		{
 		case "wrench":
-			tool_pointer = 0;
-			break;
+			return 0;
 		case "torch":
-			tool_pointer = 1;
-			break;
+			return 1;
 		case "screwdriver":
-			tool_pointer = 2;
-			break;
+			return 2;
 		case "pliers":
-			tool_pointer = 3;
-			break;
+			return 3;
 		default:
-			return false;
+			print ("tool pointer error");
+			return 0;
 		}
+	}
+
+	public bool Take_Tool (string tool_name)
+	{
+		// Get the array position of the tool
+		int tool_pointer = Find_Tool_Pointer(tool_name);
 
 		// Check if tool is in the belt and aquired
 		if (tools[tool_pointer].is_acquired && tools[tool_pointer].is_in_belt)
@@ -71,30 +83,10 @@ public class Toolbelt : MonoBehaviour
 		}
 	}
 
-	bool Return_Tool (string tool_name)
+	public bool Return_Tool (string tool_name)
 	{
-		int tool_pointer;
-
-		// Make tool name lower case
-		tool_name = tool_name.ToLower();
-
-		switch (tool_name)
-		{
-		case "wrench":
-			tool_pointer = 0;
-			break;
-		case "torch":
-			tool_pointer = 1;
-			break;
-		case "screwdriver":
-			tool_pointer = 2;
-			break;
-		case "pliers":
-			tool_pointer = 3;
-			break;
-		default:
-			return false;
-		}
+		// Get the array position of the tool
+		int tool_pointer = Find_Tool_Pointer(tool_name);
 
 		// Check if tool is not in the belt and aquired
 		if (tools[tool_pointer].is_acquired && !tools[tool_pointer].is_in_belt)
@@ -113,8 +105,28 @@ public class Toolbelt : MonoBehaviour
 		}
 	}
 
-	void New_Tool(string tool_name)
+	public bool New_Tool(string tool_name)
 	{
+		// Get the array position of the tool
+		int tool_pointer = Find_Tool_Pointer(tool_name);
 
+		// Check if tool is not active yet
+		if (!tools[tool_pointer].is_acquired)
+		{
+			// Set tool to acquired
+			tools[tool_pointer].is_acquired = true;
+
+			// Activate tool
+			tools[tool_pointer].tool_object.SetActive(true);
+
+			// Put tool in belt belt
+			tools[tool_pointer].is_in_belt = true;
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
