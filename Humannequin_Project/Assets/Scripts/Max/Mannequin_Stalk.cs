@@ -74,7 +74,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 		//}
 
 
-		// For checking whether 
+		// For checking whether the head is visisble to the player
 		head_not_visible = head.GetComponent<Head_Visible>().Get_Not_Visible();
 
 
@@ -137,6 +137,10 @@ public class Mannequin_Stalk : MonoBehaviour {
 				transform.position = transform.position;
 				transform.rotation = transform.rotation;
 
+				// Disables the navmesh agent when you see the mannequin
+				agent.enabled = false;
+
+
 				//gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
 
 				// Freeze animations 
@@ -163,7 +167,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 			} else 
 			{
 				//agent.SetDestination (transform.position);
-				agent.enabled = false;
+			
 
 				transform.position = transform.position;
 				transform.rotation = transform.rotation;

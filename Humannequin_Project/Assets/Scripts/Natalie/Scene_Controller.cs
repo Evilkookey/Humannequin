@@ -44,6 +44,14 @@ public class Scene_Controller : MonoBehaviour
 			// Unload main menu scene
 			SceneManager.UnloadSceneAsync (1);
 		}
+
+		if(other.gameObject.name == "FPSController")
+		{
+			SceneManager.MoveGameObjectToScene(GameObject.Find("FPSController").gameObject, SceneManager.GetSceneByBuildIndex(2));
+			Debug.Log ("COLLIDE");
+			// Unload main menu scene
+			SceneManager.UnloadSceneAsync (1);
+		}
 	}
 
 }

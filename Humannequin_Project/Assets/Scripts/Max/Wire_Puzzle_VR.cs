@@ -11,7 +11,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 	// 'Cube' refers to a node to connect the wire to
 
 	//Distance for the ray 
-	float raycast_distance = 3.0f;
+	//float raycast_distance = 3.0f;
 
 
 	//If a line renderer is being used
@@ -90,14 +90,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		/*float height = heightScale * Mathf.PerlinNoise(Time.time * xScale, 0.0F);
-		if (height < cap) {
-			light_flicker.intensity = height;
-		} else {
-			light_flicker.intensity = 0.0f;
-		}
-		Debug.Log(height);
-		*/
+		
 
 		if(red_line.line_complete && blue_line.line_complete && green_line.line_complete && /*magenta_line.line_complete &&*/ yellow_line.line_complete) // add new colour here
 		{
