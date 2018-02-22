@@ -40,12 +40,20 @@ public class Elevator_Control : MonoBehaviour
 			// Make mannequin active
 			mannequin.SetActive (true);
 
-			// Play the animation
-			door_animator.SetBool("closing", true);
-			door_animator.SetBool("opening", false);
-
-			// Turn off elevator light
-			elevator_light.SendMessage("Light_Off"); 
+			// Close the door
+			StartCoroutine(Close_Door());
 		}
+	}
+
+	IEnumerator Close_Door ()
+	{
+		yield return new WaitForSeconds (2.5f);
+		// Play the animation
+		door_animator.SetBool("closing", true);
+		door_animator.SetBool("opening", false);
+
+		// Turn off elevator light
+		elevator_light.SendMessage("Light_Off"); 
+		yield return null;
 	}
 }
