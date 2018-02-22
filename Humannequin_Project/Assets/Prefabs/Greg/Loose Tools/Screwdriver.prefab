@@ -22,9 +22,11 @@ GameObject:
   - component: {fileID: 33905202796798944}
   - component: {fileID: 23946421309485822}
   - component: {fileID: 95753833363275748}
+  - component: {fileID: 114800802379989918}
+  - component: {fileID: 65479993316737890}
   m_Layer: 0
   m_Name: Screwdriver
-  m_TagString: Untagged
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,6 +83,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1424593998895824}
   m_Mesh: {fileID: 4300000, guid: 45d8c5ec5a366db43b398a3511309861, type: 3}
+--- !u!65 &65479993316737890
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1424593998895824}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3738676, y: 0.06411678, z: 0.060978696}
+  m_Center: {x: 0.048251886, y: -0.000000001862645, z: -0.000000001862645}
 --- !u!95 &95753833363275748
 Animator:
   serializedVersion: 3
@@ -98,3 +112,14 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114800802379989918
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1424593998895824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1dff9c524475244fb8b65a515fef8e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
