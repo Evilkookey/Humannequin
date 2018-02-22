@@ -32,7 +32,9 @@ public class New_Tool : MonoBehaviour {
 			if (toolbelt.New_Tool(gameObject.name))
 			{
 				// Delete the loose tool
-				Destroy (gameObject);
+				//Destroy (gameObject);
+				// Deactivate the loose tool
+				gameObject.SetActive(false);
 			}
 			else
 			{
