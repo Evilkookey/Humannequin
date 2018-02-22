@@ -71,9 +71,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4080208031202520}
   - component: {fileID: 95923854402817692}
+  - component: {fileID: 114745887563846646}
+  - component: {fileID: 65487551791191046}
   m_Layer: 0
   m_Name: Pliers
-  m_TagString: Untagged
+  m_TagString: Interact
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -250,6 +252,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1562822665956474}
   m_Mesh: {fileID: 4300002, guid: 45037a252bc6e2c4c938428d356b57e4, type: 3}
+--- !u!65 &65487551791191046
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1966558867933336}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95923854402817692
 Animator:
   serializedVersion: 3
@@ -267,3 +281,14 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114745887563846646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1966558867933336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1dff9c524475244fb8b65a515fef8e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
