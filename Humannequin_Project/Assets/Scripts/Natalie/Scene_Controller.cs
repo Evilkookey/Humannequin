@@ -13,7 +13,7 @@ public class Scene_Controller : MonoBehaviour
 		// Load next scene in the background of the current scene
 		SceneManager.LoadSceneAsync (2, LoadSceneMode.Additive);
 		// Unload last scene in background of the current scene
-		SceneManager.UnloadSceneAsync (0);
+		//SceneManager.UnloadSceneAsync (0);
 	}
 
 	public void Change_Scene(string scene)
