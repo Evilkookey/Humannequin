@@ -133,7 +133,8 @@ public class Mannequin_Stalk : MonoBehaviour {
 				// Stop enemy from moving
 
 				//agent.SetDestination (null);
-				agent.SetDestination(transform.position);
+				//agent.SetDestination(transform.position);
+
 				transform.position = transform.position;
 				transform.rotation = transform.rotation;
 

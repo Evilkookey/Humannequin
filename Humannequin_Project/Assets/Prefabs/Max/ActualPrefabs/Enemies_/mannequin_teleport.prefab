@@ -207,14 +207,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1952806328409118}
-  m_LocalRotation: {x: -0, y: -0.35555232, z: -0, w: 0.9346564}
-  m_LocalPosition: {x: -12.669, y: 0, z: 18.828}
-  m_LocalScale: {x: 0.789, y: 0.79, z: 0.79}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4242356421929424}
   m_Father: {fileID: 4883116033394796}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -41.655003, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4171021986639560
 Transform:
   m_ObjectHideFlags: 1
@@ -247,9 +247,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002994510980188}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children:
   - {fileID: 4521156993775820}
   m_Father: {fileID: 4138877791025778}
@@ -314,7 +314,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1767775112905926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.91, y: 0, z: 9.705}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4138877791025778}
@@ -348,7 +348,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 7ed024fd1b4e9ce409a916b8b6795d01, type: 2}
+  - {fileID: 2100000, guid: da21e6b737ccb0948b91a00d1d9a8156, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -480,7 +480,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -509,4 +509,4 @@ MonoBehaviour:
   flickering_light: {fileID: 0}
   player: {fileID: 0}
   mannequin: {fileID: 1952806328409118}
-  move_time: 1
+  move_time: 5

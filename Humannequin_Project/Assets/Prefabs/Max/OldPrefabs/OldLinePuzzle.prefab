@@ -710,7 +710,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4515671320262026}
   m_Layer: 0
-  m_Name: LinePuzzle
+  m_Name: OldLinePuzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2109,7 +2109,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813186665276780}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.35400105, y: 0.37730014, z: -0.016900003}
+  m_LocalPosition: {x: 0.353, y: 0.37730014, z: -0.016900003}
   m_LocalScale: {x: 0.041372128, y: 0.041372128, z: 0.041372128}
   m_Children: []
   m_Father: {fileID: 4911764559778078}
@@ -6459,77 +6459,15 @@ MonoBehaviour:
     boxes: []
   MAX_LENGTH: 100
   move_distance: 0.12
-  cubes:
-  - {fileID: 1091312265671318}
-  - {fileID: 1930670029947670}
-  - {fileID: 1677137450444300}
-  - {fileID: 1548884683849608}
-  - {fileID: 1508050200762772}
-  - {fileID: 1894429100553770}
-  - {fileID: 1235400283412996}
-  - {fileID: 1916779174667976}
-  - {fileID: 1996889126790930}
-  - {fileID: 1725003104146208}
-  - {fileID: 1775621094936982}
-  - {fileID: 1606709497635336}
-  - {fileID: 1503310839664224}
-  - {fileID: 1963591872650914}
-  - {fileID: 1427997613332868}
-  - {fileID: 1531001931881886}
-  - {fileID: 1267503148231716}
-  - {fileID: 1016783805785338}
-  - {fileID: 1891734734364698}
-  - {fileID: 1917194606401610}
-  - {fileID: 1694843152500910}
-  - {fileID: 1543110063202444}
-  - {fileID: 1112856851431866}
-  - {fileID: 1898314845872188}
-  - {fileID: 1517530807754506}
-  - {fileID: 1282298131512510}
-  - {fileID: 1788813961059504}
-  - {fileID: 1546199365509434}
-  - {fileID: 1135717118181842}
-  - {fileID: 1044510129603100}
-  - {fileID: 1813186665276780}
-  - {fileID: 1013167723703106}
-  - {fileID: 1625881404271896}
-  - {fileID: 1308675195222662}
-  - {fileID: 1440100799662392}
-  - {fileID: 1781559146887016}
-  - {fileID: 1750463044188374}
-  - {fileID: 1105649072629050}
-  - {fileID: 1864747541687256}
-  - {fileID: 1345025041214236}
-  - {fileID: 1669898851854178}
-  - {fileID: 1438977753194434}
-  - {fileID: 1845458779429198}
-  - {fileID: 1417351338854984}
-  - {fileID: 1646676762666440}
-  - {fileID: 1047190560337176}
-  - {fileID: 1305179750464560}
-  - {fileID: 1985926230294572}
-  - {fileID: 1872828637659698}
-  - {fileID: 1932569580993454}
-  - {fileID: 1708589956925930}
-  - {fileID: 1380239254891858}
-  - {fileID: 1258753479741524}
-  - {fileID: 1933903827715088}
   yellow_colour: {fileID: 2100000, guid: 6591bfe1c410f7141aa3586cd0e4f66c, type: 2}
   magenta_colour: {fileID: 2100000, guid: d4c9949fa6b4c29429554dbff91c78bc, type: 2}
   green_colour: {fileID: 2100000, guid: e5280deb3010ac44b9d55e6d58ea2806, type: 2}
-  end_cubes:
-  - {fileID: 1762957608789734}
-  - {fileID: 1902407305071202}
-  - {fileID: 1034215273941974}
-  - {fileID: 1728890833788784}
-  - {fileID: 1865761123110468}
-  - {fileID: 1421969127879554}
-  - {fileID: 1039291722593760}
-  - {fileID: 1390648937113196}
-  - {fileID: 1558263257654614}
-  - {fileID: 1513961350777550}
   finished: 0
+  heightScale: 0
+  xScale: 0
+  cap: 0
   entrance_door: {fileID: 0}
+  light_flicker: {fileID: 0}
 --- !u!114 &114639216766523992
 MonoBehaviour:
   m_ObjectHideFlags: 1
