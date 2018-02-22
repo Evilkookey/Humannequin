@@ -16,6 +16,12 @@ public class Elevator_Control : MonoBehaviour
 	// The elevator mannequin
 	GameObject mannequin;
 
+	// Back wall of the elevator
+	public GameObject back_wall;
+
+	// Bool to check if the player has left the elevator
+	public bool has_left;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -25,20 +31,33 @@ public class Elevator_Control : MonoBehaviour
 		// Play the animation
 		door_animator.SetBool ("opening", true);
 
-		// Set the mannequin tot be the mannequin in the elevator
+		// Set the mannequin to be the mannequin in the elevator
 		mannequin = GameObject.Find("idle_mannequin");
 		mannequin.SetActive (false);
+
+		// Set has_left to false
+		has_left = false;
+	}
+
+	void Update ()
+	{
+		// If the mannequin is not visible then set him active
+		if (!back_wall.GetComponent<Renderer> ().isVisible && has_left) 
+		{
+			// Make mannequin active
+			mannequin.SetActive (true);
+		}
 	}
 
 	// Check for collisions with the player
-	void OnTriggerEnter(Collider col)
+	void OnTriggerEnter (Collider col)
 	{
 		// Checks if colliding with player, if so then move player object to next scene
 		//if(col.gameObject.name == "[CameraRig]")
 		if(col.gameObject.name == "FPSController")
 		{
-			// Make mannequin active
-			mannequin.SetActive (true);
+			// Set has_left true
+			has_left = true;
 
 			// Close the door
 			StartCoroutine(Close_Door());
@@ -47,7 +66,7 @@ public class Elevator_Control : MonoBehaviour
 
 	IEnumerator Close_Door ()
 	{
-		yield return new WaitForSeconds (2.5f);
+		yield return new WaitForSeconds (1.5f);
 		// Play the animation
 		door_animator.SetBool("closing", true);
 		door_animator.SetBool("opening", false);
