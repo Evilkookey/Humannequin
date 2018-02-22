@@ -16,7 +16,8 @@ public class Cone_Scale : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		// This currently works with a spotlight angle of 70 and range of 10
+
 		//this.transform.position = cone_pos; 
 		float angle = (torch.GetComponent<Light> ().spotAngle); // 38
 		float temp = 1 - (22.5f/angle);

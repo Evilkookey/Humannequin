@@ -18,19 +18,39 @@ public class Toolbelt : MonoBehaviour
 	// An array of tools
 	public tool[] tools = new tool[4] {wrench, torch, screwdriver, pliers}; 
 
+	// Turn all tools on for testing
+	public bool is_testing = false;
+
 	// Use this for initialization
 	void Start () 
 	{
-		for (int i = 0; i < tools.Length; i++)
+		if (is_testing)
 		{
-			// Set all to not aquired
-			tools[i].is_acquired = false;
+			for (int i = 0; i < tools.Length; i++)
+			{
+				// Set all to not aquired
+				tools[i].is_acquired = true;
 
-			// Set all to out of belt
-			tools[i].is_in_belt = false;
+				// Set all to out of belt
+				tools[i].is_in_belt = true;
 
-			// Deactive all tools
-			tools[i].tool_object.SetActive(false);
+				// Deactive all tools
+				tools[i].tool_object.SetActive(true);
+			}
+		}
+		else
+		{
+			for (int i = 0; i < tools.Length; i++)
+			{
+				// Set all to not aquired
+				tools[i].is_acquired = false;
+
+				// Set all to out of belt
+				tools[i].is_in_belt = false;
+
+				// Deactive all tools
+				tools[i].tool_object.SetActive(false);
+			}
 		}
 	}
 	

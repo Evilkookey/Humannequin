@@ -282,6 +282,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 				}
 			}
 		}
+
 		// Release trigger
 		if (device.GetPressUp(trigger_button))
 		{
@@ -331,6 +332,18 @@ public class VR_Input_Ver_4 : MonoBehaviour
 			// Reset pause timer
 			pause_timer = 0.0f;
 		} 
+
+		// If player presses down on the right touchpad whilst they are holding the torch
+		// I chose these numbers randomly. They might need changed. I am trying to check if the player is touching low on the y axis and central on the x axis.
+		if (device.GetAxis(touch_pad).y < -0.8 && Mathf.Abs(device.GetAxis(touch_pad).x) < 0.2)
+		{
+			// If the player presses
+			if (device.GetPressDown(touch_pad))
+			{
+				// Turn off/on the light on the hand torch
+				hand_torch.GetComponent<Light>().enabled = !hand_torch.GetComponent<Light>().enabled;
+			}
+		}
 	}
 
 	void OnTriggerEnter(Collider other)
