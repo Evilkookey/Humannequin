@@ -55,6 +55,10 @@ public class Screwdriver_Interaction : MonoBehaviour
 			{
 				// Play animation
 				object_animator.SetBool ("play", true);
+
+				// Activate the line puzzle
+
+				// Enable the mannequin
 			}
 		}
 	}
