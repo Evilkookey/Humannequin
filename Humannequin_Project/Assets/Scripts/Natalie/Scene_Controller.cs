@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class Scene_Controller : MonoBehaviour 
 {
-	GameObject hallway_lights;
+	GameObject hallway_1_lights;
 
 	void Start()
 	{
@@ -19,8 +19,8 @@ public class Scene_Controller : MonoBehaviour
 		//SceneManager.UnloadSceneAsync (0);
 
 		// Set the hallway lights of the Final Prototype scene to be off
-		hallway_lights = GameObject.Find("hallway_lights");
-		hallway_lights.SetActive (false);
+		hallway_1_lights = GameObject.Find("hallway_1_lights");
+		hallway_1_lights.SetActive (false);
 	}
 
 	public void Change_Scene(string scene)
@@ -54,7 +54,7 @@ public class Scene_Controller : MonoBehaviour
 			SceneManager.UnloadSceneAsync (1);
 
 			// Turn hallway lights on
-			hallway_lights.SetActive (false);
+			hallway_1_lights.SetActive (false);
 		}
 
 		if(other.gameObject.name == "FPSController")
@@ -67,7 +67,7 @@ public class Scene_Controller : MonoBehaviour
 			SceneManager.UnloadSceneAsync (1);
 
 			// Turn hallway lights on
-			hallway_lights.SetActive (false);
+			hallway_1_lights.SetActive (false);
 		}
 	}
 
