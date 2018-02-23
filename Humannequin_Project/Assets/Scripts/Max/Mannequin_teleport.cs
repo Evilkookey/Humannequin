@@ -1,5 +1,5 @@
 ﻿// MANNEQUIN_TELEPORT.CS
-// MAX MILLS
+// MAX MILLS & GREG BALBIRNIE
 
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +18,8 @@ public class Mannequin_Teleport : MonoBehaviour {
 	bool can_move, enemy_moved;					// Checks if the mannequin can actually move and 
 	Vector3 target_postition;					// Players position
 
+	bool enabled;								// The mannequin is enabled when it can start moving towards the player
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -28,9 +30,23 @@ public class Mannequin_Teleport : MonoBehaviour {
 		// Looks through all the positions in the enemy positions object and adds it to the array
 		enemy_positions = position_parent.GetComponentsInChildren<Transform> ();
 
+		// Mannequin is disabled to start
+		enabled = false;
 	}
+
 	// Update is called once per frame
-	void Update () 
+	void Update ()
+	{
+		// Check if enabled
+		if (enabled)
+		{
+			// Update mannequin
+			Mannequin_Update();
+		}
+	}
+
+	// Mannequin update is called once per frame when mannequin can move
+	void Mannequin_Update () 
 	{
 		// If the light is not on
 		if (!flickering_light.enabled) 
@@ -93,5 +109,11 @@ public class Mannequin_Teleport : MonoBehaviour {
 		// Go to the next position in the array
 		index++;
 
+	}
+
+	// Start the enemy moving at all
+	void Enable_enemy()
+	{
+		enabled = true;
 	}
 }
