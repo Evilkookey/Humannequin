@@ -8,12 +8,19 @@ using UnityEngine.SceneManagement;
 
 public class Scene_Controller : MonoBehaviour 
 {
+	GameObject hallway_lights;
+
 	void Start()
 	{
 		// Load next scene in the background of the current scene
 		SceneManager.LoadSceneAsync (2, LoadSceneMode.Additive);
+
 		// Unload last scene in background of the current scene
 		//SceneManager.UnloadSceneAsync (0);
+
+		// Set the hallway lights of the Final Prototype scene to be off
+		hallway_lights = GameObject.Find("hallway_lights");
+		hallway_lights.SetActive (false);
 	}
 
 	public void Change_Scene(string scene)
@@ -39,18 +46,28 @@ public class Scene_Controller : MonoBehaviour
 		// Checks if colliding with player, if so then move player object to next scene
 		if(other.gameObject.name == "[CameraRig]")
 		{
+			// Move the player to the next scene
 			SceneManager.MoveGameObjectToScene(GameObject.Find("[CameraRig]").gameObject, SceneManager.GetSceneByBuildIndex(2));
 			Debug.Log ("COLLIDE");
+
 			// Unload main menu scene
 			SceneManager.UnloadSceneAsync (1);
+
+			// Turn hallway lights on
+			hallway_lights.SetActive (false);
 		}
 
 		if(other.gameObject.name == "FPSController")
 		{
+			// Move the player to the next scene
 			SceneManager.MoveGameObjectToScene(GameObject.Find("FPSController").gameObject, SceneManager.GetSceneByBuildIndex(2));
 			Debug.Log ("COLLIDE");
+
 			// Unload main menu scene
 			SceneManager.UnloadSceneAsync (1);
+
+			// Turn hallway lights on
+			hallway_lights.SetActive (false);
 		}
 	}
 
