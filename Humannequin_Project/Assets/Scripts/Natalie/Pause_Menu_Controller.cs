@@ -11,23 +11,23 @@ public class Pause_Menu_Controller : MonoBehaviour
 {
 	// VARIABLES // 
 	// The canvas objects
-	GameObject pause_menu_object;
-	GameObject notes_menu_object;
-	GameObject note_screen_object;
+	static GameObject pause_menu_object;
+	static GameObject notes_menu_object;
+	static GameObject note_screen_object;
 	static GameObject win_lose_object;
 
 	// The button objects
-	GameObject notes_menu_button;
-	GameObject note_1_button;
-	GameObject note_2_button;
-	GameObject note_3_button;
-	GameObject note_4_button;
+	static GameObject notes_menu_button;
+	static GameObject note_1_button;
+	static GameObject note_2_button;
+	static GameObject note_3_button;
+	static GameObject note_4_button;
 
 	// The image objects
-	GameObject note_1_image;
-	GameObject note_2_image;
-	GameObject note_3_image;
-	GameObject note_4_image;
+	static GameObject note_1_image;
+	static GameObject note_2_image;
+	static GameObject note_3_image;
+	static GameObject note_4_image;
 	static GameObject win_image;
 	static GameObject lose_image;
 
@@ -107,7 +107,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	}
 
 	// Function called when the notes_menu button is pressed
-	public void Notes_Menu_Activate ()
+	public static void Notes_Menu_Activate ()
 	{
 		// Activate and Deactivate the appropriate canvases
 		pause_menu_object.SetActive (false);
@@ -115,7 +115,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	}
 
 	// Function called when the back button is pressed from the notes menu
-	public void Notes_Menu_Dectivate ()
+	public static void Notes_Menu_Dectivate ()
 	{
 		// Activate and Deactivate the appropriate canvases
 		pause_menu_object.SetActive (true);
@@ -123,7 +123,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	}
 
 	// Function called when a note is selected from the notes menu
-	public void Note_Screen_Activate(int note_num)
+	public static void Note_Screen_Activate(int note_num)
 	{
 		Debug.Log (note_num);
 
@@ -151,7 +151,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	}
 
 	// Function called when the back button is pressed on the note screen
-	public void Note_Screen_Deactivate ()
+	public static void Note_Screen_Deactivate ()
 	{
 		// Activate and Deactivate the appropriate canvases
 		notes_menu_object.SetActive (true);
