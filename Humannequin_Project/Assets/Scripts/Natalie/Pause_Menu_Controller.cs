@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Controls all canvasses including the win/lose canvas //
+
 public class Pause_Menu_Controller : MonoBehaviour 
 {
 	// VARIABLES // 
@@ -12,6 +14,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	GameObject pause_menu_object;
 	GameObject notes_menu_object;
 	GameObject note_screen_object;
+	GameObject win_lose_object;
 
 	// The button objects
 	GameObject notes_menu_button;
@@ -25,6 +28,8 @@ public class Pause_Menu_Controller : MonoBehaviour
 	GameObject note_2_image;
 	GameObject note_3_image;
 	GameObject note_4_image;
+	GameObject win_image;
+	GameObject lose_image;
 
 	// Use this for initialization
 	void Start () 
@@ -34,6 +39,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 		pause_menu_object = GameObject.Find("pause_screen");
 		notes_menu_object = GameObject.Find("notes_menu");
 		note_screen_object = GameObject.Find("note_screen");
+		win_lose_object = GameObject.Find ("win/lose");
 
 		// Initialise the buttons
 		notes_menu_button = GameObject.Find("notes_button");
@@ -47,6 +53,8 @@ public class Pause_Menu_Controller : MonoBehaviour
 		note_2_image = GameObject.Find("note_2_image");
 		note_3_image = GameObject.Find("note_3_image");
 		note_4_image = GameObject.Find("note_4_image");
+		win_image = GameObject.Find ("win_image");
+		lose_image = GameObject.Find ("lose_image");
 
 		// Set the buttons to be non-interactable
 		notes_menu_button.GetComponent<Button> ().interactable = false;
@@ -60,11 +68,14 @@ public class Pause_Menu_Controller : MonoBehaviour
 		note_2_image.SetActive(false);
 		note_3_image.SetActive(false);
 		note_4_image.SetActive(false);
+		win_image.SetActive(false);
+		lose_image.SetActive(false);
 
 		// Set the canvases to be inactive
 		pause_menu_object.SetActive(false);
 		notes_menu_object.SetActive(false);
 		note_screen_object.SetActive(false);
+		win_lose_object.SetActive(false);
 	}
 
 
@@ -154,8 +165,22 @@ public class Pause_Menu_Controller : MonoBehaviour
 	}
 
 	// Function called when the quit button is pressed
-	public void Quit_Game()
+	public void Quit_Game ()
 	{
 		Application.Quit();
+	}
+
+	// Lose Game
+	public static void Lose_Game ()
+	{
+		win_lose_object.SetActive (true);
+		lose_image.SetActive (true);
+	}
+
+	// Win Game
+	public static void Win_Game ()
+	{
+		win_lose_object.SetActive (true);
+		win_image.SetActive (true);
 	}
 }

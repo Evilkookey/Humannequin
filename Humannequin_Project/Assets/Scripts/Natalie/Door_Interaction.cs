@@ -26,8 +26,8 @@ public class Door_Interaction : MonoBehaviour
 	{
 		// Play animation
 		door_animator.SetBool("opening", true);
-
+			
 		// Call change scene
-		scene_controller.SendMessage ("Change_Scene", door_type);
+		Scene_Controller.Change_Scene(door_type);
 	}
 }

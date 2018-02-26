@@ -12,10 +12,14 @@ public class Win_Game : MonoBehaviour
 		// Checks if player has won the game
 		if (Game_State_Controller.current_state == Game_State_Controller.Game_States.WIN) 
 		{
-			// TODO
 			// Fade to black
+			SteamVR_Fade.Start(Color.black, 0.1f, false);
+
 			// Display win screen
+			Pause_Menu_Controller.Win_Game();
+
 			// Reload Main_Menu
+			Scene_Controller.Change_Scene("restart");
 		}
 	}
 
