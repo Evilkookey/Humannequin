@@ -5,36 +5,38 @@ using UnityEngine;
 public class Cone_Scale : MonoBehaviour {
 
 	public GameObject torch;
-	Vector3 cone_scale, cone_pos;
+	public Vector3 cone_scale, cone_pos;
+
+	public float angle; 
+	public float range; 
+	public float temp_scale;
+	public	float temp_y;
+
 
 	// Use this for initialization
 	void Start () {
-		
-	
+
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
-		// This currently works with a spotlight angle of 70 and range of 10
 
-		//this.transform.position = cone_pos; 
-		float angle = (torch.GetComponent<Light> ().spotAngle); // 38
-		float temp = 1 - (22.5f/angle);
+		angle = (torch.GetComponent<Light> ().spotAngle); 
+		range = (torch.GetComponent<Light> ().range);
+	
+
+		Debug.Log(range*Mathf.Tan(Mathf.Deg2Rad * (angle/2.0f)));
+
+		float scale = (range * Mathf.Tan (Mathf.Deg2Rad * (angle / 2.0f))) / 3.0f;
 
 
+		cone_scale.x = scale;
+		cone_scale.y = scale;
+		cone_scale.z = range / 10.0f;
 
-		temp *= 2;
+		this.transform.parent.localScale = cone_scale;
 
-		temp += 1;
-
-		cone_scale = new Vector3(temp, this.transform.localScale.y, temp);
-
-		cone_pos = new Vector3(this.transform.position.x,this.transform.position.y, torch.GetComponent<Light> ().range / 2);
-
-		this.transform.localScale = cone_scale;
-
-		temp = 0;
 	}
 		
 }

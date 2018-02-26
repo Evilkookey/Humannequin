@@ -22,9 +22,6 @@ public class Activate_Screwable_Object : MonoBehaviour
 	// Stores the animator of the current object
 	Animator object_animator;
 
-	// Stores the object being collided with it
-	GameObject colliding_object;
-
 	void Start()
 	{
 		// Finds the screw_controller
@@ -35,9 +32,6 @@ public class Activate_Screwable_Object : MonoBehaviour
 
 		// Initialise is_activated to false
 		is_activated = false;
-
-		// Initialise colliding_object to false
-		colliding_object = null;
 
 		// Get the name of the current game object
 		object_name = gameObject.name;
