@@ -112,7 +112,7 @@ public class Mannequin_Teleport : MonoBehaviour {
 	}
 
 	// Start the enemy moving at all
-	void Enable_enemy()
+	public void Enable_enemy()
 	{
 		enabled = true;
 	}
