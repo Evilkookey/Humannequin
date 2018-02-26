@@ -8,11 +8,12 @@ public class Keypad_Button : MonoBehaviour {
 
 	public int input_number;	// The number of the button
 	public GameObject puzzle_object;		// The object the puzzle is on
-
+	public GameObject base_object;
 	// Start is called when the scene starts
 	void Start ()
 	{
 		puzzle_object = GameObject.Find("control_panel");
+		
 	}
 
 	// Activate is called when the player interacts with this object
@@ -24,7 +25,7 @@ public class Keypad_Button : MonoBehaviour {
 		{
 			// Send the colour to the puzzle script
 			gameObject.SendMessageUpwards ("Get_Player_Input", input_number);
-			gameObject.GetComponent<AudioSource>().Play();
+			base_object.GetComponent<AudioSource>().Play();
 		}
 
 	}

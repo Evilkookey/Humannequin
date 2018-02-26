@@ -20,10 +20,10 @@ public class Screwdriver_Interaction : MonoBehaviour
 	public GameObject cover;
 
 	// The mannequin's script
-	Mannequin_Teleport mannequin;
+	public Teleport_Mannequin_timer mannequin;
 
 	// The line puzzle
-	GameObject line_puzzle;
+	public GameObject line_puzzle;
 
 	void Start()
 	{
@@ -63,7 +63,8 @@ public class Screwdriver_Interaction : MonoBehaviour
 				object_animator.SetBool ("play", true);
 
 				// Activate the line puzzle
-				line_puzzle.SetActive(true);
+				//line_puzzle.SetActive(true);
+
 
 				// Enable the mannequin
 				mannequin.Enable_enemy();

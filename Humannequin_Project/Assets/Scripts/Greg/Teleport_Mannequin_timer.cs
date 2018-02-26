@@ -22,6 +22,8 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	public float move_time = 10.0f;				// The amount of time before the mannequin moves
 	Vector3 current_position;					// The position the mannequin should be in 
 
+	bool enabled;								// The mannequin is enabled when it can start moving towards the player
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -33,13 +35,31 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 
 		current_position = mannequin.transform.position;
 
+		// Mannequin is disabled to start
+		enabled = false;
+
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
+		// Check if enabled
+		if (enabled)
+		{
+			print("it is");
+			// Update mannequin
+			Mannequin_Update();
+		}
+	}
+
+	// Mannequin update is called once per frame when mannequin can move
+	void Mannequin_Update () 
+	{
+
 		// Run the timer
 		timer += Time.deltaTime;
+
+		print(timer);
 
 		// Check if the timer has exceeded move time
 		if (timer >= move_time)
@@ -70,11 +90,10 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		// If mannequin is unseen
 		if (!this.GetComponent<Renderer> ().isVisible)
 		{
-			
+
 			// Set mannequin position
 			mannequin.transform.position = current_position;
 
-		
 		}
 	}
 
@@ -101,5 +120,11 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		//play mannequin move sound
 		gameObject.GetComponent<AudioSource>().Play();
 
+	}
+
+	// Start the enemy moving at all
+	public void Enable_enemy()
+	{
+		enabled = true;
 	}
 }
