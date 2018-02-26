@@ -8,6 +8,8 @@ public class Hand_Grab : MonoBehaviour {
 	float grab_speed;
 	float trigger_axis;
 	float value;
+	public bool pliers_grip;
+
 
 	// Defining controller and tracked object
 	public SteamVR_TrackedObject trackedObj;
@@ -54,6 +56,8 @@ public class Hand_Grab : MonoBehaviour {
 		{
 			anim.SetBool("Pointing",false);
 		}
+
+		anim.SetBool("Holding_Pliers",pliers_grip);
 	}
 
 	void OnGUI()
@@ -63,5 +67,8 @@ public class Hand_Grab : MonoBehaviour {
 		value = GUI.HorizontalSlider(new Rect(10,10,100,20),value, 0,0.5f);
 
 		anim.SetFloat("Grab",value);
+
+
+	
 	}
 }
