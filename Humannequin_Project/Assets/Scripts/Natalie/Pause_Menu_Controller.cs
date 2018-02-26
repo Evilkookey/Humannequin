@@ -31,6 +31,8 @@ public class Pause_Menu_Controller : MonoBehaviour
 	static GameObject win_image;
 	static GameObject lose_image;
 
+	bool notes_button_active;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -76,8 +78,9 @@ public class Pause_Menu_Controller : MonoBehaviour
 		notes_menu_object.SetActive(false);
 		note_screen_object.SetActive(false);
 		win_lose_object.SetActive(false);
-	}
 
+		notes_button_active = false;
+	}
 
 	// Update is called once per frame
 	public void Activate () 
@@ -162,6 +165,34 @@ public class Pause_Menu_Controller : MonoBehaviour
 		note_2_image.SetActive(false);
 		note_3_image.SetActive(false);
 		note_4_image.SetActive(false);
+	}
+
+	// Function called when a note is picked up by the player
+	public void Note_Collected (int note_num)
+	{
+		// If notes menu button is inactive then make it active
+		if (notes_button_active == false) 
+		{
+			notes_menu_button.GetComponent<Button> ().interactable = true;
+		}
+
+		// Activate the appropriate note
+		if (note_num == 1) 
+		{
+			note_1_button.GetComponent<Button> ().interactable = true;
+		} 
+		else if (note_num == 2) 
+		{
+			note_2_button.GetComponent<Button> ().interactable = true;
+		}
+		else if (note_num == 3) 
+		{
+			note_3_button.GetComponent<Button> ().interactable = true;		
+		}
+		else if (note_num == 4) 
+		{
+			note_4_button.GetComponent<Button> ().interactable = true;		
+		}
 	}
 
 	// Function called when the quit button is pressed

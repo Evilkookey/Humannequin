@@ -198,7 +198,17 @@ public class VR_Input_Ver_4 : MonoBehaviour
 						held_object = collide; 
 
 						// Take this object from the other hand
-						other_hand.SendMessage("BreakJoint", held_object);
+						//other_hand.SendMessage("BreakJoint", held_object);
+
+						// Check if this object has a joint to any other object
+						if (held_object.GetComponent<FixedJoint> ()) 
+						{
+							// Get the joint
+							FixedJoint current_joint = held_object.GetComponent<FixedJoint> ();
+
+							// Break the joint
+							Destroy(current_joint); 
+						}
 
 						// Connect the object with a fixed joint
 						FixedJoint joint = AddFixedJoint(); //FixedJoint
@@ -403,7 +413,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 	}
 
 	// Break the joint
-	void BreakJoint(GameObject new_held)
+	/*void BreakJoint(GameObject new_held)
 	{
 		// Check if this hand is holding the object the other hand wants to pick up
 		if (held_object == new_held)
@@ -414,7 +424,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 			// Destroy the joint
 			Destroy(fx);
 		}
-	}
+	}*/
 
 	// For dropping the object
 	void ReleaseObject()
