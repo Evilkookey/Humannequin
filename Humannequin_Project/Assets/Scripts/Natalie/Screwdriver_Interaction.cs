@@ -19,6 +19,12 @@ public class Screwdriver_Interaction : MonoBehaviour
 	// This is to identify which of the objects is the cover
 	public GameObject cover;
 
+	// The mannequin's script
+	Mannequin_Teleport mannequin;
+
+	// The line puzzle
+	GameObject line_puzzle;
+
 	void Start()
 	{
 		// Initialises screw counter to 0
@@ -57,8 +63,10 @@ public class Screwdriver_Interaction : MonoBehaviour
 				object_animator.SetBool ("play", true);
 
 				// Activate the line puzzle
+				line_puzzle.SetActive(true);
 
 				// Enable the mannequin
+				mannequin.Enable_enemy();
 			}
 		}
 	}
