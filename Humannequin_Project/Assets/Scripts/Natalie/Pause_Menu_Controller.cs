@@ -14,7 +14,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	GameObject pause_menu_object;
 	GameObject notes_menu_object;
 	GameObject note_screen_object;
-	GameObject win_lose_object;
+	static GameObject win_lose_object;
 
 	// The button objects
 	GameObject notes_menu_button;
@@ -28,8 +28,8 @@ public class Pause_Menu_Controller : MonoBehaviour
 	GameObject note_2_image;
 	GameObject note_3_image;
 	GameObject note_4_image;
-	GameObject win_image;
-	GameObject lose_image;
+	static GameObject win_image;
+	static GameObject lose_image;
 
 	// Use this for initialization
 	void Start () 
