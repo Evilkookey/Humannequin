@@ -15,8 +15,13 @@ public class Lose_Game : MonoBehaviour
 			// TODO
 			// Die
 			// Fade to black
+			SteamVR_Fade.Start(Color.black, 0.1f, false);
+
 			// Display lose screen
+			Pause_Menu_Controller.Lose_Game();
+
 			// Reload Main_Menu
+			Scene_Controller.Change_Scene("restart");
 		}
 	}
 }
