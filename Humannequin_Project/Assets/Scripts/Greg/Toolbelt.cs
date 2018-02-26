@@ -21,6 +21,12 @@ public class Toolbelt : MonoBehaviour
 	// Turn all tools on for testing
 	public bool is_testing = false;
 
+	// The temporary slot transform
+	Transform temp_slot;
+
+	// The object in the temporary slot
+	GameObject held_object;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -148,5 +154,11 @@ public class Toolbelt : MonoBehaviour
 		{
 			return false;
 		}
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		// Check if other is a held object
+
 	}
 }
