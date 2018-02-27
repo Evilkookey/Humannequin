@@ -26,7 +26,7 @@ public class Cone_Scale : MonoBehaviour {
 		range = (torch.GetComponent<Light> ().range);
 	
 
-		Debug.Log(range*Mathf.Tan(Mathf.Deg2Rad * (angle/2.0f)));
+		//Debug.Log(range*Mathf.Tan(Mathf.Deg2Rad * (angle/2.0f)));
 
 		float scale = (range * Mathf.Tan (Mathf.Deg2Rad * (angle / 2.0f))) / 3.0f;
 
