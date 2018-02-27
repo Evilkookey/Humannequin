@@ -144,7 +144,6 @@ public class VR_Input_Ver_4 : MonoBehaviour
 					//TODO
 					// We could enable the box collider when animation is over (somehow)
 
-
 					// Disable all hands
 					//Disable_Hands();
 

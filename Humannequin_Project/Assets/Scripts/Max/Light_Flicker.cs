@@ -60,7 +60,6 @@ public class Light_Flicker : MonoBehaviour {
 		}
 
 
-
 		// PERLIN NOISE TEST
 		/*	
 		float height = heightScale * Mathf.PerlinNoise(xScale*Time.time, yScale*Time.time);

@@ -1,4 +1,4 @@
-﻿// MANNEQUIN_MOVE.CS
+﻿// MANNEQUIN_STALK.CS
 // MAX MILLS
 
 using UnityEngine;
@@ -8,14 +8,23 @@ using UnityEngine.AI;
 
 public class Mannequin_Stalk : MonoBehaviour {
 
+	//[SerializeField]
+	public enum Enemy_Type
+	{
+		//TELEPORT,
+		FOLLOW,
+		TORCH,
+		TEST
+	};
+	public Enemy_Type enemy;
+
 	public Transform player;			// Location of the Player
 	public float min_dist;				// Distance which the enemy stops at from the player
-	public float move_speed;			// Speed at which the enemy walks at
+	//public float move_speed;			// Speed at which the enemy walks at
 	public GameObject enemyBody;		// The enemy gameobject to move (in case this script isnt already on the object)
-	public bool follow_enemy_type;		// Used to select which type of enemy to use
+	//public bool follow_enemy_type;		// Used to select which type of enemy to use
 	public Transform head;				// Head object used to rotate
-	//public Transform test;
-	public GameObject CameraRigPlayer, FPSController; // Used to determine if the player is in VR or using the FP controller
+
 	public float rotate_speed = 5.0f;
 
 	NavMeshAgent agent;					// Nav mesh agent stored on the enemy
@@ -24,26 +33,30 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 	//float distance;
 	float rotationY;					// Y rotation variable
-	public float tilt = 0.3f;					// Used offset the enemy's target y position to tilt the enemy's head  
-	Vector3 test_rotation;
+	public float tilt = 0.3f;			// Used offset the enemy's target y position to tilt the enemy's head  
+
 	bool head_not_visible = false;
+	bool can_move = false;
+
+	[Header("Drag In")]
+	// Used to determine if the player is in VR or using the FP controller
+	public GameObject CameraRigPlayer;
+	public GameObject FPSController; 
+	public Light room_light;
 
 
-	//[SerializeField]
-	public enum Enemy_Type
-	{
-		TELEPORT,
-		FOLLOW,
-		TEST
-	};
-
-	public Light light;
 
 	// Use this for initialization
 	void Start () 
 	{
 		// Init variables
 		agent = GetComponent<NavMeshAgent> ();
+
+		//Find both player objects
+		CameraRigPlayer = GameObject.Find("[CameraRig]");
+		FPSController = GameObject.Find("FPSController");
+
+		head = gameObject.transform.Find("head").gameObject.transform;
 
 	}
 
@@ -74,39 +87,23 @@ public class Mannequin_Stalk : MonoBehaviour {
 		//}
 
 
-		// For checking whether the head is visisble to the player
+		// For checking whether the head object is visisble to the player
 		head_not_visible = head.GetComponent<Head_Visible>().Get_Not_Visible();
 
 
 		// If using the follow enemy
-		if (follow_enemy_type) 
+		if (enemy == Enemy_Type.FOLLOW) 
 		{
 			// If the gameobject is not visible to the renderer and the distance between the player and enemy is less than min_dist
 			if (!this.GetComponent<Renderer> ().isVisible && head_not_visible)// || light.intensity == 0.0f) 
 			{
 				//gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
+				// Enable the NavMesh Agent
 				agent.enabled = true;
 
-				// Set target position to player position but using head y position + tilt 
-				target_postition = new Vector3 (player.position.x, 
-					//this.transform.position.y, 
-					head.position.y - tilt,
-					player.position.z);
-
-
-
-				// Calculate vector
-				target_dir = target_postition - transform.position;
-
-				// Calculate difference in head rotation angle
-				float difference = Vector3.Angle (target_dir, transform.forward);
-
-				// Look at target if head position is less than 90 degrees
-				if (difference < 270.0f && difference < 90.0f)
-				{
-					head.LookAt (target_postition);
-				}
+				// Turn head towards player
+				Head_Turn();
 
 				//Debug.Log (head.localRotation.eulerAngles);
 				//Debug.Log (difference);
@@ -130,11 +127,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 			} 
 			else 
 			{
-				// Stop enemy from moving
-
-				//agent.SetDestination (null);
-				//agent.SetDestination(transform.position);
-
+				// Stop enemy from moving	
 				transform.position = transform.position;
 				transform.rotation = transform.rotation;
 
@@ -148,7 +141,8 @@ public class Mannequin_Stalk : MonoBehaviour {
 				//GetComponent<Animator> ().speed = 0;
 			}
 		} 
-		else 
+
+		else if (enemy == Enemy_Type.TEST) 
 		{
 			// Testing code - enemy will just follow the player
 			if (Vector3.Distance (transform.position, player.position) >= min_dist) 
@@ -167,8 +161,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 			} else 
 			{
-				//agent.SetDestination (transform.position);
-			
+				//agent.SetDestination (transform.position);			
 
 				transform.position = transform.position;
 				transform.rotation = transform.rotation;
@@ -176,8 +169,59 @@ public class Mannequin_Stalk : MonoBehaviour {
 			}
 		}
 
+		else if (enemy == Enemy_Type.TORCH) 
+		{
+			if (can_move && Vector3.Distance (transform.position, player.position) >= min_dist && room_light.enabled == false) 
+			{
+				// Enable the NavMesh Agent
+				agent.enabled = true;
+
+				// Turn head towards player
+				Head_Turn();
+
+			
+				// Agent will advance to players position 
+				agent.SetDestination (player.position);
+
+				// Used to speed up the rotation of the enemy
+				Vector3 lookrotation = target_postition - transform.position;
+				transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (lookrotation), Time.deltaTime * rotate_speed);
+
+				//transform.position += transform.forward * move_speed * Time.deltaTime;
+			}
+			else
+			{
+				// Disables the navmesh agent when you see the mannequin
+				agent.enabled = false;
+			}
+		}
+
 
 		//gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+	}
+
+	void Head_Turn()
+	{
+		// Set target position to player position but using head y position + tilt 
+		target_postition = new Vector3 (player.position.x, 
+			//this.transform.position.y, 
+			head.position.y - tilt,
+			player.position.z);
+
+
+
+		// Calculate vector
+		target_dir = target_postition - transform.position;
+
+		// Calculate difference in head rotation angle
+		float difference = Vector3.Angle (target_dir, transform.forward);
+
+		// Look at target if head position is less than 90 degrees
+		if (difference < 270.0f && difference < 90.0f)
+		{
+			head.LookAt (target_postition);
+		}
+
 	}
 
 	void OnCollisionEnter(Collision other)
@@ -190,6 +234,23 @@ public class Mannequin_Stalk : MonoBehaviour {
 			Debug.Log ("Collided with other enemy");
 		}
 
+	}
+
+	void OnTriggerStay(Collider other)
+	{
+		if (other.gameObject.tag == "Light") 
+		{
+			can_move = false;
+			//Debug.Log ("HIT");
+		}
+
+	}
+	void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.tag == "Light") 
+		{
+			can_move = true;
+		}
 	}
 
 }
