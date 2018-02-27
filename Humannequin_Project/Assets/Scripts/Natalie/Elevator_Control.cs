@@ -53,8 +53,8 @@ public class Elevator_Control : MonoBehaviour
 	void OnTriggerEnter (Collider col)
 	{
 		// Checks if colliding with player, if so then move player object to next scene
-		//if(col.gameObject.name == "[CameraRig]")
-		if(col.gameObject.name == "FPSController")
+		if(col.gameObject.name == "[CameraRig]")
+		//if(col.gameObject.name == "FPSController")
 		{
 			// Set has_left true
 			has_left = true;

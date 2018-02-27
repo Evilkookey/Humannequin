@@ -8240,8 +8240,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980137927314730}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.09, y: -2.5450481e-17, z: 15.9}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -22.51, y: -2.5450481e-17, z: 16.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4317943619197622}
@@ -8251,7 +8251,7 @@ Transform:
   - {fileID: 4348698625854928}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4824853516060480
 Transform:
   m_ObjectHideFlags: 1
@@ -10808,7 +10808,7 @@ Animator:
   m_GameObject: {fileID: 1275204789710408}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f3de806cddd9f2442b6443efa38675fd, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f916799d092467d46b012e8f42c9c94f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -10859,7 +10859,7 @@ Animator:
   m_GameObject: {fileID: 1090390209374036}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f3de806cddd9f2442b6443efa38675fd, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f916799d092467d46b012e8f42c9c94f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -11190,6 +11190,7 @@ MonoBehaviour:
   - tool_object: {fileID: 1513418912130482}
     is_in_belt: 0
     is_acquired: 0
+  is_testing: 1
 --- !u!114 &114115940475879230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11244,6 +11245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   point_anim: {fileID: 0}
+  pliers_grip: 0
   trackedObj: {fileID: 0}
   grip_button: 2
 --- !u!114 &114234792359774482
@@ -11469,6 +11471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 95454408917910464}
   point_anim: {fileID: 95958991962469746}
+  pliers_grip: 0
   trackedObj: {fileID: 0}
   grip_button: 2
 --- !u!114 &114708669311843206

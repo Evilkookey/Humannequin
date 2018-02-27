@@ -63,7 +63,6 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		// Check if enabled
 		if (is_enabled)
 		{
-			print("it is");
 			// Update mannequin
 			Mannequin_Update();
 		}
@@ -76,7 +75,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		// Run the timer
 		timer += Time.deltaTime;
 
-		print(timer);
+		//print(timer);
 
 		// Check if the timer has exceeded move time
 		if (timer >= move_time)
@@ -93,6 +92,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 				else
 				{
 					// Enemy is at last position, so it should kill you here 
+					Game_State_Controller.Lose_Game();
 				}
 			}
 			// Reset timer
@@ -125,7 +125,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 
 		//Get the look position of the player
 		target_postition = new Vector3 (player.position.x, 
-			this.transform.position.y, 
+			gameObject.transform.position.y, 
 			player.position.z);
 
 		// Look at the player position
