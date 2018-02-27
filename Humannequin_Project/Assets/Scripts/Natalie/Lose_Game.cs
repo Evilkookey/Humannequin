@@ -16,7 +16,7 @@ public class Lose_Game : MonoBehaviour
 			// Die
 			print("die");
 			// Fade to black
-			SteamVR_Fade.Start(Color.black, 5.0f, false);
+			//SteamVR_Fade.Start(Color.black, 5.0f, false);
 
 			print("lose");
 			// Display lose screen

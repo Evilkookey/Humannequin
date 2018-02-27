@@ -13,7 +13,7 @@ public class Win_Game : MonoBehaviour
 		if (Game_State_Controller.current_state == Game_State_Controller.Game_States.WIN) 
 		{
 			// Fade to black
-			SteamVR_Fade.Start(Color.black, 0.1f, false);
+			SteamVR_Fade.Start(Color.black, 5.0f, false);
 
 			// Display win screen
 			Pause_Menu_Controller.Win_Game();
