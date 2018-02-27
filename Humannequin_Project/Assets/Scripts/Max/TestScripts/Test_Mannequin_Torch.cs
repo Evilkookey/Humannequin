@@ -22,7 +22,7 @@ public class Test_Mannequin_Torch : MonoBehaviour {
 	void Update () 
 	{
 		
-		if (move && Vector3.Distance (transform.position, player.position) >= 0.2f && room_light.enabled == false) 
+		if (move && Vector3.Distance (transform.position, player.position) >= min_dist && room_light.enabled == false) 
 		{
 			// Move and rotate towards player 
 			target_position = new Vector3 (player.position.x, 

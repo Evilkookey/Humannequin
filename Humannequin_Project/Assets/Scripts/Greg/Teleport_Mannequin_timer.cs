@@ -10,10 +10,10 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	public Transform[] enemy_positions; 		// Positions to teleport to
 	public GameObject position_parent;			// Empty object that holds all the enemy positions
 
-	public Light flickering_light;				// Enemy light that will affect the mannequins position
-	public Transform player;					// Player position
-	public GameObject mannequin;				// Actual mannequin object to move
+	Transform player;	// Player position
 
+	public GameObject CameraRigPlayer, FPSController; // Used to determine if the player is in VR or using the FP controller
+						
 	int index = 1;								// Index variable for the array, starts at 1 so it ignores the first one
 	bool enemy_moved;							// Checks if the mannequin can actually move and 
 	Vector3 target_postition;					// Players position
@@ -22,7 +22,9 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	public float move_time = 10.0f;				// The amount of time before the mannequin moves
 	Vector3 current_position;					// The position the mannequin should be in 
 
-	bool enabled;								// The mannequin is enabled when it can start moving towards the player
+	bool is_enabled;							// The mannequin is enabled when it can start moving towards the player
+	public Light flickering_light;				// Enemy light that will affect the mannequins position
+
 
 	// Use this for initialization
 	void Start () 
@@ -33,10 +35,25 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		// Looks through all the positions in the enemy positions object and adds it to the array
 		enemy_positions = position_parent.GetComponentsInChildren<Transform> ();
 
-		current_position = mannequin.transform.position;
+		current_position = this.transform.position;
 
 		// Mannequin is disabled to start
-		enabled = false;
+		is_enabled = false;
+
+		//Find both player objects
+		CameraRigPlayer = GameObject.Find("[CameraRig]");
+		FPSController = GameObject.Find("FPSController");
+
+		//Switch who the player is for debugging
+		if (FPSController.activeInHierarchy == true || CameraRigPlayer == null) 
+		{
+			player = FPSController.transform;
+
+		} else if (CameraRigPlayer.activeInHierarchy == true || FPSController == null ) 
+		{
+			player = CameraRigPlayer.transform;
+		}
+
 
 	}
 
@@ -44,7 +61,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	void Update () 
 	{
 		// Check if enabled
-		if (enabled)
+		if (is_enabled)
 		{
 			print("it is");
 			// Update mannequin
@@ -92,7 +109,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		{
 
 			// Set mannequin position
-			mannequin.transform.position = current_position;
+			this.transform.position = current_position;
 
 		}
 	}
@@ -125,6 +142,6 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	// Start the enemy moving at all
 	public void Enable_enemy()
 	{
-		enabled = true;
+		is_enabled = true;
 	}
 }

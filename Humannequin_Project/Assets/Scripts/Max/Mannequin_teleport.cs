@@ -15,16 +15,16 @@ public class Mannequin_Teleport : MonoBehaviour {
 	public GameObject mannequin;				// Actual mannequin object to move
 
 	int index = 1;								// Index variable for the array, starts at 1 so it ignores the first one
-	bool can_move, enemy_moved;					// Checks if the mannequin can actually move and 
+	bool enemy_moved;					// Checks if the mannequin can actually move and 
 	Vector3 target_postition;					// Players position
 
-	bool enabled;								// The mannequin is enabled when it can start moving towards the player
+	//bool enabled;								// The mannequin is enabled when it can start moving towards the player
 
 	// Use this for initialization
 	void Start () 
 	{
 		// Initialise variables
-		can_move = false;
+		//can_move = false;
 		enemy_moved = false;
 
 		// Looks through all the positions in the enemy positions object and adds it to the array
@@ -52,7 +52,7 @@ public class Mannequin_Teleport : MonoBehaviour {
 		if (!flickering_light.enabled) 
 		{
 			// Enemy can now move
-			can_move = true;
+			//can_move = true;
 
 			// If the enemy has not moved already
 			if (!enemy_moved) 
@@ -75,7 +75,7 @@ public class Mannequin_Teleport : MonoBehaviour {
 		else
 		{
 			//reset bools if light comes back on
-			can_move = false;
+			//can_move = false;
 			enemy_moved = false;
 		}
 
