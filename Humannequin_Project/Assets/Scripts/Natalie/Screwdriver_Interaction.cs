@@ -29,6 +29,8 @@ public class Screwdriver_Interaction : MonoBehaviour
 	{
 		// Initialises screw counter to 0
 		screw_counter = 0;
+
+		line_puzzle = GameObject.Find("Puzzleboard_easy");
 	}
 
 	public void Interact(string object_name)
@@ -63,7 +65,7 @@ public class Screwdriver_Interaction : MonoBehaviour
 				object_animator.SetBool ("play", true);
 
 				// Activate the line puzzle
-				//line_puzzle.SetActive(true);
+				line_puzzle.SetActive(true);
 
 
 				// Enable the mannequin

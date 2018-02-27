@@ -64,13 +64,13 @@ public class Mannequin_Stalk : MonoBehaviour {
 	void Update () 
 	{
 		//Switch who the player is for debugging
-		if (FPSController.activeInHierarchy == true) 
-		{
-			player = FPSController.transform;
-
-		} else if (CameraRigPlayer.activeInHierarchy == true) 
+		if (CameraRigPlayer.activeInHierarchy == true) 
 		{
 			player = CameraRigPlayer.transform;
+
+		} else if (FPSController.activeInHierarchy == true) 
+		{
+			player = FPSController.transform;
 		}
 
 		// For interacting with objects ingame
@@ -122,6 +122,24 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 					// Set animation speed to 1
 					//GetComponent<Animator> ().speed = 1;
+				}
+				else
+				{
+
+					agent.enabled = false;
+					Debug.Log("Ya ded");
+
+					// Turn head towards player
+					Head_Turn();
+
+					// Turns manneuqin body
+					gameObject.transform.LookAt(player.position);
+
+					// Moves mannequin in front of the player
+					this.gameObject.transform.position = new Vector3(player.position.x, player.position.y, player.position.z + 1.0f);
+						
+					// Change game state to LOSE
+					Game_State_Controller.Lose_Game();
 				}
 
 			} 

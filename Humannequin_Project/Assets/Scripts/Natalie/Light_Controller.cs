@@ -11,9 +11,10 @@ public class Light_Controller : MonoBehaviour
 	// Light light_;
 
 	public float counter = 0;
-	public float max, min, freq_max, freq_min, increase_min, increase_max;
+	public float intensity_max, intensity_min, freq_max, freq_min, increase_min, increase_max;
 
 	public bool tiny_flicker = false;
+	public bool good_flicker = false;
 
 	// Materials for light on and light off
 	Material on_material;
@@ -51,22 +52,32 @@ public class Light_Controller : MonoBehaviour
 		counter += Random.Range(increase_min,increase_max);
 		if(counter > Random.Range(freq_min,freq_max))
 		{
-			this_light.intensity = Random.Range(max,min);
+			this_light.intensity = Random.Range(intensity_max,intensity_min);
 			counter = 0;
 		}
 		else
 		{
 			//light_.intensity = max;
-			this_light.intensity = Mathf.Lerp(this_light.intensity,max,Time.time);
+			this_light.intensity = Mathf.Lerp(this_light.intensity,intensity_max,Time.time);
 		}
 
 		if(tiny_flicker)
 		{
-			max = 1.0f;
-			min = 1.06f;
+			intensity_max = 1.0f;
+			intensity_min = 1.06f;
 			freq_max = 1.0f;
 			freq_min = 1.0f;
-
+			increase_max = 1.0f;
+			increase_min = 1.0f;
+		}
+		if(good_flicker)
+		{
+			intensity_max = 0.95f;
+			intensity_min = 0.82f;
+			freq_max = 1735.0f;
+			freq_min = 12.0f;
+			increase_max = 3.9f;
+			increase_min = 1.48f;
 		}
 	}
 
