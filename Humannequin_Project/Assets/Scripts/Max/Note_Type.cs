@@ -37,7 +37,7 @@ public class Note_Type : MonoBehaviour {
 			// Send message to pause menu contrller here
 			if(pause_controller)
 			{
-				pause_controller.SendMessage("Activate", Note);
+				Pause_Menu_Controller.Note_Collected (Note);
 			}
 		}
 	}

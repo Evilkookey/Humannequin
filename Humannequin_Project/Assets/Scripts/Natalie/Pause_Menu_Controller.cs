@@ -11,27 +11,25 @@ public class Pause_Menu_Controller : MonoBehaviour
 {
 	// VARIABLES // 
 	// The canvas objects
-	static GameObject pause_menu_object;
-	static GameObject notes_menu_object;
-	static GameObject note_screen_object;
-	static GameObject win_lose_object;
+	protected static GameObject pause_menu_object;
+	protected static GameObject notes_menu_object;
+	protected static GameObject note_screen_object;
+	protected static GameObject win_lose_object;
 
 	// The button objects
 	static GameObject notes_menu_button;
 	static GameObject note_1_button;
 	static GameObject note_2_button;
 	static GameObject note_3_button;
-	static GameObject note_4_button;
 
 	// The image objects
 	static GameObject note_1_image;
 	static GameObject note_2_image;
 	static GameObject note_3_image;
-	static GameObject note_4_image;
 	static GameObject win_image;
 	static GameObject lose_image;
 
-	bool notes_button_active;
+	static bool notes_button_active;
 
 	// Use this for initialization
 	void Start () 
@@ -48,13 +46,11 @@ public class Pause_Menu_Controller : MonoBehaviour
 		note_1_button = GameObject.Find("note_1_button");
 		note_2_button = GameObject.Find("note_2_button");
 		note_3_button = GameObject.Find("note_3_button");
-		note_4_button = GameObject.Find("note_4_button");
 
 		// Initialise the images
 		note_1_image = GameObject.Find("note_1_image");
 		note_2_image = GameObject.Find("note_2_image");
 		note_3_image = GameObject.Find("note_3_image");
-		note_4_image = GameObject.Find("note_4_image");
 		win_image = GameObject.Find ("win_image");
 		lose_image = GameObject.Find ("lose_image");
 
@@ -63,13 +59,11 @@ public class Pause_Menu_Controller : MonoBehaviour
 		note_1_button.GetComponent<Button> ().interactable = false;
 		note_2_button.GetComponent<Button> ().interactable = false;
 		note_3_button.GetComponent<Button> ().interactable = false;
-		note_4_button.GetComponent<Button> ().interactable = false;
 
 		// Set the buttons to be inactive
 		note_1_image.SetActive(false);
 		note_2_image.SetActive(false);
 		note_3_image.SetActive(false);
-		note_4_image.SetActive(false);
 		win_image.SetActive(false);
 		lose_image.SetActive(false);
 
@@ -147,10 +141,6 @@ public class Pause_Menu_Controller : MonoBehaviour
 		{
 			note_3_image.SetActive(true);
 		}
-		else if (note_num == 4) 
-		{
-			note_4_image.SetActive(true);
-		}
 	}
 
 	// Function called when the back button is pressed on the note screen
@@ -164,11 +154,10 @@ public class Pause_Menu_Controller : MonoBehaviour
 		note_1_image.SetActive(false);
 		note_2_image.SetActive(false);
 		note_3_image.SetActive(false);
-		note_4_image.SetActive(false);
 	}
 
 	// Function called when a note is picked up by the player
-	public void Note_Collected (int note_num)
+	public static void Note_Collected (Note_Type.type_ note_type)
 	{
 		// If notes menu button is inactive then make it active
 		if (notes_button_active == false) 
@@ -177,21 +166,17 @@ public class Pause_Menu_Controller : MonoBehaviour
 		}
 
 		// Activate the appropriate note
-		if (note_num == 1) 
+		if (note_type ==  Note_Type.type_.FAX) 
 		{
 			note_1_button.GetComponent<Button> ().interactable = true;
 		} 
-		else if (note_num == 2) 
+		else if (note_type ==  Note_Type.type_.POSTIT) 
 		{
 			note_2_button.GetComponent<Button> ().interactable = true;
 		}
-		else if (note_num == 3) 
+		else if (note_type ==  Note_Type.type_.JOURNAL) 
 		{
 			note_3_button.GetComponent<Button> ().interactable = true;		
-		}
-		else if (note_num == 4) 
-		{
-			note_4_button.GetComponent<Button> ().interactable = true;		
 		}
 	}
 

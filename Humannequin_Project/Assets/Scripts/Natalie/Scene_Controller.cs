@@ -60,8 +60,10 @@ public class Scene_Controller : MonoBehaviour
 	{
 		if(other.gameObject.name == "[CameraRig]")
 		{
-			// Move the player to the next scene
+			// Move the player and the scene manager to the next scene
 			SceneManager.MoveGameObjectToScene (GameObject.Find ("[CameraRig]").gameObject, SceneManager.GetSceneByBuildIndex (2));
+			SceneManager.MoveGameObjectToScene (this.gameObject, SceneManager.GetSceneByBuildIndex (2));
+
 			Debug.Log ("COLLIDE");
 
 			// If the player is not looking at the door
@@ -81,8 +83,10 @@ public class Scene_Controller : MonoBehaviour
 
 		if(other.gameObject.name == "FPSController")
 		{
-			// Move the player to the next scene
+			// Move the player and the scene manager to the next scene
 			SceneManager.MoveGameObjectToScene(GameObject.Find("FPSController").gameObject, SceneManager.GetSceneByBuildIndex(2));
+			SceneManager.MoveGameObjectToScene (this.gameObject, SceneManager.GetSceneByBuildIndex (2));
+
 			Debug.Log ("COLLIDE");
 
 			// If the player is not looking at the door
