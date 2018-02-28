@@ -19,7 +19,7 @@ public class Note_Type : MonoBehaviour {
 	void Start () 
 	{
 		picked_up = false;
-		pause_controller = GameObject.Find("pause_menu_controller");
+		pause_controller = GameObject.Find("pause_controller");
 	}
 	
 	// Update is called once per frame
@@ -37,7 +37,7 @@ public class Note_Type : MonoBehaviour {
 			// Send message to pause menu contrller here
 			if(pause_controller)
 			{
-				Pause_Menu_Controller.Note_Collected (Note);
+				pause_controller.SendMessage ("Note_Collected", Note);
 			}
 		}
 	}

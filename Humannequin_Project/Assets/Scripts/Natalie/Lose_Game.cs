@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class Lose_Game : MonoBehaviour 
 {
+	GameObject pause_controller;
+
+	void Start ()
+	{
+		pause_controller = GameObject.Find("pause_controller");
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -14,14 +21,17 @@ public class Lose_Game : MonoBehaviour
 		{
 			// TODO
 			// Die
+			print("die");
 			// Fade to black
-			SteamVR_Fade.Start(Color.black, 0.1f, false);
+			//SteamVR_Fade.Start(Color.black, 5.0f, false);
 
+			print("lose");
 			// Display lose screen
-			Pause_Menu_Controller.Lose_Game();
+			pause_controller.SendMessage ("Lose_Game");
 
+			print("restart");
 			// Reload Main_Menu
-			Scene_Controller.Change_Scene("restart");
+			//Move_Wall_Trigger.Restart();
 		}
 	}
 }

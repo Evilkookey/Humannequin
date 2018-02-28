@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class Win_Game : MonoBehaviour 
 {	
+	GameObject pause_controller;
+
+	void Start ()
+	{
+		pause_controller = GameObject.Find("pause_controller");
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -13,10 +20,10 @@ public class Win_Game : MonoBehaviour
 		if (Game_State_Controller.current_state == Game_State_Controller.Game_States.WIN) 
 		{
 			// Fade to black
-			SteamVR_Fade.Start(Color.black, 0.1f, false);
+			SteamVR_Fade.Start(Color.black, 5.0f, false);
 
 			// Display win screen
-			Pause_Menu_Controller.Win_Game();
+			pause_controller.SendMessage ("Win_Game");
 
 			// Reload Main_Menu
 			Scene_Controller.Change_Scene("restart");

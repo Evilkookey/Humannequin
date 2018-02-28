@@ -187,6 +187,8 @@ public class VR_Input_Ver_4 : MonoBehaviour
 					// Set current hand to point
 					//hand_regular.SetActive(true);
 				}
+
+
 			}
 		}
 
@@ -303,12 +305,19 @@ public class VR_Input_Ver_4 : MonoBehaviour
 									Disable_Hands();
 									// Set hand back to standard
 									hand_regular.SetActive(true);
+
 								}
 							}
 						}
 					}
 					break;
 				}
+			}
+			// TODO
+			// This might need changed
+			if(active_tool == Tool.PLIERS)
+			{
+				hand_pliers.GetComponent<Animator>().SetBool("Holding_Pliers",true);
 			}
 		}
 
@@ -331,6 +340,11 @@ public class VR_Input_Ver_4 : MonoBehaviour
 
 				//trigger_axis = 1;
 				hand_animator.SetFloat("Grab", 1);
+			}
+
+			if(active_tool == Tool.PLIERS)
+			{
+				hand_pliers.GetComponent<Animator>().SetBool("Holding_Pliers",false);
 			}
 		}
 

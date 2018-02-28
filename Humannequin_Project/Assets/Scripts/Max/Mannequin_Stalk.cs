@@ -64,13 +64,13 @@ public class Mannequin_Stalk : MonoBehaviour {
 	void Update () 
 	{
 		//Switch who the player is for debugging
-		if (FPSController.activeInHierarchy == true) 
-		{
-			player = FPSController.transform;
-
-		} else if (CameraRigPlayer.activeInHierarchy == true) 
+		if (CameraRigPlayer.activeInHierarchy == true) 
 		{
 			player = CameraRigPlayer.transform;
+
+		} else if (FPSController.activeInHierarchy == true) 
+		{
+			player = FPSController.transform;
 		}
 
 		// For interacting with objects ingame
@@ -122,6 +122,38 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 					// Set animation speed to 1
 					//GetComponent<Animator> ().speed = 1;
+				}
+				else
+				{
+
+					agent.enabled = false;
+					Debug.Log("Ya ded");
+
+					// Moves mannequin in front of the player
+					this.gameObject.transform.position = /*new Vector3(player.position.x, player.position.y, player.position.z + 1.0f)*/ player.position + (player.transform.forward * 0.75f);
+						
+					tilt = 0.1f;
+					// Turn head towards player
+					//Head_Turn();
+
+					// Set target position to player position but using head y position + tilt 
+					target_postition = new Vector3 (player.position.x, 
+						this.transform.position.y,
+						player.position.z);
+					
+					// Turns manneuqin body
+					gameObject.transform.LookAt(target_postition);
+
+					// Set target position to player position but using head y position + tilt 
+					target_postition = new Vector3 (player.position.x, 
+						//this.transform.position.y, 
+						head.position.y - tilt,
+						player.position.z);
+
+					head.LookAt (target_postition);
+
+					// Change game state to LOSE
+					Game_State_Controller.Lose_Game();
 				}
 
 			} 
@@ -219,6 +251,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 		// Look at target if head position is less than 90 degrees
 		if (difference < 270.0f && difference < 90.0f)
 		{
+			print("tilt_me_with_your_rhythm_stick");
 			head.LookAt (target_postition);
 		}
 

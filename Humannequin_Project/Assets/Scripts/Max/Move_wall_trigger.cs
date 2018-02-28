@@ -1,28 +1,36 @@
 ﻿// MOVE_WALL_TRIGGER.CS
 // MAX MILLS
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Move_Wall_Trigger : MonoBehaviour {
-
+public class Move_Wall_Trigger : MonoBehaviour 
+{
 	// Objects to move 
-	public GameObject wall;
-	public GameObject door;
-
-	// Positions to move to 
-	public float wall_pos = 1.746f;
-	public float door_pos = 0.0f;
+	GameObject start_wall;
+	GameObject light_;
 
 	// Use this for initialization
-	void Start () {
-		
+	void Start () 
+	{
+		// Find the light at the start
+		light_ = GameObject.Find("lightbulb_at_start");
+
+		// Find the start wall
+		start_wall = GameObject.Find("start_wall");
+		start_wall.SetActive (false);
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update () 
+	{
+	}
+
+	public static void Restart ()
+	{
+		// Load the Main Menu scene
+		SceneManager.LoadScene (1);
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -30,10 +38,15 @@ public class Move_Wall_Trigger : MonoBehaviour {
 		// If player cameraRig or FPScontroller interact
 		if (other.gameObject.name == "[CameraRig]" || other.gameObject.name == "FPSController") 
 		{
-			// Move objects to new positions
-			wall.transform.position = new Vector3 (wall.transform.position.x, wall_pos, wall.transform.position.z);
-			door.transform.position = new Vector3 (door.transform.position.x, door_pos, door.transform.position.z);
+			// If the player is not looking at the door
+			if (!light_.GetComponentInChildren<Renderer> ().isVisible) 
+			{
+				// Unload main menu scene
+				SceneManager.UnloadSceneAsync (1);
 
+				// Set the replacement wall active
+				start_wall.SetActive (true);
+			}
 		}
 	}
 }
