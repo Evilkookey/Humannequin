@@ -30,25 +30,32 @@ public class Light_Controller : MonoBehaviour
 	void Start () 
 	{
 		// Load the materials from resources
-		on_material = Resources.Load("Materials/on_light", typeof(Material)) as Material;
+		on_material = Resources.Load("Materials/on_light3", typeof(Material)) as Material;
 		off_material = Resources.Load("Materials/off_light", typeof(Material)) as Material;
 
 		// This gets the light which is a child of the gameObject
 		this_light = gameObject.GetComponentInChildren<Light> ();
 		is_off = false;
 
-		// If the light is declared as "broken" it will not be able to turn on
-		if (broken) 
-		{
-			is_off = true;
-			this_light.enabled = false;
-			gameObject.GetComponent<Renderer> ().material = off_material;
-		}
+
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		// If the light is declared as "broken" it will not be able to turn on
+		if (broken) {
+			is_off = true;
+			this_light.enabled = false;
+			gameObject.GetComponent<Renderer> ().material = off_material;
+		} 
+		else 
+		{
+			is_off = false;
+			this_light.enabled = true;
+			gameObject.GetComponent<Renderer> ().material = on_material;
+		}
+
 		counter += Random.Range(increase_min,increase_max);
 		if(counter > Random.Range(freq_min,freq_max))
 		{

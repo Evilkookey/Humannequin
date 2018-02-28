@@ -227,7 +227,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 		// Look at target if head position is less than 90 degrees
 		if (difference < 270.0f && difference < 90.0f)
 		{
-			print("tilt_me_with_your_rhythm_stick");
+			//print("tilt_me_with_your_rhythm_stick");
 			head.LookAt (target_postition);
 		}
 
