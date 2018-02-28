@@ -28,12 +28,15 @@ public class VR_Input_Ver_4 : MonoBehaviour
 	// Object to save what object is held, collided with or used
 	public GameObject held_object;
 
-	// The object th player is colliding with and will interact with
+	// The objects the player is colliding with and will interact with
 	public List<GameObject> collide_objects;
 	public GameObject interact_object;
 
 	// The toolbelt game object
 	public Toolbelt toolbelt;
+
+    // If the player is touching the temp slot on the belt
+    public bool is_in_temp = false;
 
 	// Using tools
 	public enum Tool
@@ -111,10 +114,10 @@ public class VR_Input_Ver_4 : MonoBehaviour
 		// Sets the grab value in the hand animator 
 		trigger_axis = device.GetAxis(trigger_button).x;
 		hand_animator.SetFloat("Grab", trigger_axis);
-		// TODO
-		// You gotta reset this value when you change back to the regular hand model
+        // TODO
+        // You gotta reset this value when you change back to the regular hand model
 
-		/*if(trigger_axis >= 0.5f)
+        /*if(trigger_axis >= 0.5f)
 		{
 			hand_box_collider.center = new Vector3(default_hand_center.x,default_hand_center.y,0.01045922f);
 			hand_box_collider.size = new Vector3(default_hand_size.x,default_hand_size.y,0.2508576f);
@@ -125,10 +128,16 @@ public class VR_Input_Ver_4 : MonoBehaviour
 			hand_box_collider.size = default_hand_size;
 		}*/
 
-		// Only point if there is no object being held
-		if (!held_object)
+        // If player presses the grip whilst they are holding the torch
+      /*  if (device.GetPressDown(grip_button) && active_tool == Tool.TORCH)
+        {
+            // Turn off/on the light on the hand torch
+            hand_torch.GetComponentInChildren<Light>().enabled = !hand_torch.GetComponentInChildren<Light>().enabled;
+        }*/
+
+        // Only point if there is no object being held
+        if (!held_object)
 		{
-			
 			// Check grip for pointing
 			if (device.GetPressDown(grip_button))
 			{
@@ -151,7 +160,15 @@ public class VR_Input_Ver_4 : MonoBehaviour
 					// Set current hand to point
 					//hand_point.SetActive(true);
 				}
-			}
+
+                // If player presses the grip whilst they are holding the torch
+                if (active_tool == Tool.TORCH)
+                {
+                    // Turn off/on the light on the hand torch
+                    hand_torch.GetComponentInChildren<Light>().enabled = !hand_torch.GetComponentInChildren<Light>().enabled;
+                }
+
+            }
 
 			// Check release of grip
 			if (device.GetPressUp(grip_button))
@@ -196,9 +213,6 @@ public class VR_Input_Ver_4 : MonoBehaviour
 						// Set the held object to the collide object
 						held_object = collide; 
 
-						// Take this object from the other hand
-						//other_hand.SendMessage("BreakJoint", held_object);
-
 						// Check if this object has a joint to any other object
 						if (held_object.GetComponent<FixedJoint> ()) 
 						{
@@ -208,6 +222,12 @@ public class VR_Input_Ver_4 : MonoBehaviour
 							// Break the joint
 							Destroy(current_joint); 
 						}
+
+                        // Check if this object is in the temp slot
+                        if (held_object == toolbelt.held_object)
+                        {
+                                toolbelt.Take_Out_Temp();
+                        }
 
 						// Connect the object with a fixed joint
 						FixedJoint joint = AddFixedJoint(); //FixedJoint
@@ -341,13 +361,6 @@ public class VR_Input_Ver_4 : MonoBehaviour
 			// Reset pause timer
 			pause_timer = 0.0f;
 		} 
-
-		// If player presses the grip whilst they are holding the torch
-		if (device.GetPressDown(grip_button) && active_tool == Tool.TORCH)
-		{
-			// Turn off/on the light on the hand torch
-			hand_torch.GetComponentInChildren<Light>().enabled = !hand_torch.GetComponentInChildren<Light>().enabled;
-		}
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -378,7 +391,12 @@ public class VR_Input_Ver_4 : MonoBehaviour
 				// Add the slot to the list
 				collide_objects.Add(other.gameObject);
 			}
-		}
+            if (other.tag == "Temp_Slot")
+            {
+                // show the player is touching the temp slot
+                is_in_temp = true;
+            }
+        }
 	}
 
 	void OnTriggerExit(Collider other)
@@ -396,17 +414,21 @@ public class VR_Input_Ver_4 : MonoBehaviour
 			// Remove object
 			collide_objects.Remove(other.gameObject);
 		}
-	}
+
+        if (other.tag == "Temp_Slot")
+        {
+            // show the player is not touching the temp slot
+            is_in_temp = false;
+        }
+    }
 
 	// Creates joint
 	FixedJoint AddFixedJoint()
 	{
 		FixedJoint fx = gameObject.AddComponent<FixedJoint>();
-		/*fx.breakForce = 20000;
-		fx.breakTorque = 20000;*/
 
-		fx.breakForce = Mathf.Infinity + 1.0f;
-		fx.breakTorque = Mathf.Infinity + 1.0f;
+        fx.breakForce = Mathf.Infinity;
+		fx.breakTorque = Mathf.Infinity;
 
 		return fx;
 	}
@@ -434,9 +456,18 @@ public class VR_Input_Ver_4 : MonoBehaviour
 			GetComponent<FixedJoint>().connectedBody = null;
 			Destroy(GetComponent<FixedJoint>());
 
-			held_object.GetComponent<Rigidbody>().velocity = (device.velocity.x * gameObject.transform.parent.right + device.velocity.y * gameObject.transform.parent.up + device.velocity.z * gameObject.transform.parent.forward);
-			held_object.GetComponent<Rigidbody>().angularVelocity = device.angularVelocity;
-		}
+            // Check if player is touching the temp slot
+            if (is_in_temp)
+            {
+                // Put this in the temp slot
+                toolbelt.Put_In_Temp(held_object);
+            }
+            else
+            {
+                held_object.GetComponent<Rigidbody>().velocity = (device.velocity.x * gameObject.transform.parent.right + device.velocity.y * gameObject.transform.parent.up + device.velocity.z * gameObject.transform.parent.forward);
+                held_object.GetComponent<Rigidbody>().angularVelocity = device.angularVelocity;
+            }
+        }
 		held_object = null;
 	}
 
