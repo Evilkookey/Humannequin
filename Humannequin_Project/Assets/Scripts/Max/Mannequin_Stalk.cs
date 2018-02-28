@@ -18,6 +18,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 	};
 	public Enemy_Type enemy;
 
+	public bool USE_FPSCONTROLLER, do_not_kill;
 	public Transform player;			// Location of the Player
 	public float min_dist;				// Distance which the enemy stops at from the player
 	//public float move_speed;			// Speed at which the enemy walks at
@@ -49,12 +50,14 @@ public class Mannequin_Stalk : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		do_not_kill = true;
+
 		// Init variables
 		agent = GetComponent<NavMeshAgent> ();
 
 		//Find both player objects
-		CameraRigPlayer = GameObject.Find("[CameraRig]");
-		FPSController = GameObject.Find("FPSController");
+		//CameraRigPlayer = GameObject.Find("[CameraRig]");
+		//FPSController = GameObject.Find("FPSController");
 
 		head = gameObject.transform.Find("head").gameObject.transform;
 
@@ -64,13 +67,13 @@ public class Mannequin_Stalk : MonoBehaviour {
 	void Update () 
 	{
 		//Switch who the player is for debugging
-		if (CameraRigPlayer.activeInHierarchy == true) 
-		{
-			player = CameraRigPlayer.transform;
-
-		} else if (FPSController.activeInHierarchy == true) 
+		if (USE_FPSCONTROLLER) 
 		{
 			player = FPSController.transform;
+
+		} else 
+		{
+			player = CameraRigPlayer.transform;
 		}
 
 		// For interacting with objects ingame
@@ -123,37 +126,10 @@ public class Mannequin_Stalk : MonoBehaviour {
 					// Set animation speed to 1
 					//GetComponent<Animator> ().speed = 1;
 				}
-				else
+				else if(!do_not_kill)
 				{
+					Kill_Player ();
 
-					agent.enabled = false;
-					Debug.Log("Ya ded");
-
-					// Moves mannequin in front of the player
-					this.gameObject.transform.position = /*new Vector3(player.position.x, player.position.y, player.position.z + 1.0f)*/ player.position + (player.transform.forward * 0.75f);
-						
-					tilt = 0.1f;
-					// Turn head towards player
-					//Head_Turn();
-
-					// Set target position to player position but using head y position + tilt 
-					target_postition = new Vector3 (player.position.x, 
-						this.transform.position.y,
-						player.position.z);
-					
-					// Turns manneuqin body
-					gameObject.transform.LookAt(target_postition);
-
-					// Set target position to player position but using head y position + tilt 
-					target_postition = new Vector3 (player.position.x, 
-						//this.transform.position.y, 
-						head.position.y - tilt,
-						player.position.z);
-
-					head.LookAt (target_postition);
-
-					// Change game state to LOSE
-					Game_State_Controller.Lose_Game();
 				}
 
 			} 
@@ -254,6 +230,39 @@ public class Mannequin_Stalk : MonoBehaviour {
 			print("tilt_me_with_your_rhythm_stick");
 			head.LookAt (target_postition);
 		}
+
+	}
+	void Kill_Player()
+	{
+		agent.enabled = false;
+		Debug.Log("Ya ded");
+
+		// Moves mannequin in front of the player
+		this.gameObject.transform.position = /*new Vector3(player.position.x, player.position.y, player.position.z + 1.0f)*/ player.position + (player.transform.forward * 0.75f);
+
+		tilt = 0.1f;
+		// Turn head towards player
+		//Head_Turn();
+
+		// Set target position to player position but using head y position + tilt 
+		target_postition = new Vector3 (player.position.x, 
+			this.transform.position.y,
+			player.position.z);
+
+		// Turns manneuqin body
+		gameObject.transform.LookAt(target_postition);
+
+		// Set target position to player position but using head y position + tilt 
+		target_postition = new Vector3 (player.position.x, 
+			//this.transform.position.y, 
+			head.position.y - tilt,
+			player.position.z);
+
+		head.LookAt (target_postition);
+
+		// Change game state to LOSE
+		Game_State_Controller.Lose_Game();
+
 
 	}
 
