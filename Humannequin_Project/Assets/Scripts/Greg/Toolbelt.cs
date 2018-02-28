@@ -22,10 +22,10 @@ public class Toolbelt : MonoBehaviour
 	public bool is_testing = false;
 
 	// The temporary slot transform
-	Transform temp_slot;
+	public GameObject temp_slot;
 
 	// The object in the temporary slot
-	GameObject held_object;
+	public GameObject held_object;
 
 	// Use this for initialization
 	void Start () 
@@ -58,13 +58,10 @@ public class Toolbelt : MonoBehaviour
 				tools[i].tool_object.SetActive(false);
 			}
 		}
+
+        // Find temp slot
+        temp_slot = transform.Find("Temp_Slot").gameObject;
 	}
-	
-	/*// Update is called once per frame
-	void Update () 
-	{
-		
-	}*/
 
 	int Find_Tool_Pointer (string tool_name)
 	{
@@ -156,9 +153,44 @@ public class Toolbelt : MonoBehaviour
 		}
 	}
 
-	void OnTriggerEnter(Collider other)
-	{
-		// Check if other is a held object
+    public bool Put_In_Temp(GameObject new_object)
+    {
+        // If there is no held object
+        if (!held_object)
+        {
+            // Set the object to the one in the belt
+            held_object = new_object;
 
-	}
+            // set position of the object
+            held_object.transform.position = temp_slot.transform.position;
+
+            // Hold with a joint
+            FixedJoint fx = temp_slot.AddComponent<FixedJoint>();
+            fx.connectedBody = held_object.GetComponent<Rigidbody>();
+            fx.breakForce = Mathf.Infinity;
+            fx.breakTorque = Mathf.Infinity;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool Take_Out_Temp()
+    {
+        // If there is no held object
+        if (held_object)
+        {
+            // Set the object to the one in the belt
+            held_object = null;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
