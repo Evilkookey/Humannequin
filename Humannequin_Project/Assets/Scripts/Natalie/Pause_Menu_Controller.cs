@@ -11,25 +11,25 @@ public class Pause_Menu_Controller : MonoBehaviour
 {
 	// VARIABLES // 
 	// The canvas objects
-	protected static GameObject pause_menu_object;
-	protected static GameObject notes_menu_object;
-	protected static GameObject note_screen_object;
-	protected static GameObject win_lose_object;
+	GameObject pause_menu_object;
+	GameObject notes_menu_object;
+	GameObject note_screen_object;
+	GameObject win_lose_object;
 
 	// The button objects
-	static GameObject notes_menu_button;
-	static GameObject note_1_button;
-	static GameObject note_2_button;
-	static GameObject note_3_button;
+	GameObject notes_menu_button;
+	GameObject note_1_button;
+	GameObject note_2_button;
+	GameObject note_3_button;
 
 	// The image objects
-	static GameObject note_1_image;
-	static GameObject note_2_image;
-	static GameObject note_3_image;
-	static GameObject win_image;
-	static GameObject lose_image;
+	GameObject note_1_image;
+	GameObject note_2_image;
+	GameObject note_3_image;
+	GameObject win_image;
+	GameObject lose_image;
 
-	static bool notes_button_active;
+	bool notes_button_active;
 
 	// Use this for initialization
 	void Start () 
@@ -104,7 +104,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	}
 
 	// Function called when the notes_menu button is pressed
-	public static void Notes_Menu_Activate ()
+	public void Notes_Menu_Activate ()
 	{
 		// Activate and Deactivate the appropriate canvases
 		pause_menu_object.SetActive (false);
@@ -112,7 +112,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	}
 
 	// Function called when the back button is pressed from the notes menu
-	public static void Notes_Menu_Dectivate ()
+	public void Notes_Menu_Deactivate ()
 	{
 		// Activate and Deactivate the appropriate canvases
 		pause_menu_object.SetActive (true);
@@ -120,7 +120,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	}
 
 	// Function called when a note is selected from the notes menu
-	public static void Note_Screen_Activate(int note_num)
+	public void Note_Screen_Activate(int note_num)
 	{
 		Debug.Log (note_num);
 
@@ -144,7 +144,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	}
 
 	// Function called when the back button is pressed on the note screen
-	public static void Note_Screen_Deactivate ()
+	public void Note_Screen_Deactivate ()
 	{
 		// Activate and Deactivate the appropriate canvases
 		notes_menu_object.SetActive (true);
@@ -157,7 +157,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 	}
 
 	// Function called when a note is picked up by the player
-	public static void Note_Collected (Note_Type.type_ note_type)
+	public void Note_Collected (Note_Type.type_ note_type)
 	{
 		// If notes menu button is inactive then make it active
 		if (notes_button_active == false) 
@@ -187,14 +187,14 @@ public class Pause_Menu_Controller : MonoBehaviour
 	}
 
 	// Lose Game
-	public static void Lose_Game ()
+	public void Lose_Game ()
 	{
 		win_lose_object.SetActive (true);
 		lose_image.SetActive (true);
 	}
 
 	// Win Game
-	public static void Win_Game ()
+	public void Win_Game ()
 	{
 		win_lose_object.SetActive (true);
 		win_image.SetActive (true);

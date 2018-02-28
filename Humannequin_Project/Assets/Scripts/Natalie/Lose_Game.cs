@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class Lose_Game : MonoBehaviour 
 {
+	GameObject pause_controller;
+
+	void Start ()
+	{
+		pause_controller = GameObject.Find("pause_controller");
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -20,7 +27,7 @@ public class Lose_Game : MonoBehaviour
 
 			print("lose");
 			// Display lose screen
-			Pause_Menu_Controller.Lose_Game();
+			pause_controller.SendMessage ("Lose_Game");
 
 			print("restart");
 			// Reload Main_Menu
