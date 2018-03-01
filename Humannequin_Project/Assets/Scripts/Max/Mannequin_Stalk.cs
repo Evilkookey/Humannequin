@@ -162,6 +162,8 @@ public class Mannequin_Stalk : MonoBehaviour {
 					head.position.y,
 					player.position.z);
 				
+				agent.enabled = true;
+
 				agent.SetDestination (player.position);
 
 				head.LookAt (target_postition);
