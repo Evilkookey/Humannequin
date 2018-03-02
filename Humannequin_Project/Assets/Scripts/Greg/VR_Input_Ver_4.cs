@@ -62,6 +62,8 @@ public class VR_Input_Ver_4 : MonoBehaviour
 	float trigger_axis;
 	Vector3 default_hand_size, default_hand_center;
 	BoxCollider hand_box_collider, point_hand_box_collider;
+	public bool do_not_anim = false;
+	public bool is_grabbing = false;
 
 	// Use this for initialization
 	void Start () 
@@ -113,7 +115,29 @@ public class VR_Input_Ver_4 : MonoBehaviour
 
 		// Sets the grab value in the hand animator 
 		trigger_axis = device.GetAxis(trigger_button).x;
-		hand_animator.SetFloat("Grab", trigger_axis);
+
+		if(trigger_axis == 0.0f)
+		{
+			//hand_animator.SetBool("Is_Grabbing", false);
+		}
+
+		if(active_tool == Tool.NONE && !do_not_anim)
+		{
+			hand_animator.SetFloat("Grab", trigger_axis);
+		}
+
+
+
+		// Plays the pliers animation when trigger is pressed a small amount
+		if(active_tool == Tool.PLIERS && trigger_axis > 0.2f)
+		{
+			hand_pliers.GetComponent<Animator>().SetBool("Holding_Pliers",true);
+		}
+		else if(active_tool == Tool.PLIERS && trigger_axis < 0.2f)
+		{
+			hand_pliers.GetComponent<Animator>().SetBool("Holding_Pliers",false);
+		}
+
         // TODO
         // You gotta reset this value when you change back to the regular hand model
 
@@ -195,9 +219,12 @@ public class VR_Input_Ver_4 : MonoBehaviour
 		// Press trigger
 		if (device.GetPressDown(trigger_button))
 		{
+			//hand_animator.SetBool("Is_Grabbing", true);
+
 			// Loop through all objects colided with
 			foreach (GameObject collide in collide_objects)
 			{
+				
 				// Check the identifier
 				switch (collide.tag)
 				{
@@ -228,7 +255,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
                         // Check if this object is in the temp slot
                         if (held_object == toolbelt.held_object)
                         {
-                                toolbelt.Take_Out_Temp();
+                            toolbelt.Take_Out_Temp();
                         }
 
 						// Connect the object with a fixed joint
@@ -263,10 +290,16 @@ public class VR_Input_Ver_4 : MonoBehaviour
 								case "Screwdriver":
 									// Set the active tool to SCREWDRIVER
 									active_tool = Tool.SCREWDRIVER;
+
+									hand_animator.SetBool("Holding_Tool", true);
+									hand_animator.SetFloat("Grab", 1.0f);
+
 									// Disable all hands
 									Disable_Hands();
 									// Set correct hands to active
 									hand_screwdriver.SetActive(true);
+
+
 									break;
 								case "Torch":
 									// Set the active tool to TORCH
@@ -286,8 +319,9 @@ public class VR_Input_Ver_4 : MonoBehaviour
 									break;
 								}
 							}
-							// Reset hand animation
-							hand_animator.SetFloat("Grab", 1.0f);
+					
+
+
 						}
 						// If the player has a tool and the tool is not in the slot
 						else if (active_tool != Tool.NONE)
@@ -305,6 +339,13 @@ public class VR_Input_Ver_4 : MonoBehaviour
 									Disable_Hands();
 									// Set hand back to standard
 									hand_regular.SetActive(true);
+									hand_regular.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
+
+									//do_not_anim = true;
+									//hand_animator.SetFloat("Grab", 1.0f);
+									hand_animator.SetBool("Holding_Tool", false);
+
+
 
 								}
 							}
@@ -315,10 +356,11 @@ public class VR_Input_Ver_4 : MonoBehaviour
 			}
 			// TODO
 			// This might need changed
+			/*
 			if(active_tool == Tool.PLIERS)
 			{
 				hand_pliers.GetComponent<Animator>().SetBool("Holding_Pliers",true);
-			}
+			}*/
 		}
 
 		// Release trigger
@@ -339,7 +381,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 				ReleaseObject();
 
 				//trigger_axis = 1;
-				hand_animator.SetFloat("Grab", 1);
+				//hand_animator.SetFloat("Grab", 1);
 			}
 
 			if(active_tool == Tool.PLIERS)
@@ -488,7 +530,12 @@ public class VR_Input_Ver_4 : MonoBehaviour
 	// Set hands to inactive
 	void Disable_Hands()
 	{
-		hand_regular.SetActive(false);
+		//TODO
+		// SO setting this inactive messes up the blend tree
+		// BUT not rendering it fucks up collisions again
+		// TODO
+		//hand_regular.SetActive(false);
+		hand_regular.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
 		//hand_point.SetActive(false);
 		hand_wrench.SetActive(false);
 		hand_screwdriver.SetActive(false);
