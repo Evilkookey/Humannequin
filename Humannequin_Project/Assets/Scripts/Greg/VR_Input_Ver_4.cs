@@ -118,7 +118,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 
 		if(trigger_axis == 0.0f)
 		{
-			//hand_animator.SetBool("Is_Grabbing", false);
+			hand_animator.SetBool("Is_Grabbing", false);
 		}
 
 		if(active_tool == Tool.NONE && !do_not_anim)
@@ -219,7 +219,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 		// Press trigger
 		if (device.GetPressDown(trigger_button))
 		{
-			//hand_animator.SetBool("Is_Grabbing", true);
+			hand_animator.SetBool("Is_Grabbing", true);
 
 			// Loop through all objects colided with
 			foreach (GameObject collide in collide_objects)
