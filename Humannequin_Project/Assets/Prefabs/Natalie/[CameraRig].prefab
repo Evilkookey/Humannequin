@@ -8241,7 +8241,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980137927314730}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -22.51, y: -2.5450481e-17, z: 16.15}
+  m_LocalPosition: {x: -13.3, y: 0.12807818, z: 16.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4317943619197622}
@@ -10981,7 +10981,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: e47e03981afee9c4ea5ecbd8836f9279, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -11191,6 +11191,8 @@ MonoBehaviour:
     is_in_belt: 0
     is_acquired: 0
   is_testing: 1
+  temp_slot: {fileID: 0}
+  held_object: {fileID: 0}
 --- !u!114 &114115940475879230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11302,9 +11304,12 @@ MonoBehaviour:
   collide_objects: []
   interact_object: {fileID: 0}
   toolbelt: {fileID: 0}
+  is_in_temp: 0
   active_tool: 0
   pause_timer: 0
   hand_animator: {fileID: 0}
+  do_not_anim: 0
+  is_grabbing: 0
 --- !u!114 &114437597434063920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11414,9 +11419,12 @@ MonoBehaviour:
   collide_objects: []
   interact_object: {fileID: 0}
   toolbelt: {fileID: 0}
+  is_in_temp: 0
   active_tool: 0
   pause_timer: 0
   hand_animator: {fileID: 0}
+  do_not_anim: 0
+  is_grabbing: 0
 --- !u!114 &114652113832573962
 MonoBehaviour:
   m_ObjectHideFlags: 1
