@@ -50,14 +50,12 @@ public class Win_Game : MonoBehaviour
 			mannequin_anim.speed = 1;
 
 			StartCoroutine (Win ());
-
 		}
 
 	}
 
 	IEnumerator Win()
 	{
-
 		yield return new WaitForSeconds (delay_time);
 
 		// Change game state to WIN

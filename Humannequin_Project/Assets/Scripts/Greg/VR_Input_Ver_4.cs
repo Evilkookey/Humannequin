@@ -224,7 +224,6 @@ public class VR_Input_Ver_4 : MonoBehaviour
 			// Loop through all objects colided with
 			foreach (GameObject collide in collide_objects)
 			{
-				
 				// Check the identifier
 				switch (collide.tag)
 				{

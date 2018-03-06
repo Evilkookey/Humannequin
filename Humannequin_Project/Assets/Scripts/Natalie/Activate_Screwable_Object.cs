@@ -41,39 +41,41 @@ public class Activate_Screwable_Object : MonoBehaviour
 	{
 		Debug.Log(tag);
 
-		// If the object is being interacted with by a screwdriver
-		if(tag == "SCREWDRIVER")
+		if (Game_State_Controller.current_state == Game_State_Controller.Game_States.PLAYING) 
 		{
-			// Checks if the object is not a cover
-			if (gameObject.name != "cover") 
+			// If the object is being interacted with by a screwdriver
+			if (tag == "SCREWDRIVER") 
 			{
-				// Checks if it has been activated previously
-				if (is_activated == false) 
+				// Checks if the object is not a cover
+				if (gameObject.name != "cover") 
 				{
-					// Sets activated to true
-					is_activated = true;
-					// Gets the objects name
-					object_name = gameObject.name;
-					// Calls the interact function 
-					Debug.Log (object_name);
+					// Checks if it has been activated previously
+					if (is_activated == false) 
+					{
+						// Sets activated to true
+						is_activated = true;
+						// Gets the objects name
+						object_name = gameObject.name;
+						// Calls the interact function 
+						Debug.Log (object_name);
 
+						// Calls the Interact function in the screw controller and passes the objects name
+						screw_controller.SendMessage ("Interact", object_name);
+				
+					}
+				}
+			}
+		// If the player is holding no tool
+		else if (tag == "NONE") 
+			{
+				// Checks if the game object is a cover
+				if (gameObject.name == "cover") 
+				{
 					// Calls the Interact function in the screw controller and passes the objects name
 					screw_controller.SendMessage ("Interact", object_name);
-				
 				}
 			}
 		}
-		// If the player is holding no tool
-		else if(tag == "NONE")
-		{
-			// Checks if the game object is a cover
-			if(gameObject.name == "cover")
-			{
-				// Calls the Interact function in the screw controller and passes the objects name
-				screw_controller.SendMessage ("Interact", object_name);
-			}
-		}
-
 	}
 
 	void Fall_Down()

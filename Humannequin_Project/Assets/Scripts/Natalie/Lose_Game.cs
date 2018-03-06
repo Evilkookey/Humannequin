@@ -31,7 +31,18 @@ public class Lose_Game : MonoBehaviour
 
 			print("restart");
 			// Reload Main_Menu
-			//Move_Wall_Trigger.Restart();
+
+			StartCoroutine (Lose());
 		}
+	}
+
+	IEnumerator Lose ()
+	{
+		yield return new WaitForSeconds (2);
+
+		// Return to main menu
+		Move_Wall_Trigger.Restart();
+
+		yield return null;
 	}
 }
