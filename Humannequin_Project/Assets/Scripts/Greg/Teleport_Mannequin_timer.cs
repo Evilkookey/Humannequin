@@ -10,7 +10,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	public Transform[] enemy_positions; 		// Positions to teleport to
 	public GameObject position_parent;			// Empty object that holds all the enemy positions
 
-	Transform player;	// Player position
+	public Transform player;	// Player position
 
 	public GameObject CameraRigPlayer, FPSController; // Used to determine if the player is in VR or using the FP controller
 						
@@ -22,7 +22,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	public float move_time = 10.0f;				// The amount of time before the mannequin moves
 	Vector3 current_position;					// The position the mannequin should be in 
 
-	bool is_enabled;							// The mannequin is enabled when it can start moving towards the player
+	public bool is_enabled;							// The mannequin is enabled when it can start moving towards the player
 	public Light flickering_light;				// Enemy light that will affect the mannequins position
 
 
