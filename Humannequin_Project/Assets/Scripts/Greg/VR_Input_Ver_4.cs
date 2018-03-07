@@ -430,8 +430,17 @@ public class VR_Input_Ver_4 : MonoBehaviour
 			// If the object has no outline
 			if (!other.gameObject.GetComponent<Outline>()) 
 			{
+				// Find all renderers on object & children
+				Renderer[] all_renderers = other.GetComponentsInChildren<Renderer>();
+
+				// Add the outline to everything with a renderer
+				foreach (Renderer renderer in all_renderers) 
+				{
+					renderer.gameObject.AddComponent<Outline> ();
+				}
+
 				// add an outline and turn it on
-				other.gameObject.AddComponent<Outline> ()/*.enabled = true*/;
+				//other.gameObject.AddComponent<Outline> ()/*.enabled = true*/;
 			}
 
 			// Set the type of object it is
@@ -460,12 +469,25 @@ public class VR_Input_Ver_4 : MonoBehaviour
 
 	void OnTriggerExit(Collider other)
 	{
+		// Find all renderers on object & children
+		Renderer[] all_renderers = other.GetComponentsInChildren<Renderer>();
+
+		// Add the outline to everything with a renderer
+		foreach (Renderer renderer in all_renderers) 
+		{
+			if (renderer.gameObject.GetComponent<Outline>() ) 
+			{
+				// remove the outline
+				Component.Destroy(renderer.gameObject.GetComponent<Outline> ());
+			}
+		}
+
 		// If the object has an outline
-		if (other.gameObject.GetComponent<Outline>()) 
+		/*if (other.gameObject.GetComponent<Outline>()) 
 		{
 			// remove the outline
 			Component.Destroy(other.gameObject.GetComponent<Outline> ());
-		}
+		}*/
 
 		// Check if there is an object collided with
 		if (collide_objects.Contains(other.gameObject))

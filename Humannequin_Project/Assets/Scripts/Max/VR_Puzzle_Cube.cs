@@ -66,7 +66,7 @@ public class VR_Puzzle_Cube : MonoBehaviour
 	{
 		Debug.Log(gameObject.name);
 
-		Debug.Log("dectivte");
+		Debug.Log("deactivate");
 		if(type == cube_type.EMPTY)
 		{
 			puzzle_board.GetComponent<Wire_Puzzle_VR>().Reset_Line(gameObject.GetComponent<Renderer>().material.color,true);

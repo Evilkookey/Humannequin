@@ -50,8 +50,6 @@ public class Mannequin_Stalk : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		do_not_kill = true;
-
 		// Init variables
 		agent = GetComponent<NavMeshAgent> ();
 

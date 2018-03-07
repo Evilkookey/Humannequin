@@ -44,17 +44,19 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		CameraRigPlayer = GameObject.Find("[CameraRig]");
 		FPSController = GameObject.Find("FPSController");
 
-		//Switch who the player is for debugging
+		player = CameraRigPlayer.transform;
+
+		/*//Switch who the player is for debugging
 		if (FPSController.activeInHierarchy == true || CameraRigPlayer == null) 
 		{
+			print ("yes");
 			player = FPSController.transform;
 
 		} else if (CameraRigPlayer.activeInHierarchy == true || FPSController == null ) 
 		{
+			print ("yes");
 			player = CameraRigPlayer.transform;
-		}
-
-
+		}*/
 	}
 
 	// Update is called once per frame
@@ -142,6 +144,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	// Start the enemy moving at all
 	public void Enable_enemy()
 	{
+		print("Get enabled");
 		is_enabled = true;
 	}
 }

@@ -22,6 +22,12 @@ public class Activate_Screwable_Object : MonoBehaviour
 	// Stores the animator of the current object
 	Animator object_animator;
 
+	// The mannequin's script
+	public Teleport_Mannequin_timer mannequin;
+
+	// The line puzzle
+	public GameObject line_puzzle;
+
 	void Start()
 	{
 		// Finds the screw_controller
@@ -35,6 +41,9 @@ public class Activate_Screwable_Object : MonoBehaviour
 
 		// Get the name of the current game object
 		object_name = gameObject.name;
+
+		// Find the line puzzle
+		line_puzzle = GameObject.Find("Puzzleboard_easy");
 	}
 
 	public void Activate(string tag)
@@ -73,6 +82,13 @@ public class Activate_Screwable_Object : MonoBehaviour
 				{
 					// Calls the Interact function in the screw controller and passes the objects name
 					screw_controller.SendMessage ("Interact", object_name);
+
+					// Activate the line puzzle
+					line_puzzle.SetActive(true);
+
+					print("send enable");
+					// Enable the mannequin
+					mannequin.Enable_enemy();
 				}
 			}
 		}

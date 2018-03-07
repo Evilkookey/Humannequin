@@ -89,7 +89,6 @@ public class VR_Movement_with_ray : MonoBehaviour
 		// Check for raycast collisions
 		if (Physics.Raycast (check_ray.origin, check_ray.direction, Vector3.Distance(check_ray.origin, camera_object.transform.position) + 0.175f)) 
 		{
-			print("fade");
 			// Fade to black
 			SteamVR_Fade.Start(Color.black, 0.1f, false);
 		}
