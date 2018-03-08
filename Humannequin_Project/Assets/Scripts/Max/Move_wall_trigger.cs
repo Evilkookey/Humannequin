@@ -19,7 +19,9 @@ public class Move_Wall_Trigger : MonoBehaviour
 
 		// Find the start wall
 		start_wall = GameObject.Find("start_wall");
-		start_wall.SetActive (false);
+		// TODO 
+		// Readd this code
+		//start_wall.SetActive (false);
 	}
 	
 	// Update is called once per frame

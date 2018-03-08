@@ -11,6 +11,7 @@ public class Win_Game : MonoBehaviour
 
 	Animator mannequin_anim;
 	public float delay_time; 
+	public float sound_delay = 3.7f;
 	public float fade_out_duration = 3.0f;
 
 	void Start ()
@@ -50,9 +51,23 @@ public class Win_Game : MonoBehaviour
 		{
 			mannequin_anim.speed = 1;
 
+			StartCoroutine (PlayAudio ());
 			StartCoroutine (Win ());
+
 		}
 
+	}
+
+	IEnumerator PlayAudio()
+	{
+		yield return new WaitForSeconds (sound_delay);
+
+		AudioSource[] sounds = gameObject.GetComponents<AudioSource>();
+		sounds[0].Play();
+		sounds[1].Play();
+
+
+		yield return null;
 	}
 
 	IEnumerator Win()

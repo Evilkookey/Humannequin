@@ -38,18 +38,21 @@ public class Locker_Room_Trigger : MonoBehaviour
 
 
 	}
-	void OnTriggerEnter()
+	void OnTriggerEnter(Collider collider)
 	{
-		// Turn on the enemy follow script
-		enemy.gameObject.GetComponentInChildren<Mannequin_Stalk> ().enabled = true;
-
-		// Turn on light
-		foreach(GameObject g in lights)
+		if(collider.name == "[CameraRig]")
 		{
-			g.SetActive (true);
-		}
+			// Turn on the enemy follow script
+			enemy.gameObject.GetComponentInChildren<Mannequin_Stalk> ().enabled = true;
 
-		// Play sound for light turning on
-		gameObject.GetComponent<AudioSource>().Play();
+			// Turn on light
+			foreach(GameObject g in lights)
+			{
+				g.SetActive (true);
+			}
+
+			// Play sound for light turning on
+			gameObject.GetComponent<AudioSource>().Play();
+		}
 	}
 }
