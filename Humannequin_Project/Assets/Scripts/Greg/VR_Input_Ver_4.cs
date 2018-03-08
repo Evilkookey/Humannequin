@@ -61,7 +61,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 	public Animator hand_animator;
 	float trigger_axis;
 	Vector3 default_hand_size, default_hand_center;
-	BoxCollider hand_box_collider, point_hand_box_collider;
+	BoxCollider hand_box_collider, point_hand_box_collider, pliers_box_collider;
 	public bool do_not_anim = false;
 	public bool is_grabbing = false;
 
@@ -97,6 +97,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 		hand_animator = hand_regular.GetComponent<Animator>();
 		hand_box_collider = hand_regular.GetComponent<BoxCollider>();
 		point_hand_box_collider = hand_point.GetComponent<BoxCollider>();
+		pliers_box_collider = hand_pliers.GetComponent<BoxCollider>();
 
 		default_hand_center = hand_box_collider.center;
 		default_hand_size = hand_box_collider.size;
@@ -129,21 +130,29 @@ public class VR_Input_Ver_4 : MonoBehaviour
                 hand_animator.SetFloat("Grab", trigger_axis);
             }
 
+			if (active_tool == Tool.PLIERS)
+			{
+				hand_box_collider.center = pliers_box_collider.center;
+				hand_box_collider.size = pliers_box_collider.size;
 
-
-            // Plays the pliers animation when trigger is pressed a small amount
-            if (active_tool == Tool.PLIERS && trigger_axis > 0.2f)
-            {
-                hand_pliers.GetComponent<Animator>().SetBool("Holding_Pliers", true);
-            }
-            else if (active_tool == Tool.PLIERS && trigger_axis < 0.2f)
-            {
-                hand_pliers.GetComponent<Animator>().SetBool("Holding_Pliers", false);
-            }
+				// Plays the pliers animation when trigger is pressed a small amount
+				if (trigger_axis > 0.2f)
+				{
+					hand_pliers.GetComponent<Animator>().SetBool("Holding_Pliers", true);
+				}
+				else if (trigger_axis < 0.2f)
+				{
+					hand_pliers.GetComponent<Animator>().SetBool("Holding_Pliers", false);
+				}
+			}
+			else
+			{				
+				hand_box_collider.center = default_hand_center;
+				hand_box_collider.size = default_hand_size;
+			}
 
             // TODO
             // You gotta reset this value when you change back to the regular hand model
-
             /*if(trigger_axis >= 0.5f)
             {
                 hand_box_collider.center = new Vector3(default_hand_center.x,default_hand_center.y,0.01045922f);

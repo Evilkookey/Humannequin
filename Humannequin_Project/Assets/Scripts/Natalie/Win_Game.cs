@@ -11,6 +11,7 @@ public class Win_Game : MonoBehaviour
 
 	Animator mannequin_anim;
 	public float delay_time; 
+	public float fade_out_duration = 3.0f;
 
 	void Start ()
 	{
@@ -31,7 +32,7 @@ public class Win_Game : MonoBehaviour
 			print ("ENDGAME");
 
 			// Fade to black
-			SteamVR_Fade.Start(Color.black, 5.0f, false);
+			SteamVR_Fade.Start(Color.black, fade_out_duration, false);
 
 			// Display win screen
 			pause_controller.SendMessage ("Win_Game");
