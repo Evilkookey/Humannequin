@@ -82,8 +82,19 @@ public class SteamVR_LaserPointer : MonoBehaviour
         if (!isActive)
         {
             isActive = true;
-            this.transform.GetChild(0).gameObject.SetActive(true);
+            //this.transform.GetChild(0).gameObject.SetActive(true);
         }
+
+		if (Game_State_Controller.current_state == Game_State_Controller.Game_States.PAUSED)
+		{
+			this.transform.GetChild(6).gameObject.SetActive(true);
+		}
+		else
+		{
+			this.transform.GetChild(6).gameObject.SetActive(false);
+			//isActive = false;
+			//active = false;
+		}
 
         float dist = 100f;
 

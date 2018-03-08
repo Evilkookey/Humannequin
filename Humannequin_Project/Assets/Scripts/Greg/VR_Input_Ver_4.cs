@@ -64,6 +64,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 	BoxCollider hand_box_collider, point_hand_box_collider, pliers_box_collider;
 	public bool do_not_anim = false;
 	public bool is_grabbing = false;
+	public bool pointing = false;
 
 	// Use this for initialization
 	void Start () 
@@ -145,7 +146,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 					hand_pliers.GetComponent<Animator>().SetBool("Holding_Pliers", false);
 				}
 			}
-			else
+			else if(!pointing)
 			{				
 				hand_box_collider.center = default_hand_center;
 				hand_box_collider.size = default_hand_size;
@@ -186,6 +187,8 @@ public class VR_Input_Ver_4 : MonoBehaviour
                         hand_box_collider.center = point_hand_box_collider.center;
                         hand_box_collider.size = point_hand_box_collider.size;
 
+						pointing = true;
+
                         //TODO
                         // We could enable the box collider when animation is over (somehow)
 
@@ -211,6 +214,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
                 {
                     // Stops to hand pointing animation;
                     hand_animator.SetBool("Pointing", false);
+					pointing = false;
 
                     //Reset the hand box collider
                     hand_box_collider.center = default_hand_center;
@@ -568,8 +572,8 @@ public class VR_Input_Ver_4 : MonoBehaviour
 		// SO setting this inactive messes up the blend tree
 		// BUT not rendering it fucks up collisions again
 		// TODO
-		//hand_regular.SetActive(false);
-		hand_regular.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+		hand_regular.SetActive(false);
+		//hand_regular.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
 		//hand_point.SetActive(false);
 		hand_wrench.SetActive(false);
 		hand_screwdriver.SetActive(false);

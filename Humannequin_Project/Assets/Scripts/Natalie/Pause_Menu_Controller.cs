@@ -11,10 +11,10 @@ public class Pause_Menu_Controller : MonoBehaviour
 {
 	// VARIABLES // 
 	// The canvas objects
-	GameObject pause_menu_object;
-	GameObject notes_menu_object;
-	GameObject note_screen_object;
-	GameObject win_lose_object;
+	public GameObject pause_menu_object;
+	public GameObject notes_menu_object;
+	public GameObject note_screen_object;
+	public GameObject win_lose_object;
 
 	// The button objects
 	GameObject notes_menu_button;
@@ -55,7 +55,6 @@ public class Pause_Menu_Controller : MonoBehaviour
 		lose_image = GameObject.Find ("lose_image");
 
 		// Set the buttons to be non-interactable
-		notes_menu_button.GetComponent<Button> ().interactable = false;
 		note_1_button.GetComponent<Button> ().interactable = false;
 		note_2_button.GetComponent<Button> ().interactable = false;
 		note_3_button.GetComponent<Button> ().interactable = false;
@@ -189,14 +188,20 @@ public class Pause_Menu_Controller : MonoBehaviour
 	// Lose Game
 	public void Lose_Game ()
 	{
-		win_lose_object.SetActive (true);
-		lose_image.SetActive (true);
+		if (Game_State_Controller.current_state == Game_State_Controller.Game_States.LOSE)
+		{
+			win_lose_object.SetActive (true);
+			lose_image.SetActive (true);
+		}
 	}
 
 	// Win Game
 	public void Win_Game ()
 	{
-		win_lose_object.SetActive (true);
-		win_image.SetActive (true);
+		if (Game_State_Controller.current_state == Game_State_Controller.Game_States.WIN)
+		{
+			win_lose_object.SetActive (true);
+			win_image.SetActive (true);
+		}
 	}
 }

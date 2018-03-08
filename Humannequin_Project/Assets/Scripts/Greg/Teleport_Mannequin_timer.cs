@@ -24,7 +24,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 
 	public bool is_enabled;							// The mannequin is enabled when it can start moving towards the player
 	public Light flickering_light;				// Enemy light that will affect the mannequins position
-
+	public GameObject line_puzzle; 				// Used to check if the player has completed the puzzle
 
 	// Use this for initialization
 	void Start () 
@@ -93,8 +93,13 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 				}
 				else
 				{
-					// Enemy is at last position, so it should kill you here 
-					Game_State_Controller.Lose_Game();
+					if(!line_puzzle.GetComponent<Wire_Puzzle_VR>().finished)
+					{
+						// Enemy is at last position, so it should kill you here 
+						Game_State_Controller.Lose_Game();
+					}
+
+
 				}
 			}
 			// Reset timer

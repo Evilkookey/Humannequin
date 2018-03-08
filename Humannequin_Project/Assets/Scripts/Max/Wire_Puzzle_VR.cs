@@ -415,4 +415,9 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		//current_line.line_complete = true;
 	}
 
+
+	public bool GetFinished()
+	{
+		return finished;
+	}
 }
