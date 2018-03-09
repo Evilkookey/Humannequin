@@ -5,31 +5,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Controls all canvasses including the win/lose canvas //
-
 public class Pause_Menu_Controller : MonoBehaviour 
 {
 	// VARIABLES // 
 	// The canvas objects
 	public GameObject pause_menu_object;
-	public GameObject notes_menu_object;
-	public GameObject note_screen_object;
 	public GameObject win_lose_object;
 
-	// The button objects
-	GameObject notes_menu_button;
-	GameObject note_1_button;
-	GameObject note_2_button;
-	GameObject note_3_button;
-
-	// The image objects
-	GameObject note_1_image;
-	GameObject note_2_image;
-	GameObject note_3_image;
+	// The images
 	GameObject win_image;
 	GameObject lose_image;
-
-	bool notes_button_active;
 
 	// Use this for initialization
 	void Start () 
@@ -37,42 +22,19 @@ public class Pause_Menu_Controller : MonoBehaviour
 		// INITIALISATION //
 		// Initialise the canvases
 		pause_menu_object = GameObject.Find("pause_screen");
-		notes_menu_object = GameObject.Find("notes_menu");
-		note_screen_object = GameObject.Find("note_screen");
 		win_lose_object = GameObject.Find ("win/lose");
 
-		// Initialise the buttons
-		notes_menu_button = GameObject.Find("notes_button");
-		note_1_button = GameObject.Find("note_1_button");
-		note_2_button = GameObject.Find("note_2_button");
-		note_3_button = GameObject.Find("note_3_button");
-
 		// Initialise the images
-		note_1_image = GameObject.Find("note_1_image");
-		note_2_image = GameObject.Find("note_2_image");
-		note_3_image = GameObject.Find("note_3_image");
 		win_image = GameObject.Find ("win_image");
 		lose_image = GameObject.Find ("lose_image");
 
-		// Set the buttons to be non-interactable
-		note_1_button.GetComponent<Button> ().interactable = false;
-		note_2_button.GetComponent<Button> ().interactable = false;
-		note_3_button.GetComponent<Button> ().interactable = false;
-
-		// Set the buttons to be inactive
-		note_1_image.SetActive(false);
-		note_2_image.SetActive(false);
-		note_3_image.SetActive(false);
+		// Set the images to be inactive
 		win_image.SetActive(false);
 		lose_image.SetActive(false);
 
 		// Set the canvases to be inactive
 		pause_menu_object.SetActive(false);
-		notes_menu_object.SetActive(false);
-		note_screen_object.SetActive(false);
 		win_lose_object.SetActive(false);
-
-		notes_button_active = false;
 	}
 
 	// Update is called once per frame
@@ -97,92 +59,7 @@ public class Pause_Menu_Controller : MonoBehaviour
 
 			// Set all the canvases to inactive
 			pause_menu_object.SetActive(false);
-			notes_menu_object.SetActive(false);
-			note_screen_object.SetActive(false);
 		}
-	}
-
-	// Function called when the notes_menu button is pressed
-	public void Notes_Menu_Activate ()
-	{
-		// Activate and Deactivate the appropriate canvases
-		pause_menu_object.SetActive (false);
-		notes_menu_object.SetActive (true);
-	}
-
-	// Function called when the back button is pressed from the notes menu
-	public void Notes_Menu_Deactivate ()
-	{
-		// Activate and Deactivate the appropriate canvases
-		pause_menu_object.SetActive (true);
-		notes_menu_object.SetActive (false);
-	}
-
-	// Function called when a note is selected from the notes menu
-	public void Note_Screen_Activate(int note_num)
-	{
-		Debug.Log (note_num);
-
-		// Activate and Deactivate the appropriate canvases
-		notes_menu_object.SetActive (false);
-		note_screen_object.SetActive (true);
-
-		// Activate the appropriate note
-		if (note_num == 1) 
-		{
-			note_1_image.SetActive(true);
-		} 
-		else if (note_num == 2) 
-		{
-			note_2_image.SetActive(true);
-		}
-		else if (note_num == 3) 
-		{
-			note_3_image.SetActive(true);
-		}
-	}
-
-	// Function called when the back button is pressed on the note screen
-	public void Note_Screen_Deactivate ()
-	{
-		// Activate and Deactivate the appropriate canvases
-		notes_menu_object.SetActive (true);
-		note_screen_object.SetActive (false);
-
-		// Deactivate all notes
-		note_1_image.SetActive(false);
-		note_2_image.SetActive(false);
-		note_3_image.SetActive(false);
-	}
-
-	// Function called when a note is picked up by the player
-	public void Note_Collected (Note_Type.type_ note_type)
-	{
-		// If notes menu button is inactive then make it active
-		if (notes_button_active == false) 
-		{
-			notes_menu_button.GetComponent<Button> ().interactable = true;
-		}
-
-		// Activate the appropriate note
-		if (note_type ==  Note_Type.type_.FAX) 
-		{
-			note_1_button.GetComponent<Button> ().interactable = true;
-		} 
-		else if (note_type ==  Note_Type.type_.POSTIT) 
-		{
-			note_2_button.GetComponent<Button> ().interactable = true;
-		}
-		else if (note_type ==  Note_Type.type_.JOURNAL) 
-		{
-			note_3_button.GetComponent<Button> ().interactable = true;		
-		}
-	}
-
-	// Function called when the quit button is pressed
-	public void Quit_Game ()
-	{
-		Application.Quit();
 	}
 
 	// Lose Game
