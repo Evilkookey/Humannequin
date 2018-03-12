@@ -14,8 +14,14 @@ public class Light_Flicker : MonoBehaviour {
 	public float counter = 0;
 	public float intensity_max, intensity_min, freq_max, freq_min, increase_min, increase_max;
 
-	public bool tiny_flicker = false;
-	public bool good_flicker = false;
+	public enum flicker_types{
+		tiny,
+		medium,
+		simple,
+		complex
+	}
+
+	public flicker_types flicker;
 
 	// Use this for initialization
 	void Start () 
@@ -26,20 +32,33 @@ public class Light_Flicker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		counter += Random.Range(increase_min,increase_max);
-		if(counter > Random.Range(freq_min,freq_max))
-		{
-			light_.intensity = Random.Range(intensity_max,intensity_min);
-			counter = 0;
-		}
-		else
-		{
-			//light_.intensity = intensity_max;
-			light_.intensity = Mathf.Lerp(light_.intensity,intensity_max,Time.time);
-		}
 
-		if(tiny_flicker)
+		switch(flicker)
 		{
+
+		case flicker_types.simple:			
+		
+			light_.intensity = Random.Range (intensity_max, intensity_min);
+			break;
+		
+		case flicker_types.complex:
+			
+			counter += Random.Range (increase_min, increase_max);
+			if (counter > Random.Range (freq_min, freq_max)) 
+			{
+				light_.intensity = Random.Range (intensity_max, intensity_min);
+				counter = 0;
+			} 
+			else 
+			{
+				//light_.intensity = intensity_max;
+				light_.intensity = Mathf.Lerp (light_.intensity, intensity_max, Time.time);
+			}
+
+			break;
+
+		case flicker_types.tiny:
+	
 			intensity_max = 1.0f;
 			intensity_min = 1.06f;
 			freq_max = 1.0f;
@@ -47,16 +66,18 @@ public class Light_Flicker : MonoBehaviour {
 			increase_max = 1.0f;
 			increase_min = 1.0f;
 
-		}
+			break;
 
-		if(good_flicker)
-		{
+		case flicker_types.medium:
 			intensity_max = 0.95f;
 			intensity_min = 0.82f;
 			freq_max = 1735.0f;
 			freq_min = 12.0f;
 			increase_max = 3.9f;
 			increase_min = 1.48f;
+
+			break;
+
 		}
 
 

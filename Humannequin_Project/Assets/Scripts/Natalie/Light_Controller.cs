@@ -13,8 +13,21 @@ public class Light_Controller : MonoBehaviour
 	public float counter = 0;
 	public float intensity_max, intensity_min, freq_max, freq_min, increase_min, increase_max;
 
-	public bool tiny_flicker = false;
-	public bool good_flicker = false;
+	public static int custom2_smoothness = 10;
+
+	// Array of random values for the intensity.
+	private float[] smoothing = new float[custom2_smoothness];
+
+
+	public enum flicker_types{
+		tiny,
+		medium,
+		simple,
+		custom,
+		custom2
+	}
+
+	public flicker_types flicker;
 
 	// Materials for light on and light off
 	Material on_material;
@@ -37,6 +50,11 @@ public class Light_Controller : MonoBehaviour
 		this_light = gameObject.GetComponentInChildren<Light> ();
 		is_off = false;
 
+		for(int i = 0 ; i < smoothing.Length; i++)
+		{
+			smoothing[i] = 0.0f;
+		}
+
 
 	}
 	
@@ -56,36 +74,104 @@ public class Light_Controller : MonoBehaviour
 			gameObject.GetComponent<Renderer> ().material = on_material;
 		}
 
-		counter += Random.Range(increase_min,increase_max);
-		if(counter > Random.Range(freq_min,freq_max))
+		switch(flicker)
 		{
-			this_light.intensity = Random.Range(intensity_max,intensity_min);
-			counter = 0;
-		}
-		else
-		{
-			//light_.intensity = max;
-			this_light.intensity = Mathf.Lerp(this_light.intensity,intensity_max,Time.time);
-		}
 
-		if(tiny_flicker)
-		{
+		case flicker_types.simple:		
+
+			counter += 10.0f;
+
+			//this_light.enabled = true;
+			broken = false;
+
+			this_light.intensity = Random.Range(intensity_min, intensity_max);
+
+			if (counter > Random.Range (freq_min, freq_max)) 
+			{
+				//this_light.enabled = false;
+				broken = true;
+
+			}
+
+			counter = 0;
+		
+
+			break;
+
+		case flicker_types.custom2:			
+			
+
+			float sum = 0.0f;
+
+			// Shift values in the table so that the new one is at the
+			// end and the older one is deleted.
+			for(int i = 1 ; i < smoothing.Length ; i++)
+			{
+				smoothing[i-1] = smoothing[i];
+				sum+= smoothing[i-1];
+			}
+
+			// Add the new value at the end of the array.
+			smoothing[smoothing.Length -1] = Random.value;
+			sum+= smoothing[smoothing.Length -1];
+
+			// Compute the average of the array and assign it to the
+			// light intensity.
+
+			this_light.intensity = sum / smoothing.Length;
+
+		
+
+			break;
+
+		case flicker_types.custom:
+
+			//counter += Random.Range (increase_min, increase_max);
+			counter += 1;
+			if (counter > Random.Range (freq_min, freq_max)) 
+			{
+				this_light.intensity = Random.Range (intensity_max, intensity_min);
+				counter = 0;
+			} 
+			else 
+			{
+				this_light.intensity = intensity_max;
+				//this_light.intensity = Mathf.Lerp (this_light.intensity, intensity_max, Time.time);
+			}
+
+			break;
+
+		case flicker_types.tiny:
+
 			intensity_max = 1.0f;
 			intensity_min = 1.06f;
 			freq_max = 1.0f;
 			freq_min = 1.0f;
 			increase_max = 1.0f;
 			increase_min = 1.0f;
-		}
-		if(good_flicker)
-		{
+
+			break;
+
+		case flicker_types.medium:
+			
 			intensity_max = 0.95f;
 			intensity_min = 0.82f;
 			freq_max = 1735.0f;
 			freq_min = 12.0f;
 			increase_max = 3.9f;
 			increase_min = 1.48f;
+
+			break;
+
 		}
+		/*
+		if(this_light.intensity < 1.0f)
+		{
+			broken = true;
+		}
+		else{
+			broken = false;
+		}*/
 	}
 
 	// This function turns off the light and changes the material to the off_material
