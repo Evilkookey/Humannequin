@@ -257,21 +257,24 @@ public class VR_Input_Ver_4 : MonoBehaviour
                                 // Set the held object to the collide object
                                 held_object = collide;
 
+                                // Take held object out of other hand
+                                other_hand.SendMessage("BreakJoint", held_object);
+
                                 // Check if this object has a joint to any other object
-                                if (held_object.GetComponent<FixedJoint>())
+                              /*  if (held_object.GetComponent<FixedJoint>())
                                 {
                                     // Get the joint
                                     FixedJoint current_joint = held_object.GetComponent<FixedJoint>();
 
                                     // Break the joint
                                     Destroy(current_joint);
-                                }
+                                }*/
 
                                 // Check if this object is in the temp slot
-                                if (held_object == toolbelt.held_object)
+                             /*   if (held_object == toolbelt.held_object)
                                 {
                                     toolbelt.Take_Out_Temp();
-                                }
+                                }*/
 
                                 // Connect the object with a fixed joint
                                 FixedJoint joint = AddFixedJoint(); //FixedJoint
@@ -528,7 +531,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 	}
 
 	// Break the joint
-	/*void BreakJoint(GameObject new_held)
+	void BreakJoint(GameObject new_held)
 	{
 		// Check if this hand is holding the object the other hand wants to pick up
 		if (held_object == new_held)
@@ -539,7 +542,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 			// Destroy the joint
 			Destroy(fx);
 		}
-	}*/
+	}
 
 	// For dropping the object
 	void ReleaseObject()
@@ -550,17 +553,8 @@ public class VR_Input_Ver_4 : MonoBehaviour
 			GetComponent<FixedJoint>().connectedBody = null;
 			Destroy(GetComponent<FixedJoint>());
 
-            // Check if player is touching the temp slot
-            if (is_in_temp)
-            {
-                // Put this in the temp slot
-                toolbelt.Put_In_Temp(held_object);
-            }
-            else
-            {
-                held_object.GetComponent<Rigidbody>().velocity = (device.velocity.x * gameObject.transform.parent.right + device.velocity.y * gameObject.transform.parent.up + device.velocity.z * gameObject.transform.parent.forward);
-                held_object.GetComponent<Rigidbody>().angularVelocity = device.angularVelocity;
-            }
+            held_object.GetComponent<Rigidbody>().velocity = (device.velocity.x * gameObject.transform.parent.right + device.velocity.y * gameObject.transform.parent.up + device.velocity.z * gameObject.transform.parent.forward);
+            held_object.GetComponent<Rigidbody>().angularVelocity = device.angularVelocity;
         }
 		held_object = null;
 	}
