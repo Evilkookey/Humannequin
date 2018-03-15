@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 4579985556919318}
   - component: {fileID: 82309286459663750}
   - component: {fileID: 114667532216889486}
+  - component: {fileID: 65490160831322738}
   m_Layer: 0
   m_Name: Radio
   m_TagString: Interact
@@ -53,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1722678966062120}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.6411595, y: 3.4086752, z: 13.480747}
+  m_LocalPosition: {x: -0.892, y: 0.88089186, z: 3.989}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4974739143631154}
@@ -68,7 +69,7 @@ Transform:
   m_GameObject: {fileID: 1210473745531972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.6124997, z: 0.7249996}
+  m_LocalScale: {x: 0.17363192, y: 0.10634946, z: 0.12588303}
   m_Children: []
   m_Father: {fileID: 4579985556919318}
   m_RootOrder: 0
@@ -124,6 +125,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65490160831322738
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1722678966062120}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2, y: 0.1736319, z: 0.1736319}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &82309286459663750
 AudioSource:
   m_ObjectHideFlags: 1
@@ -133,7 +146,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ed06bbaacb974174ab6e1000a1593b3b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

@@ -121,14 +121,14 @@ public class VR_Input_Ver_4 : MonoBehaviour
             // Sets the grab value in the hand animator 
             trigger_axis = device.GetAxis(trigger_button).x;
 
-            if (trigger_axis == 0.0f)
+            if (trigger_axis <= 0.3f)
             {
-                hand_animator.SetBool("Is_Grabbing", false);
+                hand_animator.SetBool("Is_grabbing", false);
             }
 
             if (active_tool == Tool.NONE && !do_not_anim)
             {
-                hand_animator.SetFloat("Grab", trigger_axis);
+                //hand_animator.SetFloat("Grab", trigger_axis);
             }
 
 			if (active_tool == Tool.PLIERS)
@@ -164,13 +164,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
                 hand_box_collider.center = default_hand_center;
                 hand_box_collider.size = default_hand_size;
             }*/
-
-            // If player presses the grip whilst they are holding the torch
-            /*  if (device.GetPressDown(grip_button) && active_tool == Tool.TORCH)
-              {
-                  // Turn off/on the light on the hand torch
-                  hand_torch.GetComponentInChildren<Light>().enabled = !hand_torch.GetComponentInChildren<Light>().enabled;
-              }*/
+               
 
             // Only point if there is no object being held
             if (!held_object)
@@ -235,7 +229,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
             // Press trigger
             if (device.GetPressDown(trigger_button))
             {
-                hand_animator.SetBool("Is_Grabbing", true);
+                hand_animator.SetBool("Is_grabbing", true);
 
                 // Loop through all objects colided with
                 foreach (GameObject collide in collide_objects)
