@@ -22,10 +22,10 @@ public class Toolbelt : MonoBehaviour
 	public bool is_testing = false;
 
 	// The temporary slot transform
-	public GameObject temp_slot;
+	//public GameObject temp_slot;
 
 	// The object in the temporary slot
-	public GameObject held_object;
+	//public GameObject held_object;
 
 	// Use this for initialization
 	void Start () 
@@ -60,7 +60,7 @@ public class Toolbelt : MonoBehaviour
 		}
 
         // Find temp slot
-        temp_slot = transform.Find("Temp_Slot").gameObject;
+      //  temp_slot = transform.Find("Temp_Slot").gameObject;
 	}
 
 	int Find_Tool_Pointer (string tool_name)
@@ -153,7 +153,7 @@ public class Toolbelt : MonoBehaviour
 		}
 	}
 
-    public bool Put_In_Temp(GameObject new_object)
+  /*  public bool Put_In_Temp(GameObject new_object)
     {
         // If there is no held object
         if (!held_object)
@@ -192,5 +192,5 @@ public class Toolbelt : MonoBehaviour
         {
             return false;
         }
-    }
+    }*/
 }
