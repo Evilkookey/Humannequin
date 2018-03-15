@@ -11,7 +11,7 @@ public class LightSwitch : MonoBehaviour {
 	// Activate is called when the player uses the light switch
 	void Activate()
 	{
-		// Turn the light on/off
-		room_light.enabled = !room_light.enabled;
-	}
+        // Turn the light on
+        room_light.SendMessage("Light_On");
+    }
 }

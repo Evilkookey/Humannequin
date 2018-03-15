@@ -55,10 +55,11 @@ public class VR_Movement_with_ray : MonoBehaviour
 			var device = SteamVR_Controller.Input((int)trackedObj.index);
 
 			// Get touch input from the controller
-			if (controller.GetTouch(touchpad))
-			{			
-				// Set touch input to the axis Vector2
-				axis = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
+			if (controller.GetPress(touchpad))
+			{
+                // Set touch input to the axis Vector2
+                axis = device.GetAxis(touchpad);
+                //axis = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
 
 				// If there is a rig
 				if (rig != null)

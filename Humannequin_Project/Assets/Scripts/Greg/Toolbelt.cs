@@ -8,24 +8,25 @@ public class Toolbelt : MonoBehaviour
 	public struct tool
 	{
 		public GameObject tool_object;
+        public GameObject ghost_tool;
 		public bool is_in_belt;
 		public bool is_acquired;
 	}
 
 	// The tools
-	public static tool wrench, torch, screwdriver, pliers;
+	public static tool wrench, screwdriver, torch, pliers;
 
 	// An array of tools
-	public tool[] tools = new tool[4] {wrench, torch, screwdriver, pliers}; 
+	public tool[] tools = new tool[4] {wrench, screwdriver, torch, pliers}; 
 
 	// Turn all tools on for testing
 	public bool is_testing = false;
 
 	// The temporary slot transform
-	public GameObject temp_slot;
+	//public GameObject temp_slot;
 
 	// The object in the temporary slot
-	public GameObject held_object;
+	//public GameObject held_object;
 
 	// Use this for initialization
 	void Start () 
@@ -34,15 +35,16 @@ public class Toolbelt : MonoBehaviour
 		{
 			for (int i = 0; i < tools.Length; i++)
 			{
-				// Set all to not aquired
+				// Set all to aquired
 				tools[i].is_acquired = true;
 
-				// Set all to out of belt
+				// Set all to in belt
 				tools[i].is_in_belt = true;
 
-				// Deactive all tools
+				// Active all tools
 				tools[i].tool_object.SetActive(true);
-			}
+                tools[i].ghost_tool.SetActive(false);
+            }
 		}
 		else
 		{
@@ -56,11 +58,12 @@ public class Toolbelt : MonoBehaviour
 
 				// Deactive all tools
 				tools[i].tool_object.SetActive(false);
-			}
+                tools[i].ghost_tool.SetActive(false);
+            }
 		}
 
         // Find temp slot
-        temp_slot = transform.Find("Temp_Slot").gameObject;
+      //  temp_slot = transform.Find("Temp_Slot").gameObject;
 	}
 
 	int Find_Tool_Pointer (string tool_name)
@@ -72,9 +75,9 @@ public class Toolbelt : MonoBehaviour
 		{
 		case "wrench":
 			return 0;
-		case "torch":
-			return 1;
 		case "screwdriver":
+			return 1;
+		case "torch":
 			return 2;
 		case "pliers":
 			return 3;
@@ -94,9 +97,10 @@ public class Toolbelt : MonoBehaviour
 		{
 			// Deactivate tool
 			tools[tool_pointer].tool_object.SetActive(false);
+            tools[tool_pointer].ghost_tool.SetActive(true);
 
-			// Take tool out of belt
-			tools[tool_pointer].is_in_belt = false;
+            // Take tool out of belt
+            tools[tool_pointer].is_in_belt = false;
 
 			return true;
 		}
@@ -116,9 +120,10 @@ public class Toolbelt : MonoBehaviour
 		{
 			// Reactivate tool
 			tools[tool_pointer].tool_object.SetActive(true);
+            tools[tool_pointer].ghost_tool.SetActive(false);
 
-			// Put tool back in belt belt
-			tools[tool_pointer].is_in_belt = true;
+            // Put tool back in belt belt
+            tools[tool_pointer].is_in_belt = true;
 
 			return true;
 		}
@@ -153,7 +158,7 @@ public class Toolbelt : MonoBehaviour
 		}
 	}
 
-    public bool Put_In_Temp(GameObject new_object)
+  /*  public bool Put_In_Temp(GameObject new_object)
     {
         // If there is no held object
         if (!held_object)
@@ -192,5 +197,5 @@ public class Toolbelt : MonoBehaviour
         {
             return false;
         }
-    }
+    }*/
 }
