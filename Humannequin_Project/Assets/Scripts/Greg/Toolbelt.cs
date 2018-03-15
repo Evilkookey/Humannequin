@@ -89,6 +89,9 @@ public class Toolbelt : MonoBehaviour
 
 	public bool Take_Tool (string tool_name)
 	{
+        print(tool_name);
+
+
 		// Get the array position of the tool
 		int tool_pointer = Find_Tool_Pointer(tool_name);
 

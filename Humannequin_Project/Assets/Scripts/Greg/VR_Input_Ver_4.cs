@@ -295,9 +295,9 @@ public class VR_Input_Ver_4 : MonoBehaviour
                                     if (toolbelt.Take_Tool(interact_object.name))
                                     {
                                         // Check the name of the tool and apply to hand 
-                                        switch (interact_object.name)
+                                        switch (interact_object.name.ToLower())
                                         {
-                                            case "Wrench":
+                                            case "wrench":
                                                 // Set the active tool to WRENCH
                                                 active_tool = Tool.WRENCH;
                                                 // Disable all hands
@@ -305,7 +305,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
                                                 // Set correct hands to active
                                                 hand_wrench.SetActive(true);
                                                 break;
-                                            case "Screwdriver":
+                                            case "screwdriver":
                                                 // Set the active tool to SCREWDRIVER
                                                 active_tool = Tool.SCREWDRIVER;
 
@@ -319,7 +319,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 
 
                                                 break;
-                                            case "Torch":
+                                            case "torch":
                                                 // Set the active tool to TORCH
                                                 active_tool = Tool.TORCH;
                                                 // Disable all hands
@@ -327,7 +327,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
                                                 // Set correct hands to active
                                                 hand_torch.SetActive(true);
                                                 break;
-                                            case "Pliers":
+                                            case "pliers":
                                                 // Set the active tool to PLIERS
                                                 active_tool = Tool.PLIERS;
                                                 // Disable all hands
