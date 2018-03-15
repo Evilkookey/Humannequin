@@ -8,6 +8,7 @@ public class Win_Game : MonoBehaviour
 {	
 	GameObject pause_controller;
 	public GameObject end_mannequin;
+	public GameObject mannequin_walking;
 
 	Animator mannequin_anim;
 	public float delay_time; 
@@ -54,6 +55,7 @@ public class Win_Game : MonoBehaviour
 			StartCoroutine (PlayAudio ());
 			StartCoroutine (Win ());
 
+
 		}
 
 	}
@@ -73,6 +75,13 @@ public class Win_Game : MonoBehaviour
 	IEnumerator Win()
 	{
 		yield return new WaitForSeconds (delay_time);
+
+
+		end_mannequin.SetActive (false);
+
+		mannequin_walking.SetActive (true);	
+
+
 
 		// Change game state to WIN
 		Game_State_Controller.Win_Game();

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Mannequin_Animated : MonoBehaviour {
 
+
+	public float speed = 4.0f; 
+
 	// Use this for initialization
 	void Start () {
 		
@@ -11,6 +14,6 @@ public class Mannequin_Animated : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Translate (Vector3.forward * 2.0f / 1000);
+		transform.Translate (Vector3.forward * speed / 1000);
 	}
 }
