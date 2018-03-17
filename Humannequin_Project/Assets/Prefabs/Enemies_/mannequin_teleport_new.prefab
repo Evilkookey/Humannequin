@@ -446,7 +446,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1436398290882926}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00046919278, y: 1.8750021, z: -0.040199243}
+  m_LocalPosition: {x: -0.00046919278, y: 1.77, z: -0.040199243}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4783339947246748}
@@ -1086,10 +1086,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy_positions: []
   position_parent: {fileID: 0}
+  player: {fileID: 0}
   CameraRigPlayer: {fileID: 0}
   FPSController: {fileID: 0}
   move_time: 5
+  is_enabled: 0
   flickering_light: {fileID: 0}
+  line_puzzle: {fileID: 0}
 --- !u!114 &114384776163893320
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -208,7 +208,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1835117842219852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.413298, y: 0.00084496354, z: 14.765168}
+  m_LocalPosition: {x: 3.174, y: 0, z: 9.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4264783309111160}
@@ -256,7 +256,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1194571627863854}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00046919278, y: 1.8750021, z: -0.040199243}
+  m_LocalPosition: {x: -0.00046919278, y: 1.77, z: -0.040199243}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4397769906830492}
@@ -788,15 +788,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd33bfd2a891834999f824d1ef2f271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: 2
-  USE_FPSCONTROLLER: 1
+  enemy: 0
+  USE_FPSCONTROLLER: 0
   do_not_kill: 1
   player: {fileID: 0}
   min_dist: 1
   enemyBody: {fileID: 1835117842219852}
   head: {fileID: 4632826659250092}
   rotate_speed: 5
-  tilt: 0.3
+  tilt: 0.4
   CameraRigPlayer: {fileID: 0}
   FPSController: {fileID: 0}
   room_light: {fileID: 0}
@@ -820,7 +820,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.34
-  m_Speed: 3
+  m_Speed: 0.2
   m_Acceleration: 16
   avoidancePriority: 50
   m_AngularSpeed: 360
