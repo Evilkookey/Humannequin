@@ -62,11 +62,13 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		// Check if enabled
-		if (is_enabled)
-		{
-			// Update mannequin
-			Mannequin_Update();
+		if (Game_State_Controller.current_state == Game_State_Controller.Game_States.PLAYING) 
+		{		
+			// Check if enabled
+			if (is_enabled) {
+				// Update mannequin
+				Mannequin_Update ();
+			}
 		}
 	}
 

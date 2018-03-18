@@ -37,7 +37,7 @@ public class Light_Controller : MonoBehaviour
 	Light this_light;
 
 	public bool broken;
-	bool is_off;
+	public bool is_off = false;
 
 	// Use this for initialization
 	void Start () 
@@ -48,7 +48,7 @@ public class Light_Controller : MonoBehaviour
 
 		// This gets the light which is a child of the gameObject
 		this_light = gameObject.GetComponentInChildren<Light> ();
-		is_off = false;
+		//is_off = false;
 
 		for(int i = 0 ; i < smoothing.Length; i++)
 		{
@@ -69,9 +69,16 @@ public class Light_Controller : MonoBehaviour
 		} 
 		else 
 		{
-			is_off = false;
-			this_light.enabled = true;
-			gameObject.GetComponent<Renderer> ().material = on_material;
+			if (is_off) 
+			{
+				this_light.enabled = false;
+				gameObject.GetComponent<Renderer> ().material = off_material;
+			}
+			else
+			{
+				this_light.enabled = true;
+				gameObject.GetComponent<Renderer> ().material = on_material;
+			}
 		}
 
 		switch(flicker)
@@ -82,14 +89,14 @@ public class Light_Controller : MonoBehaviour
 			counter += 10.0f;
 
 			//this_light.enabled = true;
-			broken = false;
+			is_off = false;
 
 			this_light.intensity = Random.Range(intensity_min, intensity_max);
 
 			if (counter > Random.Range (freq_min, freq_max)) 
 			{
 				//this_light.enabled = false;
-				broken = true;
+				is_off = true;
 
 			}
 
@@ -113,7 +120,7 @@ public class Light_Controller : MonoBehaviour
 
 			// Add the new value at the end of the array.
 			smoothing[smoothing.Length -1] = Random.value;
-			sum+= smoothing[smoothing.Length -1];
+			sum += smoothing[smoothing.Length -1];
 
 			// Compute the average of the array and assign it to the
 			// light intensity.
@@ -163,6 +170,9 @@ public class Light_Controller : MonoBehaviour
 
 			break;
 
+		
+		
+
 		}
 		/*
 		if(this_light.intensity < 1.0f)
@@ -175,7 +185,7 @@ public class Light_Controller : MonoBehaviour
 	}
 
 	// This function turns off the light and changes the material to the off_material
-	void Light_Off ()
+	public void Light_Off ()
 	{
 		if (!is_off) 
 		{
@@ -186,7 +196,7 @@ public class Light_Controller : MonoBehaviour
 	}
 
 	// This function turns on the light and changes the material to the on_material
-	void Light_On ()
+	public void Light_On ()
 	{
 		if (!broken && is_off) 
 		{
@@ -194,5 +204,30 @@ public class Light_Controller : MonoBehaviour
 			this_light.enabled = true;
 			gameObject.GetComponent<Renderer> ().material = on_material;
 		}
+	}
+
+	public void Light_Flicker_On ()
+	{
+		if (!broken && is_off) 
+		{
+			is_off = false;
+			this_light.enabled = true;
+			gameObject.GetComponent<Renderer> ().material = on_material;
+
+			StartCoroutine ("FlickerOn");
+		}
+	}
+
+	IEnumerator FlickerOn()
+	{
+		yield return new WaitForSeconds(1.5f);
+
+		flicker = flicker_types.custom2;
+
+		yield return null;
+		this_light.intensity = 1.0f;
+		flicker = flicker_types.tiny;
+
+
 	}
 }

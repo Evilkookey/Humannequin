@@ -39,7 +39,7 @@ public class VR_Movement_with_ray : MonoBehaviour
 
 	void Update()
 	{
-		if(Game_State_Controller.current_state == Game_State_Controller.Game_States.PLAYING)
+		if(Game_State_Controller.current_state == Game_State_Controller.Game_States.PLAYING || Game_State_Controller.current_state == Game_State_Controller.Game_States.WIN)
 		{
 			
 			//Debug.Log(camera_object.transform.position);
