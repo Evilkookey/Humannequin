@@ -44,7 +44,7 @@ public class Activate_Screwable_Object : MonoBehaviour
 
 		// Find the line puzzle
 		line_puzzle = GameObject.Find("Puzzleboard_easy");
-		//line_puzzle.SetActive(false);
+		line_puzzle.SetActive(false);
 	}
 
 	public void Activate(string tag)

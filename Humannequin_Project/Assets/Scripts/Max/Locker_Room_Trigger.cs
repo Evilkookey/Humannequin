@@ -10,6 +10,7 @@ public class Locker_Room_Trigger : MonoBehaviour
 	// Objects to trigger if player hit the collider
 	public GameObject enemy; 		
 	public List<GameObject> lights = new List<GameObject>();
+	public List<GameObject> cockroaches = new List<GameObject>();
 
 	public bool testing = false;
 
@@ -27,6 +28,11 @@ public class Locker_Room_Trigger : MonoBehaviour
 			foreach( GameObject g in lights)
 			{
 				g.SetActive (false);
+			}
+
+			foreach( GameObject c in cockroaches)
+			{
+				c.SetActive (false);
 			}
 		}
 
@@ -50,6 +56,13 @@ public class Locker_Room_Trigger : MonoBehaviour
 			{
 				g.SetActive (true);
 			}
+
+			// Turn on light
+			foreach(GameObject c in cockroaches)
+			{
+				c.SetActive (true);
+			}
+
 
 			// Play sound for light turning on
 			gameObject.GetComponent<AudioSource>().Play();
