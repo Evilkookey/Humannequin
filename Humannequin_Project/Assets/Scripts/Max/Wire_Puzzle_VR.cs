@@ -22,7 +22,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 	{
 		public LineRenderer line_renderer;
 		public bool line_complete;
-		public GameObject[] boxes;
+		public GameObject[] boxes;	
 
 	};
 
@@ -53,6 +53,14 @@ public class Wire_Puzzle_VR : MonoBehaviour
 	public GameObject entrance_door;
 	public Light light_flicker;
 
+	public enum version_types
+	{
+		First,
+		Second,
+		Third
+	}
+
+	public version_types version_type;
 
 	// Use this for initialization
 	void Start () 
@@ -60,12 +68,12 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		//tracked_object = GetComponent<SteamVR_TrackedObject>();
 
 		//Find line renderers
-		red_line.line_renderer = GameObject.Find("LineRendererRed").GetComponent<LineRenderer>();
+		/*red_line.line_renderer = GameObject.Find("LineRendererRed").GetComponent<LineRenderer>();
 		blue_line.line_renderer = GameObject.Find("LineRendererBlue").GetComponent<LineRenderer>();
 		green_line.line_renderer = GameObject.Find("LineRendererGreen").GetComponent<LineRenderer>();
 		magenta_line.line_renderer = GameObject.Find("LineRendererMagenta").GetComponent<LineRenderer>();
 		yellow_line.line_renderer = GameObject.Find("LineRendererYellow").GetComponent<LineRenderer>();
-
+		*/
 
 		//Set up arrays
 		current_line.boxes = new GameObject[MAX_LENGTH];
@@ -90,12 +98,27 @@ public class Wire_Puzzle_VR : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		
-
-		if(red_line.line_complete && blue_line.line_complete && green_line.line_complete && /*magenta_line.line_complete &&*/ yellow_line.line_complete) // add new colour here
+		switch(version_type)
 		{
-			//Debug.Log("WIN");
-			finished = true;
+		case version_types.First:
+			if(red_line.line_complete && blue_line.line_complete)
+			{				
+				finished = true;
+			}
+			break;
+		case version_types.Second:
+			if(red_line.line_complete && blue_line.line_complete) // add new colour here
+			{
+				finished = true;
+			}
+			break;
+		case version_types.Third:
+			if(red_line.line_complete && blue_line.line_complete && green_line.line_complete && /*magenta_line.line_complete &&*/ yellow_line.line_complete) // add new colour here
+			{				
+				finished = true;
+			}
+			break;
+			
 		}
 
 		// Scans through the list of endcubes and increases a counter if they are all hit (completed)

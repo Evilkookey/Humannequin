@@ -38,6 +38,8 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 	bool head_not_visible = false;
 	bool can_move = false;
+	public bool in_stayaway_zone = false;
+	public GameObject stayaway_zone;
 
 	[Header("Drag In")]
 	// Used to determine if the player is in VR or using the FP controller
@@ -74,6 +76,8 @@ public class Mannequin_Stalk : MonoBehaviour {
 			player = CameraRigPlayer.transform;
 		}
 
+		stayaway_zone.GetComponent<Stayaway_Zone>().in_zone = in_stayaway_zone;
+
 		// For interacting with objects ingame
 		// TEST CODE
 		//RaycastHit hit;
@@ -106,10 +110,8 @@ public class Mannequin_Stalk : MonoBehaviour {
 				// Turn head towards player
 				Head_Turn();
 
-				//Debug.Log (head.localRotation.eulerAngles);
-				//Debug.Log (difference);
-
-				if(Vector3.Distance (transform.position, player.position) >= min_dist)
+			
+				if(Vector3.Distance (transform.position, player.position) >= min_dist && !in_stayaway_zone)
 				{
 					// Agent will advance to players position 
 					agent.SetDestination (player.position);

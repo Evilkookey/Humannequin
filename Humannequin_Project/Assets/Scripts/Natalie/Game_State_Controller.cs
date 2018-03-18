@@ -27,7 +27,7 @@ public class Game_State_Controller : MonoBehaviour
 	}
 	void Update()
 	{
-		Debug.Log(current_state);
+		//Debug.Log(current_state);
 	}
 	// Function called to set the game state to PAUSED
 	public static void Pause_Game ()
