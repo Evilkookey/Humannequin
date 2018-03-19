@@ -6,12 +6,25 @@ using UnityEngine;
 
 public class Activate_Screwable_Object : MonoBehaviour 
 {
+	public enum Object_Type
+	{
+		SCREW_0,
+		SCREW_1,
+		SCREW_2,
+		SCREW_3,
+		COVER 
+	};
+		
+
 	// Variables
 	// Stores the name of the current object
 	string object_name;
 
 	// Stores the controller for the screwing mechanic
 	GameObject screw_controller;
+
+	// What type of object this is
+	public Object_Type this_object;
 
 	// A bool for checking to see if the object has been interacted with
 	bool is_activated;
@@ -31,7 +44,8 @@ public class Activate_Screwable_Object : MonoBehaviour
 	void Start()
 	{
 		// Finds the screw_controller
-		screw_controller = GameObject.Find ("screw_controller");
+		screw_controller = gameObject.GetComponentInParent<GameObject> ();
+
 		// Initialises the animator and the rigidbody
 		object_animator = gameObject.GetComponent<Animator> ();
 		object_rigidbody = gameObject.GetComponent<Rigidbody> ();
@@ -57,7 +71,7 @@ public class Activate_Screwable_Object : MonoBehaviour
 			if (tag == "SCREWDRIVER") 
 			{
 				// Checks if the object is not a cover
-				if (gameObject.name != "cover") 
+				if (this_object != Object_Type.COVER) 
 				{
 					// Checks if it has been activated previously
 					if (is_activated == false) 
@@ -70,8 +84,7 @@ public class Activate_Screwable_Object : MonoBehaviour
 						Debug.Log (object_name);
 
 						// Calls the Interact function in the screw controller and passes the objects name
-						screw_controller.SendMessage ("Interact", object_name);
-				
+						screw_controller.SendMessage ("Interact", this_object);
 					}
 				}
 			}
@@ -79,10 +92,10 @@ public class Activate_Screwable_Object : MonoBehaviour
 		else if (tag == "NONE") 
 			{
 				// Checks if the game object is a cover
-				if (gameObject.name == "cover") 
+				if (this_object == Object_Type.COVER) 
 				{
 					// Calls the Interact function in the screw controller and passes the objects name
-					screw_controller.SendMessage ("Interact", object_name);
+					screw_controller.SendMessage ("Interact", this_object);
 
 					// Activate the line puzzle
 					line_puzzle.SetActive(true);

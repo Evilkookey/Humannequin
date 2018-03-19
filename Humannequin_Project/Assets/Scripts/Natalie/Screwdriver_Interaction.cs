@@ -10,13 +10,13 @@ public class Screwdriver_Interaction : MonoBehaviour
 	// An int to hold the number of screws that have been activated
 	int screw_counter;
 
-	// A game object to store the current activated object
-	GameObject activated_object;
+	// An int to hold the number of screws to be unscrewed before the cover can be interacted with
+	public int screws;
 
 	// This hold the activated object's animator
 	Animator object_animator;
 
-	// This is to identify which of the objects is the cover
+	// Cover object
 	public GameObject cover;
 
 	void Start()
@@ -25,14 +25,13 @@ public class Screwdriver_Interaction : MonoBehaviour
 		screw_counter = 0;
 	}
 
-	public void Interact(string object_name)
+	public void Interact(GameObject activated_object, Activate_Screwable_Object.Object_Type object_type)
 	{
 		// Finds all the required components of the activated object
-		activated_object = GameObject.Find (object_name);
 		object_animator = activated_object.GetComponent<Animator>();
 
 		// If the object is not a cover, it must be a screw
-		if (object_name != "cover") 
+		if (object_type != Activate_Screwable_Object.Object_Type.COVER) 
 		{
 			// Play animation
 			object_animator.SetBool ("play", true);
@@ -40,7 +39,7 @@ public class Screwdriver_Interaction : MonoBehaviour
 			// Add one to the screw counter
 			screw_counter = screw_counter + 1;
 			// Check screw count
-			if (screw_counter >= 4)
+			if (screw_counter >= screws)
 			{
 				// Set the tag of the cover
 				cover.tag = "Interact";
@@ -48,10 +47,10 @@ public class Screwdriver_Interaction : MonoBehaviour
 			Debug.Log(screw_counter);
 		}
 		// If the object is a cover 
-		if (object_name == "cover") 
+		if (object_type == Activate_Screwable_Object.Object_Type.COVER) 
 		{
 			// If screw counter is 4 then all screws have been interacted with
-			if (screw_counter >= 4) 
+			if (screw_counter >= screws) 
 			{
 				// Play animation
 				object_animator.SetBool ("play", true);
