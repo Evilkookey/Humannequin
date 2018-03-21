@@ -434,23 +434,21 @@ public class VR_Input_Ver_4 : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		// If the object can be used in some way
-		if (other.tag =="Interact" || other.tag == "Pick_Up" || other.tag == "ToolSlot")
+        // If the object can be used in some way
+        if (other.tag =="Interact" || other.tag == "Pick_Up" || other.tag == "ToolSlot")
 		{
-			// If the object has no outline
-			if (!other.gameObject.GetComponent<Outline>()) 
+			
+			// Find all renderers on object & children
+			Renderer[] all_renderers = other.GetComponentsInChildren<Renderer>();
+
+			// Add the outline to everything with a renderer
+			foreach (Renderer renderer in all_renderers) 
 			{
-				// Find all renderers on object & children
-				Renderer[] all_renderers = other.GetComponentsInChildren<Renderer>();
-
-				// Add the outline to everything with a renderer
-				foreach (Renderer renderer in all_renderers) 
-				{
-					renderer.gameObject.AddComponent<Outline> ();
-				}
-
-				// add an outline and turn it on
-				//other.gameObject.AddComponent<Outline> ()/*.enabled = true*/;
+                // If it has no outline
+                if (!renderer.gameObject.GetComponent<Outline>())
+                {
+                    renderer.gameObject.AddComponent<Outline>();
+                }
 			}
 
 			// Set the type of object it is
@@ -485,7 +483,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 		// Add the outline to everything with a renderer
 		foreach (Renderer renderer in all_renderers) 
 		{
-			if (renderer.gameObject.GetComponent<Outline>() ) 
+            if (renderer.gameObject.GetComponent<Outline>() ) 
 			{
 				// remove the outline
 				Component.Destroy(renderer.gameObject.GetComponent<Outline> ());

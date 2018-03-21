@@ -57,7 +57,7 @@ public class Activate_Screwable_Object : MonoBehaviour
 		object_name = gameObject.name;
 
 		// Find the line puzzle
-		line_puzzle = GameObject.Find("Puzzleboard_easy");
+		//line_puzzle = GameObject.Find("Puzzleboard_easy");
 		line_puzzle.SetActive(false);
 	}
 
@@ -98,7 +98,7 @@ public class Activate_Screwable_Object : MonoBehaviour
 					screw_controller.SendMessage ("Interact", this_object);
 
 					// Activate the line puzzle
-					line_puzzle.SetActive(true);
+					//line_puzzle.SetActive(true);
 
 					print("send enable");
 					// Enable the mannequin

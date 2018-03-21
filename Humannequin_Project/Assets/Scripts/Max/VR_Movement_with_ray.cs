@@ -101,19 +101,19 @@ public class VR_Movement_with_ray : MonoBehaviour
                         counter = 0;
                     }
 
-                    if (!double_tap)
-                    {
+                    //if (!double_tap)
+                    //{
                         // Move rig in position of the axis with delta time and speed variables
                         rig.Translate(((Vector3.right * axis.x) + (Vector3.forward * axis.y)) * Time.deltaTime * speed/*, Space.Self*/);
                         rig.position = new Vector3(rig.position.x, rig.position.y, rig.position.z);
-                    }
-                    else
-                    {
+                   // }
+                   // else
+                   // {
                         // Move rig in position of the axis with delta time and double speed variables - Sprint
-                        rig.Translate(((Vector3.right * axis.x) + (Vector3.forward * axis.y)) * Time.deltaTime * speed * 2.0f/*, Space.Self*/);
-                        rig.position = new Vector3(rig.position.x, rig.position.y, rig.position.z);
+                       // rig.Translate(((Vector3.right * axis.x) + (Vector3.forward * axis.y)) * Time.deltaTime * speed * 2.0f/*, Space.Self*/);
+                        //rig.position = new Vector3(rig.position.x, rig.position.y, rig.position.z);
 
-                    }
+                   // }
 				}
 			}
 		}

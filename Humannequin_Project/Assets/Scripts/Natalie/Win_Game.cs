@@ -31,7 +31,7 @@ public class Win_Game : MonoBehaviour
 		// Checks if player has won the game
 		if (Game_State_Controller.current_state == Game_State_Controller.Game_States.WIN) 
 		{
-			print ("ENDGAME");
+			//print ("ENDGAME");
 
 			// Fade to black
 			SteamVR_Fade.Start(Color.black, fade_out_duration, false);

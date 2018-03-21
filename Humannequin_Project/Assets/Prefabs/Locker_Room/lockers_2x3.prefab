@@ -26,7 +26,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1507729768757748
 GameObject:
@@ -42,7 +42,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1569226654596074
 GameObject:
@@ -57,7 +57,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1784983230443202
 GameObject:
@@ -70,14 +70,14 @@ GameObject:
   - component: {fileID: 33362826906983642}
   - component: {fileID: 23317200286889892}
   - component: {fileID: 95514960423130394}
-  - component: {fileID: 65921863533347340}
-  - component: {fileID: 208984787287175716}
+  - component: {fileID: 208106227157677922}
+  - component: {fileID: 65234580317626150}
   m_Layer: 0
   m_Name: lockers_2x3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4270737428010878
 Transform:
@@ -99,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1784983230443202}
   m_LocalRotation: {x: -0, y: 0.00000023841855, z: -0, w: -1}
-  m_LocalPosition: {x: -0.1776998, y: -0.028, z: -0.25400066}
+  m_LocalPosition: {x: -0.17689967, y: -0.027999878, z: 2.3040762}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4818523784822966}
@@ -224,7 +224,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0112033, y: 0.9399744, z: 0.35943216}
   m_Center: {x: 0.0033858174, y: -0.006459415, z: -0.00058803026}
---- !u!65 &65921863533347340
+--- !u!65 &65234580317626150
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -234,7 +234,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.38107783, y: 2.0340173, z: 1.78}
+  m_Size: {x: 0.38107783, y: 2.0340173, z: 1.2795056}
   m_Center: {x: 0.1813409, y: 1.0170084, z: 0.6396354}
 --- !u!95 &95514960423130394
 Animator:
@@ -253,7 +253,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!208 &208984787287175716
+--- !u!208 &208106227157677922
 NavMeshObstacle:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -262,7 +262,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.115, y: 1.0170001, z: 0.755}
+  m_Extents: {x: 0.115, y: 1.0170001, z: 0.76}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
