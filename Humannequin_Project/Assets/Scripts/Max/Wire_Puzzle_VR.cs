@@ -52,6 +52,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 	[Header("Things to be dragged in:")]
 	public GameObject entrance_door;
 	public Light light_flicker;
+    public ParticleSystem sparks_PS;
 
 	public enum version_types
 	{
@@ -149,8 +150,10 @@ public class Wire_Puzzle_VR : MonoBehaviour
 			if(!played_sound)
 			{
 				Debug.Log("ITS DONE");
+                
+                sparks_PS.Play();
 
-				gameObject.GetComponent<AudioSource>().Play();
+                gameObject.GetComponent<AudioSource>().Play();
 				played_sound = true;
 
 				// Activates the door opening function on the door

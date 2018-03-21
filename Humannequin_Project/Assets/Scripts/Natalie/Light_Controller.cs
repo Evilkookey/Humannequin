@@ -196,7 +196,7 @@ public class Light_Controller : MonoBehaviour
 	}
 
 	// This function turns on the light and changes the material to the on_material
-	public void Light_On ()
+	public void Light_On()
 	{
 		if (!broken && is_off) 
 		{
@@ -206,7 +206,7 @@ public class Light_Controller : MonoBehaviour
 		}
 	}
 
-	public void Light_Flicker_On ()
+	public void Light_Flicker_On()
 	{
 		if (!broken && is_off) 
 		{
