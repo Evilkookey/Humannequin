@@ -47,10 +47,11 @@ public class Mannequin_Stalk : MonoBehaviour {
 	public GameObject FPSController; 
 	public Light room_light;
 
+    AudioSource death_sound;
 
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start () 
 	{
 		// Init variables
 		agent = GetComponent<NavMeshAgent> ();
@@ -61,7 +62,10 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 		head = gameObject.transform.Find("head").gameObject.transform;
 
-	}
+        death_sound = gameObject.GetComponent<AudioSource>();
+
+
+    }
 
 	// Update is called once per frame
 	void Update () 
@@ -246,8 +250,12 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 		head.LookAt (target_postition);
 
-		// Change game state to LOSE
-		Game_State_Controller.Lose_Game();
+        death_sound.Play();
+        do_not_kill = true;
+
+        // Change game state to LOSE
+        Game_State_Controller.Lose_Game();
+
 
 
 	}

@@ -50,10 +50,13 @@ public class Screwdriver_Interaction : MonoBehaviour
 		if (object_type == Activate_Screwable_Object.Object_Type.COVER) 
 		{
 			// If screw counter is 4 then all screws have been interacted with
-			if (screw_counter >= screws) 
+			if (cover.tag == "Interact") 
 			{
-				// Play animation
-				object_animator.SetBool ("play", true);
+                // Play animation
+                print("interact with cover now pls");
+                //object_animator.SetBool ("play", true);
+                cover.GetComponent<Rigidbody>().isKinematic = false;
+
 			}
 		}
 	}
