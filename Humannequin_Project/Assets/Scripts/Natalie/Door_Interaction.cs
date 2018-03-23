@@ -13,13 +13,13 @@ public class Door_Interaction : MonoBehaviour
 	// Stores the scene controller
 	public GameObject scene_controller;
 
-	// Stores the animator for the door
+	// Stores the animator for the door (in the parent)
 	Animator door_animator;
 
 	void Start()
 	{
-		// Initialise the animator
-		door_animator = gameObject.GetComponent<Animator> ();
+		// Initialise the animator 
+		door_animator = gameObject.GetComponentInParent<Animator> ();
 	}
 
 	public void Activate()
