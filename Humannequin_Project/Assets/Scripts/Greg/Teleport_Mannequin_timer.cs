@@ -23,7 +23,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	//Vector3 current_position;					// The position the mannequin should be in 
 
 	public bool is_enabled;						// The mannequin is enabled when it can start moving towards the player
-	public Light flickering_light;              // Enemy light that will affect the mannequins position
+	public Light[] flickering_light;              // Enemy light that will affect the mannequins position
     public float light_off_time;                // The length of time the light will be off
     public GameObject line_puzzle; 				// Used to check if the player has completed the puzzle
 
@@ -121,13 +121,19 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
     IEnumerator Light_Off (float t)
     {
         // Turn light off
-        flickering_light.enabled = false;
+        foreach (Light light in flickering_light)
+        {
+            light.enabled = false;
+        }
 
         // Wait
         yield return new WaitForSeconds(t);
 
         //Turn light back on
-        flickering_light.enabled = true;
+        foreach (Light light in flickering_light)
+        {
+            light.enabled = true;
+        }
 
         yield return null;
     }
