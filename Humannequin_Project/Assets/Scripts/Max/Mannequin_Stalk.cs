@@ -45,7 +45,8 @@ public class Mannequin_Stalk : MonoBehaviour {
 	// Used to determine if the player is in VR or using the FP controller
 	public GameObject CameraRigPlayer;
 	public GameObject FPSController; 
-	public Light room_light;
+	public GameObject room_light;
+	public GameObject room_light2;
 
     AudioSource death_sound;
 
@@ -145,9 +146,13 @@ public class Mannequin_Stalk : MonoBehaviour {
 					// Freeze animations 
 					//GetComponent<Animator> ().speed = 0;
 				}
-			} else if (enemy == Enemy_Type.TEST) {
+
+			} 
+			else if (enemy == Enemy_Type.TEST) 
+			{
 				// Testing code - enemy will just follow the player
-				if (Vector3.Distance (transform.position, player.position) >= min_dist) {
+				if (Vector3.Distance (transform.position, player.position) >= min_dist) 
+				{
 					//transform.position += transform.forward * move_speed * Time.deltaTime;
 
 					target_postition = new Vector3 (player.position.x, 
@@ -162,15 +167,19 @@ public class Mannequin_Stalk : MonoBehaviour {
 					head.LookAt (target_postition);
 					//GetComponent<Animator> ().speed = 1;
 
-				} else {
+				} else 
+				{
 					//agent.SetDestination (transform.position);			
 
 					transform.position = transform.position;
 					transform.rotation = transform.rotation;
 					//GetComponent<Animator> ().speed = 0;
 				}
-			} else if (enemy == Enemy_Type.TORCH) {
-				if (can_move && Vector3.Distance (transform.position, player.position) >= min_dist && room_light.enabled == false) {
+			} 
+			else if (enemy == Enemy_Type.TORCH) 
+			{
+				if (can_move && Vector3.Distance (transform.position, player.position) >= min_dist && room_light.GetComponent<Light_Controller>().is_off == true) 
+				{
 					// Enable the NavMesh Agent
 					agent.enabled = true;
 
@@ -186,7 +195,9 @@ public class Mannequin_Stalk : MonoBehaviour {
 					transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (lookrotation), Time.deltaTime * rotate_speed);
 
 					//transform.position += transform.forward * move_speed * Time.deltaTime;
-				} else {
+				} 
+				else 
+				{
 					// Disables the navmesh agent when you see the mannequin
 					agent.enabled = false;
 				}
@@ -227,12 +238,26 @@ public class Mannequin_Stalk : MonoBehaviour {
 		agent.enabled = false;
 		Debug.Log("Ya ded");
 
+		room_light.GetComponent<Light_Controller> ().is_off = true;
+		room_light2.GetComponent<Light_Controller> ().is_off = true;
+
+		StartCoroutine (Jumpscare ());
+       
+        do_not_kill = true;
+
+        // Change game state to LOSE
+        Game_State_Controller.Lose_Game();
+	}
+
+	IEnumerator Jumpscare()
+	{
+		yield return new WaitForSeconds (0.5f);
+
 		// Moves mannequin in front of the player
 		this.gameObject.transform.position = /*new Vector3(player.position.x, player.position.y, player.position.z + 1.0f)*/ player.position + (player.transform.forward * 0.75f);
 
 		tilt = 0.1f;
 		// Turn head towards player
-		//Head_Turn();
 
 		// Set target position to player position but using head y position + tilt 
 		target_postition = new Vector3 (player.position.x, 
@@ -250,13 +275,13 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 		head.LookAt (target_postition);
 
-        death_sound.Play();
-        do_not_kill = true;
 
-        // Change game state to LOSE
-        Game_State_Controller.Lose_Game();
+		yield return new WaitForSeconds (2.0f);
 
+		room_light.GetComponent<Light_Controller> ().Light_Flicker_On ();
+		room_light2.GetComponent<Light_Controller> ().Light_Flicker_On ();
 
+		death_sound.Play();
 
 	}
 
