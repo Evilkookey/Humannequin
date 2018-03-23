@@ -1,5 +1,5 @@
 ﻿// SCREWDRIVER_INTERACTION.CS
-// NATALIE BAKER-HALL 
+// NATALIE BAKER-HALL AND MAX MILLS
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,10 +19,15 @@ public class Screwdriver_Interaction : MonoBehaviour
 	// Cover object
 	public GameObject cover;
 
+	//public List<GameObject> screws_list = new List<GameObject>();
+	public HingeJoint[] HingeJoints;
+
 	void Start()
 	{
 		// Initialises screw counter to 0
 		screw_counter = 0;
+
+		HingeJoints = cover.GetComponents<HingeJoint> ();
 	}
 
 	public void Interact(GameObject activated_object, Activate_Screwable_Object.Object_Type object_type)
@@ -38,13 +43,59 @@ public class Screwdriver_Interaction : MonoBehaviour
 
 			// Add one to the screw counter
 			screw_counter = screw_counter + 1;
+
 			// Check screw count
 			if (screw_counter >= screws)
 			{
 				// Set the tag of the cover
 				cover.tag = "Interact";
 			}
+
+			foreach (HingeJoint hj in HingeJoints) {
+				if (activated_object.name == hj.connectedBody.gameObject.name) 
+				{
+					Destroy (hj);
+				}
+			}
+
+			if (screw_counter == screws - 1) 
+			{				
+				/*HingeJoint hj = new HingeJoint();
+
+				foreach (GameObject screw in screws_list) 
+				{
+					if (screw.GetComponent<Animator> ().GetBool ("play") == false) 
+					{						
+						hj.connectedBody = screw.GetComponent<Rigidbody> ();
+						hj.axis = new Vector3 (0, 0, 1);
+
+						switch (screw.name) 
+						{
+						case "screw_0":
+
+							break;
+						case "screw_1":
+
+							break;
+						case "screw_2":
+
+							break;
+						case "screw_3":
+
+							break;
+						}
+					}
+
+				}
+
+				hj = cover.AddComponent<HingeJoint> ();
+				*/
+				cover.GetComponent<Rigidbody>().isKinematic = false;
+			}
+
+
 			Debug.Log(screw_counter);
+
 		}
 		// If the object is a cover 
 		if (object_type == Activate_Screwable_Object.Object_Type.COVER) 
