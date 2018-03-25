@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Wire_Puzzle_with_Mouse : MonoBehaviour {
-	public Camera camera;
+	public Camera main_camera;
 	// Use this for initialization
 	void Start () {
 		
@@ -15,7 +15,7 @@ public class Wire_Puzzle_with_Mouse : MonoBehaviour {
 	
 		//Cast ray from camera 
 		RaycastHit hit;
-		Ray ray = camera.ScreenPointToRay(new Vector3((Screen.width / 2), (Screen.height / 2)));
+		Ray ray = main_camera.ScreenPointToRay(new Vector3((Screen.width / 2), (Screen.height / 2)));
 		Debug.DrawRay (ray.origin, ray.direction);
 
 		if (Physics.Raycast (ray.origin, ray.direction, out hit, 200.0f)) 

@@ -12,7 +12,7 @@ public class Test_Mannequin_Move : MonoBehaviour
 	// It worked but the shadow of the enemy was seen moving 
 
 	public Transform player;
-	float min_dist = 2.0f;
+	//float min_dist = 2.0f;
 	Vector3 target_position;
 	float move_speed = 2.0f;
 
@@ -25,7 +25,7 @@ public class Test_Mannequin_Move : MonoBehaviour
 	void Update () {
 
 		// Create ray from the centre, left and right of the enemy
-		RaycastHit hit,hitL,hitR;
+		RaycastHit hitL,hitR;
 		Ray rayR = new Ray(new Vector3(transform.position.x + 0.5f,transform.position.y,transform.position.z), player.position);
 		Ray rayL = new Ray(new Vector3(transform.position.x - 0.5f,transform.position.y,transform.position.z), player.position);
 		//Ray ray = new Ray(transform.position, player.position);

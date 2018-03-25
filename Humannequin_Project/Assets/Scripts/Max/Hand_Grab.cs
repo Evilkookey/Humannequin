@@ -6,7 +6,7 @@ public class Hand_Grab : MonoBehaviour {
 
 	public Animator anim, point_anim;
 	float grab_speed;
-	float trigger_axis;
+	float trigger_axis = 0.0f;
 	float value;
 	public bool pliers_grip;
 

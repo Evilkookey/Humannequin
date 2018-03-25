@@ -29,7 +29,7 @@ public class Line_renderer_VR : MonoBehaviour {
 
 	//public LineRenderer[] line_renderer;
 	public lines_struct[] lines;
-	float raycast_distance = 200.0f;
+	//float raycast_distance = 200.0f;
 	//bool line_complete = false;
 //
 	//LineRenderer line_renderer2;

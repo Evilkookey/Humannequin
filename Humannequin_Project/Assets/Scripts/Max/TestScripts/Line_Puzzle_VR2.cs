@@ -20,7 +20,7 @@ public class Line_Puzzle_VR2 : MonoBehaviour
 	////public SteamVR_Controller.Device device;
 
 	//Distance for the ray 
-	float raycast_distance = 3.0f;
+	//float raycast_distance = 3.0f;
 
 	//If a line renderer is being used
 	public bool using_line;
