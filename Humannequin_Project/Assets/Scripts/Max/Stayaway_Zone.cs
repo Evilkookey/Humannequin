@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Stayaway_Zone : MonoBehaviour {
 
-	public bool in_zone = false; 
-	bool boards_broken = false;
+	public bool in_zone = true; 
+	bool boards_broken;
 
 	// Use this for initialization
 	void Start () {
@@ -19,18 +19,19 @@ public class Stayaway_Zone : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.name == "[CameraRig]" || col.name == "FPSController") 
+		if (col.tag == "Player")
 		{
 
 			//if(!boards_broken)
 			//{
 				in_zone = true;
 			//}
+			print("Collided");
 		}
 	}
 	void OnTriggerExit(Collider col)
 	{
-		if (col.name == "[CameraRig]" || col.name == "FPSController") 
+		if (col.tag == "Player")
 		{
 
 			in_zone = false;

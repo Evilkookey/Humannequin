@@ -51,13 +51,13 @@ public class Locker_Room_Trigger : MonoBehaviour
 			// Turn on the enemy follow script
 			enemy.gameObject.GetComponentInChildren<Mannequin_Stalk> ().enabled = true;
 
-			// Turn on light
+			// Turn on lights
 			foreach(GameObject g in lights)
 			{
 				g.SetActive (true);
 			}
 
-			// Turn on light
+			// enable cockroaches
 			foreach(GameObject c in cockroaches)
 			{
 				c.SetActive (true);

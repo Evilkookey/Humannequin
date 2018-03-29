@@ -408,6 +408,8 @@ GameObject:
   - component: {fileID: 65323206722889400}
   - component: {fileID: 114832895435503338}
   - component: {fileID: 54713050053576484}
+  - component: {fileID: 59092476727702222}
+  - component: {fileID: 59906377587245910}
   m_Layer: 0
   m_Name: cover
   m_TagString: Untagged
@@ -454,7 +456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1796133842331412
 GameObject:
   m_ObjectHideFlags: 1
@@ -553,7 +555,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1941693973700398
 GameObject:
   m_ObjectHideFlags: 1
@@ -1890,6 +1892,74 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!59 &59092476727702222
+HingeJoint:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1654283907042710}
+  m_ConnectedBody: {fileID: 54334330323156150}
+  m_Anchor: {x: -0.185, y: -0.257, z: 0}
+  m_Axis: {x: 0, y: 0, z: 1}
+  m_AutoConfigureConnectedAnchor: 1
+  m_ConnectedAnchor: {x: 0.00022029877, y: -0.001422286, z: 0.0003490746}
+  m_UseSpring: 0
+  m_Spring:
+    spring: 0
+    damper: 0
+    targetPosition: 0
+  m_UseMotor: 0
+  m_Motor:
+    targetVelocity: 0
+    force: 0
+    freeSpin: 0
+  m_UseLimits: 0
+  m_Limits:
+    min: 0
+    max: 0
+    bounciness: 0
+    bounceMinVelocity: 0.2
+    contactDistance: 0
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
+--- !u!59 &59906377587245910
+HingeJoint:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1654283907042710}
+  m_ConnectedBody: {fileID: 54421312589862616}
+  m_Anchor: {x: 0.185, y: 0.257, z: 0}
+  m_Axis: {x: 0, y: 0, z: 1}
+  m_AutoConfigureConnectedAnchor: 1
+  m_ConnectedAnchor: {x: 0.001267463, y: 0.0037794113, z: 0.00030325353}
+  m_UseSpring: 0
+  m_Spring:
+    spring: 0
+    damper: 0
+    targetPosition: 0
+  m_UseMotor: 0
+  m_Motor:
+    targetVelocity: 0
+    force: 0
+    freeSpin: 0
+  m_UseLimits: 0
+  m_Limits:
+    min: 0
+    max: 0
+    bounciness: 0
+    bounceMinVelocity: 0.2
+    contactDistance: 0
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!64 &64320382453843656
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -1971,7 +2041,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1654283907042710}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.41216975, y: 0.54345965, z: 0.023348698}
@@ -2310,8 +2380,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058b78277061b2941928b75cd282d503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  screws: 4
+  screws: 2
   cover: {fileID: 1654283907042710}
+  HingeJoints: []
 --- !u!114 &114147672989525382
 MonoBehaviour:
   m_ObjectHideFlags: 1
