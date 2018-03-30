@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4388155763787408}
   - component: {fileID: 33427479503685138}
   - component: {fileID: 23616223872844834}
-  - component: {fileID: 64867929231879352}
   - component: {fileID: 54414861737781826}
+  - component: {fileID: 65064411193514308}
   m_Layer: 9
   m_Name: mannequin_leg
   m_TagString: Pick_Up
@@ -36,7 +36,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1334868346799946}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -10.85, y: 0.083, z: 24.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -97,8 +97,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &64867929231879352
-MeshCollider:
+--- !u!65 &65064411193514308
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -107,7 +107,5 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 78a9b3e83193e5548b167efa73209965, type: 3}
+  m_Size: {x: 0.18314753, y: 1.0528662, z: 0.23910809}
+  m_Center: {x: 0, y: 0.5260289, z: 0}

@@ -20,14 +20,14 @@ public class Screwdriver_Interaction : MonoBehaviour
 	public GameObject cover;
 
 	//public List<GameObject> screws_list = new List<GameObject>();
-	public HingeJoint[] HingeJoints;
+	public List<HingeJoint> HingeJoints = new List<HingeJoint>();
 
 	void Start()
 	{
 		// Initialises screw counter to 0
 		screw_counter = 0;
 
-		HingeJoints = cover.GetComponents<HingeJoint> ();
+		HingeJoints.AddRange(cover.GetComponents<HingeJoint> ());
 	}
 
 	public void Interact(GameObject activated_object, Activate_Screwable_Object.Object_Type object_type)
@@ -51,15 +51,20 @@ public class Screwdriver_Interaction : MonoBehaviour
 				cover.tag = "Interact";
 			}
 
-			foreach (HingeJoint hj in HingeJoints) {
+			foreach (HingeJoint hj in HingeJoints) 
+			{
 				if (activated_object.name == hj.connectedBody.gameObject.name) 
 				{
+					HingeJoints.Remove(hj);
 					Destroy (hj);
+
 				}
 			}
 
 			if (screw_counter == screws - 1) 
 			{				
+				print ("SWING");
+
 				/*HingeJoint hj = new HingeJoint();
 
 				foreach (GameObject screw in screws_list) 

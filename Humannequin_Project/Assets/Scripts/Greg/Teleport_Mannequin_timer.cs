@@ -18,14 +18,15 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	//bool enemy_moved;							// Checks if the mannequin can actually move and 
 	Vector3 target_postition;					// Players position
 
-	float timer;								// A timer for the mannequin's movement
+	public float timer;								// A timer for the mannequin's movement
 	public float move_time = 10.0f;				// The amount of time before the mannequin moves
 	//Vector3 current_position;					// The position the mannequin should be in 
 
 	public bool is_enabled;						// The mannequin is enabled when it can start moving towards the player
-	public Light[] flickering_light;              // Enemy light that will affect the mannequins position
+	public List<GameObject> flickering_lights = new List<GameObject>();              // Enemy light that will affect the mannequins position
     public float light_off_time;                // The length of time the light will be off
     public GameObject line_puzzle; 				// Used to check if the player has completed the puzzle
+	public Light torch_light,torch_light2;
 
 	// Use this for initialization
 	void Start () 
@@ -70,8 +71,11 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 			// If the array is still full
 			if(index < enemy_positions.Length) 
 			{
-				// Move the enemy
-				Move_enemy ();
+				// Turn out the lights
+				StartCoroutine("Light_Off", light_off_time);
+
+				// Wait slightly
+				StartCoroutine("Move", 0.5f);
 			}
 			else
 			{
@@ -85,14 +89,53 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		}
 	}
 
-	//Used to move the enemy
-	void Move_enemy()
+	// Start the enemy moving at all
+	public void Enable_enemy()
 	{
-        // Turn out the lights
-        StartCoroutine("Light_Off", light_off_time);
+		print("Get enabled");
+		is_enabled = true;
+	}
 
-        // Move the enemy to the next set location
-        this.transform.position = enemy_positions[index].position;
+    // Light off timer
+    IEnumerator Light_Off (float t)
+    {
+        // Turn light off
+		foreach (GameObject light in flickering_lights)
+        {
+			light.GetComponentInChildren<Light_Controller>().is_off = true;
+        }
+
+		torch_light.enabled = false;
+		torch_light2.enabled = false;
+
+		print ("one mate");
+
+        // Wait
+        yield return new WaitForSeconds(t);
+
+		print ("two mate");
+
+		torch_light.enabled = true;
+		torch_light2.enabled = true;
+
+
+        //Turn light back on
+		foreach (GameObject light in flickering_lights)
+        {
+			light.GetComponentInChildren<Light_Controller>().is_off = false;
+        }
+
+        yield return null;
+    }
+
+	// Light off timer
+	IEnumerator Move (float t)
+	{
+		// Wait
+		yield return new WaitForSeconds(t);
+
+		// Move the enemy to the next set location
+		this.transform.position = enemy_positions[index].position;
 
 		//Get the look position of the player
 		target_postition = new Vector3 (player.position.x, 
@@ -107,34 +150,5 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 
 		//play mannequin move sound
 		gameObject.GetComponent<AudioSource>().Play();
-
 	}
-
-	// Start the enemy moving at all
-	public void Enable_enemy()
-	{
-		print("Get enabled");
-		is_enabled = true;
-	}
-
-    // Light off timer
-    IEnumerator Light_Off (float t)
-    {
-        // Turn light off
-        foreach (Light light in flickering_light)
-        {
-            light.enabled = false;
-        }
-
-        // Wait
-        yield return new WaitForSeconds(t);
-
-        //Turn light back on
-        foreach (Light light in flickering_light)
-        {
-            light.enabled = true;
-        }
-
-        yield return null;
-    }
 }

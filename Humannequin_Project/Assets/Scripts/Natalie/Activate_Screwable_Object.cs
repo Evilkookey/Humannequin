@@ -27,7 +27,7 @@ public class Activate_Screwable_Object : MonoBehaviour
 	public Object_Type this_object;
 
 	// A bool for checking to see if the object has been interacted with
-	bool is_activated;
+	public bool is_activated;
 
 	// Stores the rigidbody of the current object
 	Rigidbody object_rigidbody;
@@ -118,8 +118,8 @@ public class Activate_Screwable_Object : MonoBehaviour
 					}
 				}
 			}
-		// If the player is holding no tool
-		else if (tag == "NONE") 
+			// If the player is holding no tool
+			else if (tag == "NONE") 
 			{
 				// Checks if the game object is a cover
 				if (this_object == Object_Type.COVER) 
