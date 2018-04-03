@@ -25,7 +25,7 @@ public class Head_roll_trigger : MonoBehaviour {
 		{
 			if (!stop)
 			{
-				head.GetComponent<Rigidbody> ().AddForce (Vector3.right * force,ForceMode.Impulse);
+				head.GetComponent<Rigidbody> ().AddForce (Vector3.forward * force,ForceMode.Impulse);
 				stop = true;
 			}
 		}

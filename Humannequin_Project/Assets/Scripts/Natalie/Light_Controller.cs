@@ -12,7 +12,7 @@ public class Light_Controller : MonoBehaviour
 
 	public float counter = 0;
 	public float intensity_max, intensity_min, freq_max, freq_min, increase_min, increase_max;
-
+	public float flicker_on_max = 1.0f;
 	public static int custom2_smoothness = 10;
 
 	// Array of random values for the intensity.
@@ -225,7 +225,7 @@ public class Light_Controller : MonoBehaviour
 		flicker = flicker_types.custom2;
 
 		yield return null;
-		this_light.intensity = 1.0f;
+		this_light.intensity = flicker_on_max;
 		flicker = flicker_types.tiny;
 
 

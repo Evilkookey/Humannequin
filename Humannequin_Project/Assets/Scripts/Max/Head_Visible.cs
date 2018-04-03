@@ -5,27 +5,76 @@ using UnityEngine;
 public class Head_Visible : MonoBehaviour {
 
 	bool not_visible;
-
+	public bool head_turn = false;
+	public bool use_fps_controller = false;
+	public Transform player_position;
+	Vector3 target_dir,target_postition;
+	public float tilt = 0.3f;
 
 	// Use this for initialization
 	void Start () {
-		
+		if(use_fps_controller)
+		{
+			player_position = GameObject.Find("FPSController").transform;
+		}
+		else
+		{
+			player_position = GameObject.Find("[CameraRig]").transform;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if(!this.GetComponent<Renderer> ().isVisible)
+		if(!head_turn)
 		{
-			not_visible = true;
+			if(!this.GetComponent<Renderer> ().isVisible)
+			{
+				not_visible = true;
+			}
+			else
+			{
+				not_visible = false;
+			}
 		}
-		else{
-			not_visible = false;
+		else
+		{
+			if(!this.GetComponent<Renderer> ().isVisible)
+			{
+				//this.transform.LookAt(player_position);
+				Head_Turn();
+			}
+
+
 		}
 	}
 
 	public bool Get_Not_Visible()
 	{
 		return not_visible;
+	}
+
+	// For rotating the mannequins head towards the player
+	void Head_Turn()
+	{
+		// Set target position to player position but using head y position + tilt 
+		target_postition = new Vector3 (player_position.position.x, 
+			//this.transform.position.y, 
+			this.transform.position.y - tilt,
+			player_position.position.z);
+
+
+		// Calculate vector
+		target_dir = target_postition - transform.position;
+
+		// Calculate difference in head rotation angle
+		float difference = Vector3.Angle (target_dir, transform.parent.forward);
+
+		// Look at target if head position is less than 90 degrees
+		if (difference < 270.0f && difference < 90.0f)
+		{			
+			this.transform.LookAt (target_postition);
+		}
+
 	}
 }

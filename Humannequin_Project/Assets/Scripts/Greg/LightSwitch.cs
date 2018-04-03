@@ -8,6 +8,12 @@ public class LightSwitch : MonoBehaviour {
 
 	public List<GameObject> room_lights = new List<GameObject>();	// The light in the room
 
+	void Start()
+	{
+		gameObject.GetComponent<Animator>().speed = 0;
+
+	}
+
 	// Activate is called when the player uses the light switch
 	void Activate()
 	{
@@ -18,5 +24,7 @@ public class LightSwitch : MonoBehaviour {
             // Turn the lights on
             g.SendMessage("Light_On");
         }
+
+		gameObject.GetComponent<Animator>().speed = 1;
     }
 }
