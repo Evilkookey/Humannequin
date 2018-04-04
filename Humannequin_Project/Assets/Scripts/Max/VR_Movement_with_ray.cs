@@ -23,8 +23,7 @@ public class VR_Movement_with_ray : MonoBehaviour
 
 	// Vector2 to store the touchpad axis
 	private Vector2 axis = Vector2.zero;
-
-	public float raycast_distance; 		 // Distance for the ray to travel
+    
 	public GameObject camera_object; 	 // VR headset object -- Renamed from camera 
 	public GameObject controller_object; // VR controller to use
 
@@ -72,10 +71,7 @@ public class VR_Movement_with_ray : MonoBehaviour
             {
                 counter += 1.0f/60.0f;
             }
-
             
-           
-
             // Get input from the controller object
             var device = SteamVR_Controller.Input((int)trackedObj.index);
 
@@ -84,7 +80,6 @@ public class VR_Movement_with_ray : MonoBehaviour
 			{
                 // Set touch input to the axis Vector2
                 axis = device.GetAxis(touchpad);
-                //axis = device.GetAxis(Valve.VR.EVRButtonId.k_EButton_Axis0);
 
 				// If there is a rig
 				if (rig != null)
@@ -111,14 +106,12 @@ public class VR_Movement_with_ray : MonoBehaviour
                     if (!double_tap)
                     {
                         // Move rig in position of the axis with delta time and speed variables
-                        rig.Translate(((Vector3.right * axis.x) + (Vector3.forward * axis.y)) * Time.deltaTime * speed/*, Space.Self*/);
-                        rig.position = new Vector3(rig.position.x, rig.position.y, rig.position.z);
+                        rig.Translate(((controller_object.transform.right * axis.x) + (controller_object.transform.forward * axis.y)) * Time.deltaTime * speed/*, Space.Self*/);
                     }
                     else
                     {
                         // Move rig in position of the axis with delta time and double speed variables - Sprint
-                        rig.Translate(((Vector3.right * axis.x) + (Vector3.forward * axis.y)) * Time.deltaTime * speed * 2.0f/*, Space.Self*/);
-                        rig.position = new Vector3(rig.position.x, rig.position.y, rig.position.z);
+                        rig.Translate(((controller_object.transform.right * axis.x) + (controller_object.transform.forward * axis.y)) * Time.deltaTime * speed * 2.0f/*, Space.Self*/);
 
                     }
 				}
