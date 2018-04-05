@@ -106,14 +106,15 @@ public class VR_Movement_with_ray : MonoBehaviour
                     if (!double_tap)
                     {
                         // Move rig in position of the axis with delta time and speed variables
-                        rig.Translate(((controller_object.transform.right * axis.x) + (controller_object.transform.forward * axis.y)) * Time.deltaTime * speed/*, Space.Self*/);
+						// Try this
+						rig.Translate(((controller_object.transform.right * axis.x) + (controller_object.transform.forward * axis.y)) * Time.deltaTime * speed, Space.World);
                     }
-                    else
-                    {
-                        // Move rig in position of the axis with delta time and double speed variables - Sprint
-                        rig.Translate(((controller_object.transform.right * axis.x) + (controller_object.transform.forward * axis.y)) * Time.deltaTime * speed * 2.0f/*, Space.Self*/);
+                   // else
+                 //   {
+                 //       // Move rig in position of the axis with delta time and double speed variables - Sprint
+                 //       rig.Translate(((controller_object.transform.right * axis.x) + (controller_object.transform.forward * axis.y)) * Time.deltaTime * speed * 2.0f/*, Space.Self*/);
 
-                    }
+                 //   }
 				}
 			}
 		}
