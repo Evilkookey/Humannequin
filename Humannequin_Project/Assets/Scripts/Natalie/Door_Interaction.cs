@@ -13,6 +13,8 @@ public class Door_Interaction : MonoBehaviour
 	// Stores the scene controller
 	public GameObject scene_controller;
 
+	AudioSource door_open_sound;
+
 	// Stores the animator for the door (in the parent)
 	Animator door_animator;
 
@@ -20,13 +22,19 @@ public class Door_Interaction : MonoBehaviour
 	{
 		// Initialise the animator 
 		door_animator = gameObject.GetComponentInParent<Animator> ();
+
+		door_open_sound = gameObject.GetComponentInParent<AudioSource>();
 	}
 
 	public void Activate()
 	{
 		// Play animation
 		door_animator.SetBool("opening", true);
-			
+
+		// Play sound
+		door_open_sound.Play();
+
+
 		// Call change scene
 		Scene_Controller.Change_Scene(door_type);
 	}

@@ -13,6 +13,7 @@ public class Move_Wall_Trigger : MonoBehaviour
 	public GameObject start_door;
 	public bool is_testing;
 
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -54,6 +55,7 @@ public class Move_Wall_Trigger : MonoBehaviour
 			GameObject.Find("hinge").GetComponent<Animator>().SetBool("opening",false);
 
 
+
 			// Unload main menu scene after a few seconds
 			StartCoroutine(UnloadScene());
 
@@ -62,6 +64,7 @@ public class Move_Wall_Trigger : MonoBehaviour
 
 	IEnumerator UnloadScene()
 	{
+		
 		// Wait until door has shut
 		yield return new WaitForSeconds(4.0f);
 
