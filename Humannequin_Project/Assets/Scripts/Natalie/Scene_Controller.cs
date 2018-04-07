@@ -1,5 +1,5 @@
 ﻿// SCENE_CONTROLLER.CS
-// NATALIE BAKER-HALL 
+// NATALIE BAKER-HALL && MAX MILLS
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class Scene_Controller : MonoBehaviour 
 {
+
+	public AudioSource radio_audio,menu_audio;
+	bool found = false; 
+
 	void Start()
 	{
 		// Load next scene in the background of the current scene
@@ -15,6 +19,17 @@ public class Scene_Controller : MonoBehaviour
 
 		// Unload last scene in background of the current scene
 		//SceneManager.UnloadSceneAsync (0);
+
+
+	}
+
+	void Update()
+	{
+		if(!found) 
+		{
+			radio_audio = GameObject.Find("radio").GetComponent<AudioSource>();
+			found = true;
+		}
 	}
 
 	public static void Change_Scene(string scene)
@@ -45,6 +60,9 @@ public class Scene_Controller : MonoBehaviour
 			SceneManager.MoveGameObjectToScene (GameObject.Find ("[CameraRig]").gameObject, SceneManager.GetSceneByBuildIndex (2));
 			SceneManager.MoveGameObjectToScene (this.gameObject, SceneManager.GetSceneByBuildIndex (2));
 
+			StartCoroutine(Audio_Effects.AudioFadeOut(menu_audio,1.5f));
+			StartCoroutine(Audio_Effects.AudioFadeIn(radio_audio,1.5f));
+
 		}
 
 		if(other.gameObject.name == "FPSController")
@@ -54,6 +72,12 @@ public class Scene_Controller : MonoBehaviour
 			// Move the player and the scene manager to the next scene
 			SceneManager.MoveGameObjectToScene(GameObject.Find("FPSController").gameObject, SceneManager.GetSceneByBuildIndex(2));
 			SceneManager.MoveGameObjectToScene (this.gameObject, SceneManager.GetSceneByBuildIndex (2));
+
+			StartCoroutine(Audio_Effects.AudioFadeOut(menu_audio,1.5f));	
+			StartCoroutine(Audio_Effects.AudioFadeIn(radio_audio,1.5f));
+
 		}
 	}
+
+
 }
