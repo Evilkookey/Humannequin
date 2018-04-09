@@ -58,7 +58,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 		agent = GetComponent<NavMeshAgent> ();
 
 		//Find both player objects
-		//CameraRigPlayer = GameObject.Find("[CameraRig]");
+		CameraRigPlayer = GameObject.Find("[CameraRig]");
 		//FPSController = GameObject.Find("FPSController");
 
 		head = gameObject.transform.Find("head").gameObject.transform;

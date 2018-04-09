@@ -10,9 +10,9 @@ public class VR_Movement_with_ray : MonoBehaviour
 
 	public Transform rig;				//SteamVr CameraRig
 	public float speed;					//Speed for moving to player 
-    public float counter;
-    public int no_of_presses = 0;
-    public bool double_tap = false; 
+    //public float counter;
+    //public int no_of_presses = 0;
+    //public bool double_tap = false; 
 
     //Button initialisation
     private Valve.VR.EVRButtonId touchpad = Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad;
@@ -52,25 +52,6 @@ public class VR_Movement_with_ray : MonoBehaviour
 				Debug.Log("Controller not initialized");
 				return;
 			}
-
-            // Get touch input from the controller
-            if (controller.GetPressDown(touchpad))
-            {
-                no_of_presses ++;
-
-               
-            }
-            if (controller.GetPressUp(touchpad) && double_tap)
-            {
-                double_tap = false;
-                no_of_presses = 0;
-                counter = 0.0f;
-            }
-
-            if (no_of_presses > 0)
-            {
-                counter += 1.0f/60.0f;
-            }
             
             // Get input from the controller object
             var device = SteamVR_Controller.Input((int)trackedObj.index);
@@ -85,36 +66,16 @@ public class VR_Movement_with_ray : MonoBehaviour
 				if (rig != null)
 				{
 
-                    //no_of_presses++;
-                    if (no_of_presses == 2)
-                    {
-                        if (counter < 0.3f)
-                        {
+                    // Move rig in position of the axis with delta time and speed variables
+					// Try this
 
-                            double_tap = true;
-                        }
-                        else
-                        {
-                            no_of_presses = 0;
-                            double_tap = false;
-                        }
+					Vector3 new_forward = (controller_object.transform.right * axis.x) + (controller_object.transform.forward * axis.y);
+					new_forward.y = 0.0f;
+					new_forward.Normalize();
+					new_forward *= axis.magnitude;
 
-                        no_of_presses = 0;
-                        counter = 0.0f;
-
-                    }
-                    if (!double_tap)
-                    {
-                        // Move rig in position of the axis with delta time and speed variables
-						// Try this
-						rig.Translate(((controller_object.transform.right * axis.x) + (controller_object.transform.forward * axis.y)) * Time.deltaTime * speed, Space.World);
-                    }
-                   // else
-                 //   {
-                 //       // Move rig in position of the axis with delta time and double speed variables - Sprint
-                 //       rig.Translate(((controller_object.transform.right * axis.x) + (controller_object.transform.forward * axis.y)) * Time.deltaTime * speed * 2.0f/*, Space.Self*/);
-
-                 //   }
+					rig.Translate(new_forward * Time.deltaTime * speed, Space.World);
+                   
 				}
 			}
 		}

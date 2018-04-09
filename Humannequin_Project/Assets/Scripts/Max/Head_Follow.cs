@@ -10,6 +10,7 @@ public class Head_Follow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		player_pos = GameObject.Find("FPSController").transform;
 	}
 	

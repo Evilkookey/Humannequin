@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class Radio : MonoBehaviour {
 
-    AudioSource radio_audio;    // The sound coming from the radio
+   public AudioSource radio_audio;    // The sound coming from the radio
 
 	// Use this for initialization
 	void Start ()
     {
         // Find the audiosource
-        radio_audio = gameObject.GetComponent<AudioSource>();
+       // radio_audio = gameObject.GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
