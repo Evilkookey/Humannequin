@@ -60,7 +60,7 @@ public class Elevator_Control : MonoBehaviour
 			has_left = true;
 
 			// Close the door
-			StartCoroutine(Close_Door());
+			//StartCoroutine(Close_Door());
 		}
 	}
 
