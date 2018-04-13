@@ -10,6 +10,7 @@ public class Head_Visible : MonoBehaviour {
 	public Transform player_position;
 	Vector3 target_dir,target_postition;
 	public float tilt = 0.3f;
+	bool found = false;
 
 	// Use this for initialization
 	void Start () {
@@ -17,15 +18,22 @@ public class Head_Visible : MonoBehaviour {
 		{
 			player_position = GameObject.Find("FPSController").transform;
 		}
-		else
+		/*else
 		{
 			player_position = GameObject.Find("[CameraRig]").transform;
-		}
+		}*/
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		if(!use_fps_controller && !found)
+		{
+			player_position = GameObject.Find("[CameraRig]").transform;
+			found = true;
+		}
+
+
 		if(!head_turn)
 		{
 			if(!this.GetComponent<Renderer> ().isVisible)
