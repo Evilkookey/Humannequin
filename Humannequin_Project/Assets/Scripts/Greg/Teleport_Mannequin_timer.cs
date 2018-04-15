@@ -27,6 +27,9 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
     public float light_off_time;                // The length of time the light will be off
     public GameObject line_puzzle; 				// Used to check if the player has completed the puzzle
 	public Light torch_light,torch_light2;
+	public AudioSource building_up_sound;
+	public GameObject animated_mannequin;
+	bool found = false;
 
 	// Use this for initialization
 	void Start () 
@@ -56,6 +59,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 				// Update mannequin
 				Mannequin_Update ();
 			}
+		
 		}
 	}
 
@@ -79,8 +83,23 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 			}
 			else
 			{
-				// Enemy is at last position, so it should kill you here 
-				Game_State_Controller.Lose_Game();
+				gameObject.GetComponent<MeshRenderer>().enabled = false;
+				foreach(MeshRenderer mesh in gameObject.GetComponentsInChildren<MeshRenderer>())
+				{
+					mesh.enabled = false;
+				}
+				//Get the look position of the player
+				target_postition = new Vector3 (player.position.x, 
+					gameObject.transform.position.y, 
+					player.position.z);
+
+				// Look at the player position
+				animated_mannequin.transform.rotation = gameObject.transform.rotation;// LookAt (target_postition);
+
+				animated_mannequin.SetActive(true);
+
+				StartCoroutine("EndGame");
+
 
                 print("MannequinKills");
 			}
@@ -94,6 +113,16 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	{
 		print("Get enabled");
 		is_enabled = true;
+		building_up_sound.Play();
+	}
+	IEnumerator EndGame()
+	{
+		yield return new WaitForSeconds(5.0f);
+
+		// Enemy is at last position, so it should kill you here 
+		Game_State_Controller.Lose_Game();
+
+
 	}
 
     // Light off timer
@@ -105,19 +134,20 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 			light.GetComponentInChildren<Light_Controller>().is_off = true;
         }
 
-		torch_light.enabled = false;
-		torch_light2.enabled = false;
-
-		print ("one mate");
+		if(torch_light != null)
+		{
+			torch_light.enabled = false;
+			torch_light2.enabled = false;
+		}
 
         // Wait
         yield return new WaitForSeconds(t);
 
-		print ("two mate");
-
-		torch_light.enabled = true;
-		torch_light2.enabled = true;
-
+		if(torch_light != null)
+		{
+			torch_light.enabled = true;
+			torch_light2.enabled = true;
+		}
 
         //Turn light back on
 		foreach (GameObject light in flickering_lights)

@@ -242,10 +242,12 @@ public class Mannequin_Stalk : MonoBehaviour {
 			g.GetComponent<Light_Controller> ().is_off = true;
 		}
 
+		death_sound.Play();
+
 		// Start jumpscare event
 		StartCoroutine (Jumpscare ());
        
-		// Dont kill the enemy again
+		// Dont kill the player again
         do_not_kill = true;
 
         // Change game state to LOSE
@@ -279,7 +281,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 		head.LookAt (target_postition);
 
 		// Delay
-		yield return new WaitForSeconds (2.0f);
+		yield return new WaitForSeconds (4.0f);
 
 		// Lights flicker back on
 		foreach(GameObject g in room_lights)
@@ -289,7 +291,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 		}
 
 		// Play jumpscare sound
-		death_sound.Play();
+		//death_sound.Play();
 
 	}
 

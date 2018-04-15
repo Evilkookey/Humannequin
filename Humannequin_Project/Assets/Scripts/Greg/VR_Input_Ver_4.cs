@@ -121,7 +121,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
             // Sets the grab value in the hand animator 
             trigger_axis = device.GetAxis(trigger_button).x;
 
-            if (trigger_axis <= 0.3f)
+			if (trigger_axis <= 0.3f && active_tool == Tool.NONE)
             {
                 hand_animator.SetBool("Is_grabbing", false);
             }
@@ -199,6 +199,9 @@ public class VR_Input_Ver_4 : MonoBehaviour
                     {
                         // Turn off/on the light on the hand torch
                         hand_torch.GetComponentInChildren<Light>().enabled = !hand_torch.GetComponentInChildren<Light>().enabled;
+
+						// Plays torch click sound
+						hand_torch.GetComponent<AudioSource>().Play();
                     }
 
                 }

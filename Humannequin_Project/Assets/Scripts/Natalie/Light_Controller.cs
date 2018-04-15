@@ -18,6 +18,7 @@ public class Light_Controller : MonoBehaviour
 	// Array of random values for the intensity.
 	private float[] smoothing = new float[custom2_smoothness];
 
+	public AudioSource[] flicker_sounds;
 
 	public enum flicker_types{
 		tiny,
@@ -38,13 +39,23 @@ public class Light_Controller : MonoBehaviour
 
 	public bool broken;
 	public bool is_off = false;
+	public bool is_large_light;
+
+	Color emissive_colour;
 
 	// Use this for initialization
 	void Start () 
 	{
-		// Load the materials from resources
-		on_material = Resources.Load("Materials/on_light3", typeof(Material)) as Material;
-		off_material = Resources.Load("Materials/off_light", typeof(Material)) as Material;
+		if(!is_large_light)
+		{	
+			// Load the materials from resources
+			on_material = Resources.Load("Materials/on_light3", typeof(Material)) as Material;
+			off_material = Resources.Load("Materials/off_light", typeof(Material)) as Material;
+		}
+		else
+		{
+			emissive_colour = gameObject.GetComponent<Renderer>().material.GetColor("_EmissionColor");
+		}
 
 		// This gets the light which is a child of the gameObject
 		this_light = gameObject.GetComponentInChildren<Light> ();
@@ -55,16 +66,20 @@ public class Light_Controller : MonoBehaviour
 			smoothing[i] = 0.0f;
 		}
 
+		flicker_sounds = this.GetComponentsInChildren<AudioSource>();
 
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+	
 		// If the light is declared as "broken" it will not be able to turn on
-		if (broken) {
+		if (broken) 
+		{
 			is_off = true;
 			this_light.enabled = false;
+
 			gameObject.GetComponent<Renderer> ().material = off_material;
 		} 
 		else 
@@ -72,14 +87,30 @@ public class Light_Controller : MonoBehaviour
 			if (is_off) 
 			{
 				this_light.enabled = false;
-				gameObject.GetComponent<Renderer> ().material = off_material;
+				if(is_large_light)
+				{
+					gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor",new Color(0,0,0));
+				}
+				else
+				{
+					
+					gameObject.GetComponent<Renderer> ().material = off_material;
+				}
 			}
 			else
 			{
 				this_light.enabled = true;
-				gameObject.GetComponent<Renderer> ().material = on_material;
+				if(is_large_light)
+				{
+					gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor",emissive_colour);
+				}
+				else
+				{
+					gameObject.GetComponent<Renderer> ().material = on_material;
+				}
 			}
 		}
+
 
 		switch(flicker)
 		{
@@ -212,21 +243,30 @@ public class Light_Controller : MonoBehaviour
 		{
 			is_off = false;
 			this_light.enabled = true;
-			gameObject.GetComponent<Renderer> ().material = on_material;
-
+			if(!is_large_light)
+			{
+				
+				gameObject.GetComponent<Renderer>().material = on_material;
+			}
 			StartCoroutine ("FlickerOn");
 		}
 	}
 
 	IEnumerator FlickerOn()
 	{
+		flicker_sounds[0].Play();
+
 		yield return new WaitForSeconds(1.5f);
+
+		flicker_sounds[1].Play();
 
 		flicker = flicker_types.custom2;
 
 		yield return null;
 		this_light.intensity = flicker_on_max;
 		flicker = flicker_types.tiny;
+
+
 
 
 	}
