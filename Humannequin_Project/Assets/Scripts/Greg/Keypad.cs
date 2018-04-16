@@ -94,42 +94,54 @@ public class Keypad : MonoBehaviour {
 		
 	void Get_Player_Input(int input_number)
 	{
-		// Add to player sequence
-		player_sequence[number_pointer] = input_number;
+        // Check if reset has been pressed
+        if (input_number == 0)
+        {
+            // Reset pointer
+            number_pointer = 0;
 
-		// Add input to display
-		keypad_screen.text = (keypad_screen.text + input_number.ToString());
+            // Clear the screen
+            keypad_screen.text = "";
+        }
+        else
+        {
+            // Add to player sequence
+            player_sequence[number_pointer] = input_number;
 
-		// Move pointer
-		number_pointer++;
+            // Add input to display
+            keypad_screen.text = (keypad_screen.text + input_number.ToString());
 
-		// Compare the input with the part of sequence
-		if (number_pointer >= sequence_length)
-		{
-			// Check sequences
-			if (Check_Input())
-			{
-				// Player wins
-				Debug.Log("correct");
-				current_state = game_state.WIN;
-				Victory();
-			}
-			else
-			{
-				Debug.Log("incorrect");
-				// Reset pointer before allowing another try
-				number_pointer = 0;
+            // Move pointer
+            number_pointer++;
 
-				// Clear the screen
-				keypad_screen.text = "";
+            // Compare the input with the part of sequence
+            if (number_pointer >= sequence_length)
+            {
+                // Check sequences
+                if (Check_Input())
+                {
+                    // Player wins
+                    Debug.Log("correct");
+                    current_state = game_state.WIN;
+                    Victory();
+                }
+                else
+                {
+                    Debug.Log("incorrect");
+                    // Reset pointer before allowing another try
+                    number_pointer = 0;
 
-				//turn light off and on again
-				flickering_light.enabled = false;
-				InvokeRepeating("Turn_On_Light", 1.0f, Time.deltaTime);
+                    // Clear the screen
+                    keypad_screen.text = "";
 
-				// Make mannequin closer to attacking
-			}	
-		}
+                    //turn light off and on again
+                    flickering_light.enabled = false;
+                    InvokeRepeating("Turn_On_Light", 1.0f, Time.deltaTime);
+
+                    // Make mannequin closer to attacking
+                }
+            }
+        }
 	}
 		
 	void Victory()
