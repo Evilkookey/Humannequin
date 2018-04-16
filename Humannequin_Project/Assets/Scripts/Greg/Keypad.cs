@@ -49,7 +49,7 @@ public class Keypad : MonoBehaviour {
 		is_on = false;
 
 		// Set the keycard
-		keycard = GameObject.Find("keycard");
+		//keycard = GameObject.Find("keycard");
 
 		//flickering_light = GameObject.Find("Enemy_Light").GetComponent<Light>();
 	}
@@ -85,8 +85,12 @@ public class Keypad : MonoBehaviour {
 			sequence[i] = rando;
 		}
 
-		// Send code to card
-		keycard.SendMessage("Set_Code", sequence);
+        // Check if this has a card
+        if (keycard)
+        {
+            // Send code to card
+            keycard.SendMessage("Set_Code", sequence);
+        }
 
 		// Change to display state;
 		current_state = game_state.INPUT;
