@@ -50,7 +50,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 	public Tool active_tool;
 
 	// Pause menu controller
-	GameObject pause_menu_controller;	// NAT
+	public GameObject pause_menu_controller;	// NAT
 	// How long the pause button is held
 	public float pause_timer;
 
@@ -458,17 +458,17 @@ public class VR_Input_Ver_4 : MonoBehaviour
 			if (other.tag == "Interact")
 			{
 				// Set the object to the one collided with
-				collide_objects.Add(other.gameObject);
+				collide_objects.Insert(0, other.gameObject);
 			}
 			if (other.tag == "Pick_Up")
 			{
 				// Set the object to the one collided with
-				collide_objects.Add(other.gameObject);
+				collide_objects.Insert(0, other.gameObject);
 			}
 			if (other.tag == "ToolSlot")
 			{
 				// Add the slot to the list
-				collide_objects.Add(other.gameObject);
+				collide_objects.Insert(collide_objects.Count, other.gameObject);
 			}
             if (other.tag == "Temp_Slot")
             {

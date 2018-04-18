@@ -15,8 +15,10 @@ public class Scene_Controller : MonoBehaviour
 	void Start()
 	{
 		// Load next scene in the background of the current scene
-		SceneManager.LoadSceneAsync (2, LoadSceneMode.Additive);
-
+		//if(!SceneManager.GetSceneAt(2).isLoaded)
+		//{
+			SceneManager.LoadSceneAsync (2, LoadSceneMode.Additive);
+		//}
 		// Unload last scene in background of the current scene
 		//SceneManager.UnloadSceneAsync (0);
 
@@ -30,6 +32,7 @@ public class Scene_Controller : MonoBehaviour
 			radio_audio = GameObject.Find("radio").GetComponent<AudioSource>();
 			found = true;
 		}
+
 	}
 
 	public static void Change_Scene(string scene)

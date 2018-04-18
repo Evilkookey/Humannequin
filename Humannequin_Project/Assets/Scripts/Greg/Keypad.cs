@@ -27,7 +27,7 @@ public class Keypad : MonoBehaviour {
 	public game_state current_state;			// The state the game is in
 	public bool is_on;							// If the light is on
 
-	public Light flickering_light;				// The light that turns off and moves the mannequin 
+	public List<GameObject> flickering_light;				// The light that turns off and moves the mannequin 
 	public float light_timer;					// A timer for the light
 
 	public GameObject entrance_door;
@@ -139,8 +139,11 @@ public class Keypad : MonoBehaviour {
                     keypad_screen.text = "";
 
                     //turn light off and on again
-                    flickering_light.enabled = false;
-                    InvokeRepeating("Turn_On_Light", 1.0f, Time.deltaTime);
+					foreach (GameObject light in flickering_light)
+					{
+						light.GetComponentInChildren<Light_Controller>().Light_Off();
+					}
+					InvokeRepeating("Turn_On_Light", 1.0f, Time.deltaTime);
 
                     // Make mannequin closer to attacking
                 }
@@ -165,7 +168,10 @@ public class Keypad : MonoBehaviour {
 		if (light_timer >= 1.0f)
 		{
 			// Turn light back on, rest timer and stop repeating
-			flickering_light.enabled = true;
+			foreach (GameObject light in flickering_light)
+			{
+				light.GetComponentInChildren<Light_Controller>().Light_Flicker_On();
+			}
 			light_timer = 0.0f;
 			CancelInvoke();
 		}

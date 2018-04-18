@@ -50,6 +50,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 
     AudioSource death_sound;
 
+	public GameObject player_head;
 
     // Use this for initialization
     void Start () 
@@ -59,7 +60,10 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 		//Find both player objects
 		CameraRigPlayer = GameObject.Find("[CameraRig]");
+
 		//FPSController = GameObject.Find("FPSController");
+
+		player_head = GameObject.Find("Camera (eye)");
 
 		head = gameObject.transform.Find("head").gameObject.transform;
 
@@ -250,17 +254,18 @@ public class Mannequin_Stalk : MonoBehaviour {
 		// Dont kill the player again
         do_not_kill = true;
 
-        // Change game state to LOSE
-        Game_State_Controller.Lose_Game();
+       
 	}
 
 	IEnumerator Jumpscare()
 	{
-		// Waits until lights have completly gone off before moving mannequin
-		yield return new WaitForSeconds (0.5f);
+		
+
+		// Delay
+		yield return new WaitForSeconds (4.4f);
 
 		// Moves mannequin in front of the player
-		this.gameObject.transform.position = /*new Vector3(player.position.x, player.position.y, player.position.z + 1.0f)*/ player.position + (player.transform.forward * 0.75f);
+		this.gameObject.transform.position = player.position + (/*player.transform.forward*/ player_head.transform.forward* 0.75f);
 
 		tilt = 0.1f;
 
@@ -273,15 +278,15 @@ public class Mannequin_Stalk : MonoBehaviour {
 		gameObject.transform.LookAt(target_postition);
 
 		// Set target position to player position but using head y position + tilt 
-		target_postition = new Vector3 (player.position.x, 
+		target_postition = new Vector3 (player_head.transform.position.x, 
 			//this.transform.position.y, 
 			head.position.y - tilt,
-			player.position.z);
+			player_head.transform.position.z);
 
 		head.LookAt (target_postition);
 
-		// Delay
-		yield return new WaitForSeconds (4.0f);
+		// Waits until lights have completly gone off before moving mannequin
+		yield return new WaitForSeconds (0.1f);
 
 		// Lights flicker back on
 		foreach(GameObject g in room_lights)
@@ -292,6 +297,9 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 		// Play jumpscare sound
 		//death_sound.Play();
+
+		// Change game state to LOSE
+		Game_State_Controller.Lose_Game();
 
 	}
 

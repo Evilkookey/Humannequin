@@ -36,14 +36,6 @@ public class Activate_Screwable_Object : MonoBehaviour
 	Animator object_animator;
 
 
-    // The mannequin's script
-    public Teleport_Mannequin_timer mannequin;
-
-    // The line puzzle
-    public GameObject line_puzzle;
-
-    public bool Enable_mannequin = false;
-    public bool Enable_line_puzzle = false;
 
     void Start()
 	{
@@ -64,30 +56,7 @@ public class Activate_Screwable_Object : MonoBehaviour
 		//line_puzzle = GameObject.Find("Puzzleboard_easy");
 		//line_puzzle.SetActive(false);
 
-        if(Enable_mannequin)
-        {
-            mannequin = GameObject.Find("mannequin_teleport_new").GetComponentInChildren<Teleport_Mannequin_timer>();
-        }
-        else
-        {
-            mannequin = null;
-        }
-
-        if (!Enable_line_puzzle)
-        {
-            line_puzzle = null;
-        }
-        else
-        {
-            if (line_puzzle)
-            {
-                line_puzzle.SetActive(false);
-            }
-            else
-            {
-                print("You need to pass in a line puzzle to activate it");
-            }
-        }
+        
 
     }
 
@@ -127,18 +96,18 @@ public class Activate_Screwable_Object : MonoBehaviour
                     // Calls the Interact function in the screw controller and passes the objects name
                     screw_controller.Interact(gameObject, this_object);
 
-                    if (Enable_line_puzzle)
-                    {
-                        // Activate the line puzzle
-                        line_puzzle.SetActive(true);
-                    }
-					print("send enable");
-
-                    if(Enable_mannequin)
-                    {
-                        // Enable the mannequin
-                        mannequin.Enable_enemy();
-                    }
+//                    if (Enable_line_puzzle)
+//                    {
+//                        // Activate the line puzzle
+//                        line_puzzle.SetActive(true);
+//                    }
+//					print("send enable");
+//
+//                    if(Enable_mannequin)
+//                    {
+//                        // Enable the mannequin
+//                        mannequin.Enable_enemy();
+//                    }
 
                 }
 			}

@@ -28,14 +28,18 @@ public class Door_Interaction : MonoBehaviour
 
 	public void Activate()
 	{
-		// Play animation
-		door_animator.SetBool("opening", true);
-
-		// Play sound
-		door_open_sound.Play();
-
-
 		// Call change scene
 		Scene_Controller.Change_Scene(door_type);
+
+		if(door_type != "end")
+		{
+			// Play animation
+			door_animator.SetBool("opening", true);
+
+			// Play sound
+			door_open_sound.Play();
+		}
+
+
 	}
 }
