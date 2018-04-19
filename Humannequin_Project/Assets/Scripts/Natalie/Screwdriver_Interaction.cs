@@ -111,6 +111,7 @@ public class Screwdriver_Interaction : MonoBehaviour
 				// TODO Activate puzzle here	
 				cover.GetComponent<Rigidbody>().isKinematic = false;
 
+
 				if (Enable_line_puzzle)
 				{
 					// Activate the line puzzle

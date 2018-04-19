@@ -14,7 +14,7 @@ public class Win_Game : MonoBehaviour
 	public float delay_time; 
 	public float sound_delay = 3.7f;
 	public float fade_out_duration = 3.0f;
-
+	public bool played = false;
 	void Start ()
 	{
 		pause_controller = GameObject.Find("pause_controller");
@@ -50,11 +50,14 @@ public class Win_Game : MonoBehaviour
 		// Checks if colliding with player, if so then move player object to next scene
 		if(other.gameObject.name == "[CameraRig]" || other.gameObject.name == "FPSController")
 		{
-			mannequin_anim.speed = 1;
+			if(!played)
+			{
+				played = true;
+				mannequin_anim.speed = 1;
 
-			StartCoroutine (PlayAudio ());
-			StartCoroutine (Win ());
-
+				StartCoroutine (PlayAudio ());
+				StartCoroutine (Win ());
+			}
 
 		}
 
