@@ -40,6 +40,7 @@ public class Light_Controller : MonoBehaviour
 	public bool broken;
 	public bool is_off = false;
 	public bool is_large_light;
+	public bool is_spotlight;
 
 	Color emissive_colour;
 
@@ -87,14 +88,16 @@ public class Light_Controller : MonoBehaviour
 			if (is_off) 
 			{
 				this_light.enabled = false;
-				if(is_large_light)
+				if(is_large_light )
 				{
 					gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor",new Color(0,0,0));
 				}
 				else
 				{
-					
-					gameObject.GetComponent<Renderer> ().material = off_material;
+					if(!is_spotlight)
+					{
+						gameObject.GetComponent<Renderer> ().material = off_material;
+					}
 				}
 			}
 			else
@@ -106,7 +109,10 @@ public class Light_Controller : MonoBehaviour
 				}
 				else
 				{
-					gameObject.GetComponent<Renderer> ().material = on_material;
+					if(!is_spotlight)
+					{
+						gameObject.GetComponent<Renderer> ().material = on_material;
+					}
 				}
 			}
 		}

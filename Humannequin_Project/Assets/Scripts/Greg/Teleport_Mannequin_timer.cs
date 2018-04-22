@@ -43,7 +43,8 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		//Find both player objects
 		CameraRigPlayer = GameObject.Find("[CameraRig]");
 		FPSController = GameObject.Find("FPSController");
-
+		//torch_light= CameraRigPlayer.transform.Find("Light").GetComponentInChildren<Light>();
+	
 		player = CameraRigPlayer.transform;
 	}
 
@@ -61,6 +62,29 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 			}
 		
 		}
+
+//		if(torch_light == null)
+//		{
+//			
+//			GameObject handtorch = GameObject.Find("Hand_Torch_1");
+//			torch_light = handtorch.GetComponentInChildren<Light>();
+//
+//
+//		}
+//		else{
+//
+//			CameraRigPlayer.SendMessage("DisableTorchHand");
+//		}
+//		if(torch_light2 == null)
+//		{			
+//			GameObject handtorch2 = GameObject.Find("Hand_Torch_2");
+//			torch_light2 = handtorch2.GetComponentInChildren<Light>();
+//			CameraRigPlayer.SendMessage("DisableTorchHand");
+//		}
+//		else{
+//
+//			CameraRigPlayer.SendMessage("DisableTorchHand");
+//		}
 	}
 
 	// Mannequin update is called once per frame when mannequin can move
@@ -113,7 +137,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	{
 		print("Get enabled");
 		is_enabled = true;
-		building_up_sound.Play();
+		//building_up_sound.Play();
 	}
 	IEnumerator EndGame()
 	{

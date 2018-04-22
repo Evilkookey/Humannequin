@@ -9974,6 +9974,7 @@ MonoBehaviour:
   broken: 0
   is_off: 1
   is_large_light: 0
+  is_spotlight: 1
 --- !u!1 &344857547
 GameObject:
   m_ObjectHideFlags: 0
@@ -16179,6 +16180,7 @@ MonoBehaviour:
   broken: 0
   is_off: 1
   is_large_light: 0
+  is_spotlight: 1
 --- !u!1001 &651964644
 Prefab:
   m_ObjectHideFlags: 0
@@ -18700,6 +18702,67 @@ Prefab:
       propertyPath: m_Name
       value: radio
       objectReference: {fileID: 0}
+    - target: {fileID: 1096548294911064, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1025463508222754, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1150073909994864, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692664872138176, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1490031257493478, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1399100287465558, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1358949038419292, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1219201675666456, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1035437678311534, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1048840704737972, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130347627777288, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1474640316394320, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1874718192884528, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1162065169150848, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 65609729991137272, guid: 589e164bcb9883446b3e63d69cdde9c6,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114667532216889486, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
     - {fileID: 65862889359591260, guid: 589e164bcb9883446b3e63d69cdde9c6, type: 2}
@@ -18740,7 +18803,7 @@ AudioSource:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 793190961}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 08183ef01ee31264ca76eaaf42651286, type: 3}
@@ -27306,21 +27369,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!54 &1273092592
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1273092590}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!1001 &1277098792
 Prefab:
   m_ObjectHideFlags: 0
@@ -27953,6 +28001,7 @@ MonoBehaviour:
   broken: 0
   is_off: 1
   is_large_light: 0
+  is_spotlight: 1
 --- !u!4 &1316922091 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4889987964258754, guid: e7537a082bbe85f44a971cefe9283699,
@@ -30295,6 +30344,7 @@ MonoBehaviour:
   broken: 0
   is_off: 0
   is_large_light: 0
+  is_spotlight: 0
 --- !u!23 &1493226967
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -30433,6 +30483,7 @@ MonoBehaviour:
   broken: 0
   is_off: 0
   is_large_light: 1
+  is_spotlight: 0
 --- !u!1001 &1496933226
 Prefab:
   m_ObjectHideFlags: 0
@@ -33248,15 +33299,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioEngine: 0
-  materialPreset: 0
+  materialPreset: 2
   materialValue:
-    LowFreqAbsorption: 0.1
-    MidFreqAbsorption: 0.2
-    HighFreqAbsorption: 0.3
+    LowFreqAbsorption: 0.05
+    MidFreqAbsorption: 0.07
+    HighFreqAbsorption: 0.08
     Scattering: 0.05
-    LowFreqTransmission: 0.1
-    MidFreqTransmission: 0.05
-    HighFreqTransmission: 0.03
+    LowFreqTransmission: 0.015
+    MidFreqTransmission: 0.002
+    HighFreqTransmission: 0.001
   simulationPreset: 0
   simulationValue:
     RealtimeRays: 4096
@@ -34932,6 +34983,7 @@ MonoBehaviour:
   broken: 0
   is_off: 0
   is_large_light: 0
+  is_spotlight: 0
 --- !u!23 &1737390017
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -35283,6 +35335,7 @@ MonoBehaviour:
   broken: 0
   is_off: 0
   is_large_light: 0
+  is_spotlight: 0
 --- !u!23 &1751224840
 MeshRenderer:
   m_ObjectHideFlags: 0

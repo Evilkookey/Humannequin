@@ -65,6 +65,7 @@ public class VR_Input_Ver_4 : MonoBehaviour
 	public bool do_not_anim = false;
 	public bool is_grabbing = false;
 	public bool pointing = false;
+	bool disable_torch = false;
 
 	// Use this for initialization
 	void Start () 
@@ -109,6 +110,12 @@ public class VR_Input_Ver_4 : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+
+		if(hand_torch.active && disable_torch)
+		{
+			hand_torch.SetActive(false);
+		}
+
         // Only call if state is playing
         if (Game_State_Controller.current_state == Game_State_Controller.Game_States.PLAYING)
         {
@@ -583,4 +590,6 @@ public class VR_Input_Ver_4 : MonoBehaviour
 		// Clear the collide list
 		collide_objects.Clear();
 	}
+
+
 }
