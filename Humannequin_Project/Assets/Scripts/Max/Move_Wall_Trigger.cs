@@ -12,7 +12,8 @@ public class Move_Wall_Trigger : MonoBehaviour
 	GameObject light_;
 	public GameObject start_door;
 	public bool is_testing;
-
+	public AudioSource door_slam_sound;
+	Animator menu_door;
 
 	// Use this for initialization
 	void Start () 
@@ -29,7 +30,7 @@ public class Move_Wall_Trigger : MonoBehaviour
 			// Readd this code
 			start_wall.SetActive (false);
 		}
-
+		menu_door = GameObject.Find ("hinge").GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -50,11 +51,11 @@ public class Move_Wall_Trigger : MonoBehaviour
 		{			
 			
 			// Play door shut animation
-			GameObject.Find("hinge").GetComponent<Animator>().speed = 0.5f;
+			menu_door.speed = 0.38f;
 			// Play door shut animation
-			GameObject.Find("hinge").GetComponent<Animator>().SetBool("opening",false);
+			menu_door.SetBool("opening",false);
 
-
+			door_slam_sound.Play ();
 
 			// Unload main menu scene after a few seconds
 			StartCoroutine(UnloadScene());

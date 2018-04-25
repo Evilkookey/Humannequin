@@ -125,7 +125,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 				StartCoroutine("EndGame");
 
 
-                print("MannequinKills");
+                //print("MannequinKills");
 			}
 			// Reset timer
 			timer = 0.0f;
@@ -137,7 +137,9 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 	{
 		print("Get enabled");
 		is_enabled = true;
-		//building_up_sound.Play();
+
+
+
 	}
 	IEnumerator EndGame()
 	{
@@ -152,6 +154,9 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
     // Light off timer
     IEnumerator Light_Off (float t)
     {
+
+		building_up_sound.Play ();
+
         // Turn light off
 		foreach (GameObject light in flickering_lights)
         {

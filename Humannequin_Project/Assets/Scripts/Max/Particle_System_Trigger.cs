@@ -28,7 +28,7 @@ public class Particle_System_Trigger : MonoBehaviour {
             if (!played)
             {
                 particle_system.Play();
-                //gameObject.GetComponent<AudioSource>().Play();
+                gameObject.GetComponent<AudioSource>().Play();
 
                 played = true;
             }

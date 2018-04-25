@@ -25,7 +25,7 @@ public class Radio : MonoBehaviour {
     // Activate is called when the player uses the radio
     void Activate (string tool)
     {
-        // Check if there is no active tool
+		// Check if there is no active tool (if the player is poitnting)
         if (tool.ToLower() == "none")
         {
             //Turn off the radio
