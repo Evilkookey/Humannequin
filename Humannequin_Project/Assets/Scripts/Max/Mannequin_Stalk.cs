@@ -48,7 +48,8 @@ public class Mannequin_Stalk : MonoBehaviour {
 	public List<GameObject> room_lights = new List<GameObject>();
 	public GameObject main_room_light;
 
-    AudioSource death_sound;
+    public AudioSource death_sound;
+    public AudioSource stalk_sound;
 
 	public GameObject player_head;
 
@@ -67,7 +68,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 		head = gameObject.transform.Find("head").gameObject.transform;
 
-        death_sound = gameObject.GetComponent<AudioSource>();
+       // death_sound = gameObject.GetComponent<AudioSource>();
 
 
     }
@@ -98,9 +99,15 @@ public class Mannequin_Stalk : MonoBehaviour {
 				// If the gameobject is not visible to the renderer and the distance between the player and enemy is less than min_dist
 				if (!this.GetComponent<Renderer> ().isVisible && head_not_visible) // || light.intensity == 0.0f) 
 				{
-					
-					//gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
+                    //gameObject.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
+                    // Play sound
+                    if (!stalk_sound.isPlaying)
+                    {
+                        stalk_sound.Play();
+                    }
+                    
 					// Enable the NavMesh Agent
 					agent.enabled = true;
 
@@ -134,8 +141,14 @@ public class Mannequin_Stalk : MonoBehaviour {
 				} 
 				else 
 				{
-					// Stop enemy from moving	
-					transform.position = transform.position;
+                    // Stop sound
+                    if (stalk_sound.isPlaying)
+                    {
+                        stalk_sound.Stop();
+                    }
+
+                    // Stop enemy from moving	
+                    transform.position = transform.position;
 					transform.rotation = transform.rotation;
 
 					// Disables the navmesh agent when you see the mannequin
