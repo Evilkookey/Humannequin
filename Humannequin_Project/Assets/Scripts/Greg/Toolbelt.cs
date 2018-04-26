@@ -105,6 +105,11 @@ public class Toolbelt : MonoBehaviour
             // Take tool out of belt
             tools[tool_pointer].is_in_belt = false;
 
+            // Play sound
+            AudioSource[] audio = gameObject.GetComponents<AudioSource>();
+            int rand_int = Random.Range(0, audio.Length);
+            audio[rand_int].Play();
+
 			return true;
 		}
 		else
@@ -128,7 +133,12 @@ public class Toolbelt : MonoBehaviour
             // Put tool back in belt belt
             tools[tool_pointer].is_in_belt = true;
 
-			return true;
+            // Play sound
+            AudioSource[] audio = gameObject.GetComponents<AudioSource>();
+            int rand_int = Random.Range(0, audio.Length);
+            audio[rand_int].Play();
+
+            return true;
 		}
 		else
 		{
@@ -150,10 +160,15 @@ public class Toolbelt : MonoBehaviour
 			// Activate tool
 			tools[tool_pointer].tool_object.SetActive(true);
 
-			// Put tool in belt belt
+			// Put tool in belt
 			tools[tool_pointer].is_in_belt = true;
 
-			return true;
+            // Play sound
+            AudioSource[] audio = gameObject.GetComponents<AudioSource>();
+            int rand_int = Random.Range(0, audio.Length);
+            audio[rand_int].Play();
+
+            return true;
 		}
 		else
 		{
