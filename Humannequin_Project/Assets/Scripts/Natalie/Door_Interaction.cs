@@ -23,6 +23,7 @@ public class Door_Interaction : MonoBehaviour
 		// Initialise the animator 
 		door_animator = gameObject.GetComponentInParent<Animator> ();
 
+		// Initialise the sound
 		door_open_sound = gameObject.GetComponentInParent<AudioSource>();
 	}
 
@@ -39,7 +40,5 @@ public class Door_Interaction : MonoBehaviour
 			// Play sound
 			door_open_sound.Play();
 		}
-
-
 	}
 }
