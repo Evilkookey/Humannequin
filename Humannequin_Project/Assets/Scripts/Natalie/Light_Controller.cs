@@ -6,10 +6,7 @@ using UnityEngine;
 
 public class Light_Controller : MonoBehaviour 
 {
-	// Variables
-	// Light flicker Variables
-	// Light light_;
-
+	// Flicker variables
 	public float counter = 0;
 	public float intensity_max, intensity_min, freq_max, freq_min, increase_min, increase_max;
 	public float flicker_on_max = 1.0f;

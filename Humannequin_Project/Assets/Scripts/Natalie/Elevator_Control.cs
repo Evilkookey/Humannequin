@@ -31,7 +31,7 @@ public class Elevator_Control : MonoBehaviour
 		// Play the animation
 		door_animator.SetBool ("opening", true);
 
-		// Set the mannequin to be the mannequin in the elevator
+		// Set the mannequin to be the mannequin in the elevator and set it inactive
 		mannequin = GameObject.Find("idle_mannequin");
 		mannequin.SetActive (false);
 
@@ -58,9 +58,6 @@ public class Elevator_Control : MonoBehaviour
 		{
 			// Set has_left true
 			has_left = true;
-
-			// Close the door
-			//StartCoroutine(Close_Door());
 		}
 	}
 
