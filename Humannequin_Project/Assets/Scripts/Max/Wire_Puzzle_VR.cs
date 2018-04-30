@@ -179,28 +179,28 @@ public class Wire_Puzzle_VR : MonoBehaviour
 				current_line = red_line;
 				Reset(ref red_line);
 			}
-			else if(color == Color.blue) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
+			else if(color == Color.blue)
 			{	
 				blue_line.line_renderer.positionCount = 1;
 				//Set the line renderer to the blue one
 				current_line = blue_line;
 				Reset(ref blue_line);			
 			}
-			else if(color == green_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
+			else if(color == green_colour.color) 
 			{	
 				green_line.line_renderer.positionCount = 1;
 				//Set the line renderer to the green one
 				current_line = green_line;
 				Reset(ref green_line);						
 			}/*
-			else if(color == magenta_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
+			else if(color == magenta_colour.color) 
 			{	
 				magenta_line.line_renderer.positionCount = 1;
 				//Set the line renderer to the green one
 				current_line = magenta_line;
 				Reset(ref magenta_line);					
 			}*/
-			else if(color == yellow_colour.color) //THIS CAN BE DONE BY GAMEOBJECT NAME INSTEAD OF COLOUR IF WE DONT WANT COLOUR TO BE VISIBLE
+			else if(color == yellow_colour.color) 
 			{	
 				yellow_line.line_renderer.positionCount = 1;
 				//Set the line renderer to the green one
@@ -389,7 +389,7 @@ public class Wire_Puzzle_VR : MonoBehaviour
 		{
 			//Currently using the line
 			using_line = true;
-			//What a big gay
+		
 			//Set the cube hit variable to true
 			hit.GetComponent<VR_Puzzle_Cube>().Set_Hit(true);
 

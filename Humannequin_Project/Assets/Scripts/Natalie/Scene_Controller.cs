@@ -8,27 +8,21 @@ using UnityEngine.SceneManagement;
 
 public class Scene_Controller : MonoBehaviour 
 {
-
+	// Variables
 	public AudioSource radio_audio,menu_audio;
 	bool found = false; 
 
 	void Start()
 	{
-		// Load next scene in the background of the current scene
-		//if(!SceneManager.GetSceneAt(2).isLoaded)
-		//{
-			SceneManager.LoadSceneAsync (2, LoadSceneMode.Additive);
-		//}
-		// Unload last scene in background of the current scene
-		//SceneManager.UnloadSceneAsync (0);
-
-
+		// load scene in background
+		SceneManager.LoadSceneAsync (2, LoadSceneMode.Additive);
 	}
 
 	void Update()
 	{
 		if(!found) 
 		{
+			// Find audio source
 			radio_audio = GameObject.Find("radio").GetComponent<AudioSource>();
 			found = true;
 		}

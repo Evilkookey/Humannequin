@@ -25,10 +25,6 @@ public class Game_State_Controller : MonoBehaviour
 		// Initialise the current state to be PLAYING
 		current_state = Game_States.PLAYING;
 	}
-	void Update()
-	{
-		//Debug.Log(current_state);
-	}
 	// Function called to set the game state to PAUSED
 	public static void Pause_Game ()
 	{

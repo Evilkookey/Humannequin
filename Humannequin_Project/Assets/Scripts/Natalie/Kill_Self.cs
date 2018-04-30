@@ -12,6 +12,5 @@ public class Kill_Self : MonoBehaviour
 	void Destroy_This ()
 	{
 		Destroy (this.GetComponent<Transform> ().parent.gameObject);
-		//Destroy (this.gameObject);
 	}
 }

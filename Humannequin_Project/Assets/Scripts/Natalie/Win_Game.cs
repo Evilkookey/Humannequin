@@ -1,24 +1,29 @@
 ﻿// WIN_GAME.CS
-// NATALIE BAKER-HALL
+// NATALIE BAKER-HALL & MAX MILLS
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Win_Game : MonoBehaviour 
 {	
+	// Variables
 	GameObject pause_controller;
 	public GameObject end_mannequin;
 	public GameObject mannequin_walking;
 
+	// Animation and sound variables
 	Animator mannequin_anim;
 	public float delay_time; 
 	public float sound_delay = 3.7f;
 	public float fade_out_duration = 3.0f;
 	public bool played = false;
+
 	void Start ()
 	{
+		// Initialise the pause controller
 		pause_controller = GameObject.Find("pause_controller");
 
+		// Initialise the mannequin animation
 		mannequin_anim = end_mannequin.GetComponent<Animator> ();
 		mannequin_anim.speed = 0;
 
@@ -31,8 +36,6 @@ public class Win_Game : MonoBehaviour
 		// Checks if player has won the game
 		if (Game_State_Controller.current_state == Game_State_Controller.Game_States.WIN) 
 		{
-			//print ("ENDGAME");
-
 			// Fade to black
 			SteamVR_Fade.Start(Color.black, fade_out_duration, false);
 
@@ -67,6 +70,7 @@ public class Win_Game : MonoBehaviour
 	{
 		yield return new WaitForSeconds (sound_delay);
 
+		// Play the audio
 		AudioSource[] sounds = gameObject.GetComponents<AudioSource>();
 		sounds[0].Play();
 		sounds[1].Play();
@@ -79,12 +83,11 @@ public class Win_Game : MonoBehaviour
 	{
 		yield return new WaitForSeconds (delay_time);
 
-
+		// Set the end mannequin to inactive
 		end_mannequin.SetActive (false);
 
+		// Set the walking mannequin to active
 		mannequin_walking.SetActive (true);	
-
-
 
 		// Change game state to WIN
 		Game_State_Controller.Win_Game();
