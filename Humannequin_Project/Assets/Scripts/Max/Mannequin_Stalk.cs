@@ -1,6 +1,8 @@
 ﻿// MANNEQUIN_STALK.CS
 // MAX MILLS
 
+// This is code for the stalking mannequin, which follows the player while unseen
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -64,8 +66,10 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 		//FPSController = GameObject.Find("FPSController");
 
+		// Find player camera object
 		player_head = GameObject.Find("Camera (eye)");
 
+		// Find head object in object
 		head = gameObject.transform.Find("head").gameObject.transform;
 
        // death_sound = gameObject.GetComponent<AudioSource>();
@@ -76,9 +80,11 @@ public class Mannequin_Stalk : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Game_State_Controller.current_state != Game_State_Controller.Game_States.PAUSED) {
+		// Stops updating if game is paused 
+		if (Game_State_Controller.current_state != Game_State_Controller.Game_States.PAUSED) 
+		{
 
-			//Switch who the player is for debugging
+			// Switch who the player is for debugging
 			if (USE_FPSCONTROLLER) {
 				player = FPSController.transform;
 
@@ -86,6 +92,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 				player = CameraRigPlayer.transform;
 			}
 
+			// Updates stawaway zone toggle 
 			in_stayaway_zone = stayaway_zone.GetComponent<Stayaway_Zone> ().in_zone;
 
 
@@ -330,6 +337,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 	void OnTriggerStay(Collider other)
 	{
+		// Stops moving once hit by light
 		if (other.gameObject.tag == "Light") 
 		{
 			can_move = false;
@@ -339,6 +347,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 	}
 	void OnTriggerExit(Collider other)
 	{
+		// Moves once light is not collided 
 		if (other.gameObject.tag == "Light") 
 		{
 			can_move = true;

@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿// Hallway_Light_Trigger.CS
+// MAX MILLS
+
+// Flickers on light once trigger hit
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿// Head_roll_trigger.CS
+// MAX MILLS
+
+// THis is used to roll a head from around a corner once the player hits the trigger
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +29,7 @@ public class Head_roll_trigger : MonoBehaviour {
 		{
 			if (!stop)
 			{
+				// Apply a force to the head object
 				head.GetComponent<Rigidbody> ().AddForce (Vector3.forward * force,ForceMode.Impulse);
 				stop = true;
 			}

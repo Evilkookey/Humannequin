@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿//Mannequin_Animated.CS
+// MAX MILLS
+
+// This is a simple move script for the final transform mannequin
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

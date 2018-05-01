@@ -1,5 +1,8 @@
 ﻿// MOVE_WALL_TRIGGER.CS
 // MAX MILLS
+
+// THis is a trigger to control the unloading of the scenes, and slamming a door
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,8 +52,8 @@ public class Move_Wall_Trigger : MonoBehaviour
 		// If player cameraRig or FPScontroller interact
 		if (other.gameObject.name == "[CameraRig]" || other.gameObject.name == "FPSController") 
 		{			
-			
-			// Play door shut animation
+			// TODO fix the speed/timings - currently out of time with sound
+
 			menu_door.speed = 0.38f;
 			// Play door shut animation
 			menu_door.SetBool("opening",false);

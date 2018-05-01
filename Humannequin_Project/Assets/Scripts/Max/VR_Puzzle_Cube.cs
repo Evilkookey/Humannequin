@@ -96,7 +96,7 @@ public class VR_Puzzle_Cube : MonoBehaviour
 	{
 		
 		// If object in hand is pliers - this is not needed since only the pliers can interact with the cube
-		//if(other.GetComponent<Hand_Call>().is_pliers)//////////////////////////////////////////////////////////////////////////////////////
+		//if(other.GetComponent<Hand_Call>().is_pliers)
 		//{			
 			// If you collide with an empty cube, call empty cube function in puzzle script
 			if(type == cube_type.EMPTY && puzzle_board.GetComponent<Wire_Puzzle_VR>().using_line)

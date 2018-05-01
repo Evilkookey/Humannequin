@@ -1,6 +1,8 @@
 ﻿//LOCKER_ROOM_TRIGGER.CS
 //MAX MILLS
 
+// THis is used to enable lights, the mannequin enemy and cockroaches in the locker room
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,10 +21,10 @@ public class Locker_Room_Trigger : MonoBehaviour
 	{
 		if(!testing)
 		{
+			// Disable objects at the start 
 			if(enemy.gameObject.GetComponentInChildren<Mannequin_Stalk> ().enabled == true)
 			{
 				enemy.gameObject.GetComponentInChildren<Mannequin_Stalk> ().enabled = false;
-
 			}
 
 			foreach( GameObject g in lights)
