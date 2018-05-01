@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿// AUDIO_EFFECTS.CS
+// MAX MILLS
+
+// This holds audio fade in/out methods
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

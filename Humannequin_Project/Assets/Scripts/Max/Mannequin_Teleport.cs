@@ -1,6 +1,9 @@
 ﻿// MANNEQUIN_TELEPORT.CS
 // MAX MILLS & GREG BALBIRNIE
 
+// This is the initial teleport script
+// The game uses an updated version, Mannequin Teleport Timer
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿// Hand_Grab.CS
+// MAX MILLS
+
+// This was used to test animations and blend tree using the controller trigger
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

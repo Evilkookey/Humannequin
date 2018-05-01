@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿// Note_Type.CS
+// MAX MILLS
+
+// THis was planned to be used on the note items in the game, which were later removed
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

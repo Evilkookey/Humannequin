@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿// CAMERAPAN.CS
+// MAX MILLS
+
+// This was used to record the trailer, featuring a panning camera
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

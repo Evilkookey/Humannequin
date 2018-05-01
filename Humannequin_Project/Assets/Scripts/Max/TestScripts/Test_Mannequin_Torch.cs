@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// TEST_MANNEQUIN_TORCH.CS
+// MAX MILLS
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

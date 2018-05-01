@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿// Wire_Puzzle_with_Mouse.CS
+// MAX MILLS
+
+// This was used to debug the wire puzzle with the FPS Controller instead of VR
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

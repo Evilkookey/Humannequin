@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿// Head_Visible.CS
+// MAX MILLS
+
+// THis is used to determine if the mannequin head object is visible
+// The mannequi attached to the head will continuously check this to allow it to move/stalk
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +33,7 @@ public class Head_Visible : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		// If using camera rig, continuously search for one until found
 		if(!use_fps_controller && !found)
 		{
 			player_position = GameObject.Find("[CameraRig]").transform;
@@ -36,6 +43,7 @@ public class Head_Visible : MonoBehaviour {
 
 		if(!head_turn)
 		{
+			// If not rendereed, update visibilty toggle
 			if(!this.GetComponent<Renderer> ().isVisible)
 			{
 				not_visible = true;
@@ -47,6 +55,7 @@ public class Head_Visible : MonoBehaviour {
 		}
 		else
 		{
+			// This is used for seperate mannequin heads to follow the player
 			if(!this.GetComponent<Renderer> ().isVisible)
 			{
 				//this.transform.LookAt(player_position);

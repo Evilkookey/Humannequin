@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿// Particle_System_Trigger.CS
+// MAX MILLS
+
+// This plays any provided particle system with the provided sound
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

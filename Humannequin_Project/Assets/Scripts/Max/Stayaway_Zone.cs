@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿// Stayaway_Zone.CS
+// MAX MILLS
+
+// This acts as a toggle for the mannequin to use to stop follwoing the player
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
