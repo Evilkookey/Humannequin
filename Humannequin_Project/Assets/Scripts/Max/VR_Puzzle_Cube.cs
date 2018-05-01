@@ -37,11 +37,13 @@ public class VR_Puzzle_Cube : MonoBehaviour
 		// If current tool is the pliers 
 		if(tool_type == "PLIERS")
 		{
-			if (type == cube_type.START && hit) 
+            // If colliding with start cube that is already used, call reset line
+            if (type == cube_type.START && hit) 
 			{
 				puzzle_board.GetComponent<Wire_Puzzle_VR>().Reset_Line(gameObject.GetComponent<Renderer>().material.color,false);
 			}
 
+            // Test code for backtracing a line
 			if (type == cube_type.EMPTY && hit) 
 			{
 				Debug.Log("Reset to here");
@@ -64,19 +66,14 @@ public class VR_Puzzle_Cube : MonoBehaviour
 	// Called when cube is not interacted with
 	void Deactivate()
 	{
-		Debug.Log(gameObject.name);
+		//Debug.Log(gameObject.name);
+		//Debug.Log("deactivate");
 
-		Debug.Log("deactivate");
+        // Will reset line if pliers taken off an empty cube
 		if(type == cube_type.EMPTY)
 		{
 			puzzle_board.GetComponent<Wire_Puzzle_VR>().Reset_Line(gameObject.GetComponent<Renderer>().material.color,true);
-		}
-		//This will check if the first interacted cube was a start, and will then check if line was completed or not in the puzzle script
-		/*if(type == cube_type.START)
-		{
-			puzzle_board.GetComponent<Wire_Puzzle_VR>().Check_Line(gameObject.GetComponent<Renderer>().material.color, hit, gameObject);
-
-		}*/
+		}		
 	}
 
 	bool Get_Hit()
@@ -93,8 +90,7 @@ public class VR_Puzzle_Cube : MonoBehaviour
 	}
 		
 	void OnTriggerEnter(Collider other)
-	{
-		
+	{	
 		// If object in hand is pliers - this is not needed since only the pliers can interact with the cube
 		//if(other.GetComponent<Hand_Call>().is_pliers)
 		//{			
@@ -108,7 +104,6 @@ public class VR_Puzzle_Cube : MonoBehaviour
 			{
 				puzzle_board.GetComponent<Wire_Puzzle_VR>().Get_Start_Input(gameObject.GetComponent<Renderer>().material.color,hit,gameObject);
 			}
-
 		//}
 	}
 

@@ -231,8 +231,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 	void Head_Turn()
 	{
 		// Set target position to player position but using head y position + tilt 
-		target_postition = new Vector3 (player.position.x, 
-			//this.transform.position.y, 
+		target_postition = new Vector3 (player.position.x, 			
 			head.position.y - tilt,
 			player.position.z);
 
@@ -246,7 +245,6 @@ public class Mannequin_Stalk : MonoBehaviour {
 		// Look at target if head position is less than 90 degrees
 		if (difference < 270.0f && difference < 90.0f)
 		{
-			//print("tilt_me_with_your_rhythm_stick");
 			head.LookAt (target_postition);
 		}
 
@@ -266,6 +264,7 @@ public class Mannequin_Stalk : MonoBehaviour {
 			g.GetComponent<Light_Controller> ().is_off = true;
 		}
 
+        // Starts jumpscare sound
 		death_sound.Play();
 
 		// Start jumpscare event
@@ -279,33 +278,31 @@ public class Mannequin_Stalk : MonoBehaviour {
 
 	IEnumerator Jumpscare()
 	{
-		
-
-		// Delay
+		// Delay for sound to build up
 		yield return new WaitForSeconds (4.4f);
 
-		// Moves mannequin in front of the player
-		this.gameObject.transform.position = player.position + (/*player.transform.forward*/ player_head.transform.forward* 0.75f);
+		// Moves mannequin in front of the player based on player head forward
+		this.gameObject.transform.position = player.position + (player_head.transform.forward* 0.75f);
 
 		tilt = 0.1f;
 
-		// Turn head towards player
+		// Players position in X and Z axis
 		target_postition = new Vector3 (player.position.x, 
 			this.transform.position.y,
 			player.position.z);
 
-		// Turns manneuqin body
+		// Turns mannequin body towards player
 		gameObject.transform.LookAt(target_postition);
 
 		// Set target position to player position but using head y position + tilt 
 		target_postition = new Vector3 (player_head.transform.position.x, 
-			//this.transform.position.y, 
 			head.position.y - tilt,
 			player_head.transform.position.z);
 
+        // Turn head towards player
 		head.LookAt (target_postition);
 
-		// Waits until lights have completly gone off before moving mannequin
+		// Delay for jumpscare sound to be on time
 		yield return new WaitForSeconds (0.1f);
 
 		// Lights flicker back on
@@ -314,9 +311,6 @@ public class Mannequin_Stalk : MonoBehaviour {
 			g.GetComponent<Light_Controller> ().Light_Flicker_On ();
 		
 		}
-
-		// Play jumpscare sound
-		//death_sound.Play();
 
 		// Change game state to LOSE
 		Game_State_Controller.Lose_Game();

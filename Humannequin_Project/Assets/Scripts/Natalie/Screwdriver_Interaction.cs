@@ -73,15 +73,11 @@ public class Screwdriver_Interaction : MonoBehaviour
 		// If the object is not a cover, it must be a screw
 		if (object_type != Activate_Screwable_Object.Object_Type.COVER) 
 		{
-			print("1");
-
 			// Play animation
 			object_animator.SetBool ("play", true);
 
 			// Add one to the screw counter
 			screw_counter = screw_counter + 1;
-
-			print("2");
 
 			// Check screw count
 			if (screw_counter >= screws)
@@ -90,11 +86,8 @@ public class Screwdriver_Interaction : MonoBehaviour
 				cover.tag = "Interact";
 			}
 
-			print("3");
-
 			foreach (HingeJoint hj in HingeJoints) 
-			{
-				print("occurence");
+			{				
 				if (activated_object.name == hj.connectedBody.gameObject.name) 
 				{
 					HingeJoints.Remove(hj);
@@ -103,21 +96,16 @@ public class Screwdriver_Interaction : MonoBehaviour
 				}
 			}
 
-			print("4");
-
 			if (screw_counter == screws - 1) 
-			{				
-				print ("SWING");
-				// TODO Activate puzzle here	
+			{								
+			    // Enables phycsis on object, making it swing
 				cover.GetComponent<Rigidbody>().isKinematic = false;
 
-
-				if (Enable_line_puzzle)
+                if (Enable_line_puzzle)
 				{
 					// Activate the line puzzle
 					line_puzzle.SetActive(true);
-				}
-				print("send enable");
+				}                
 
 				if(Enable_mannequin)
 				{
