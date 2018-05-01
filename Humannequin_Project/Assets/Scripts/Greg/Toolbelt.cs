@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿// TOOLBELT.CS
+// GREG BALBIRNIE
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Toolbelt : MonoBehaviour 
 {
+    // Tool Variables
 	[System.Serializable]
 	public struct tool
 	{
@@ -71,6 +75,7 @@ public class Toolbelt : MonoBehaviour
 		// Make tool name lower case
 		tool_name = tool_name.ToLower();
 
+        // Return tool number
 		switch (tool_name)
 		{
 		case "wrench":

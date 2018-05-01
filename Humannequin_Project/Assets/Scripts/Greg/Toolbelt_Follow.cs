@@ -21,7 +21,7 @@ public class Toolbelt_Follow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		//Set toolbelt position
+		// Set toolbelt position
 		gameObject.transform.position = (player_head.transform.position - (Vector3.up * height_diff));
 		// Set toolbelt rotation
 		gameObject.transform.eulerAngles = new Vector3(0.0f, player_body.transform.eulerAngles.y, 0.0f);

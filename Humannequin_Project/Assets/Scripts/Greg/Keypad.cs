@@ -18,23 +18,23 @@ public class Keypad : MonoBehaviour {
 	}
 
 
-	public const int sequence_length = 6;					// The length of the sequence 
-	public int[] sequence;				// The sequence to be replicated
+	public const int sequence_length = 6;		// The length of the sequence 
+	public int[] sequence;				        // The sequence to be replicated
 	public int number_pointer;					// The number that currently needs to be input
-	public int[] player_sequence;		// The sequence the player has input
+	public int[] player_sequence;		        // The sequence the player has input
 	public float timer;							// A timer
 
 	public game_state current_state;			// The state the game is in
 	public bool is_on;							// If the light is on
 
-	public List<GameObject> flickering_light;				// The light that turns off and moves the mannequin 
+	public List<GameObject> flickering_light;	// The light that turns off and moves the mannequin 
 	public float light_timer;					// A timer for the light
 
-	public GameObject entrance_door;
+	public GameObject entrance_door;            // The door the keypad will open
 
-	public Text keypad_screen;			// The screen on the keypad
+	public Text keypad_screen;			        // The screen on the keypad
 
-	public GameObject keycard;			// The keycard you can find
+	public GameObject keycard;			        // The keycard you can find
 
 	// Use this for initialization
 	void Start ()
@@ -45,6 +45,7 @@ public class Keypad : MonoBehaviour {
 		player_sequence = new int[sequence_length];
 		timer = 0.0f;
 
+        // Start by generating code
 		current_state = game_state.GENERATE;
 		is_on = false;
 
@@ -144,8 +145,6 @@ public class Keypad : MonoBehaviour {
 						light.GetComponentInChildren<Light_Controller>().Light_Off();
 					}
 					InvokeRepeating("Turn_On_Light", 1.0f, Time.deltaTime);
-
-                    // Make mannequin closer to attacking
                 }
             }
         }

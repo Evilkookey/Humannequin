@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Simon_Puzzle : MonoBehaviour {
 
-	public enum colour_name						// The different colours that could be shown
+	public enum colour_name		// The different colours that could be shown
 	{
 		NULL,
 		RED,
@@ -273,8 +273,10 @@ public class Simon_Puzzle : MonoBehaviour {
 		}
 		else if (current_state == game_state.INACTIVE)
 		{
+            // If player pressed ON button
 			if (input_text == "ON")
 			{
+                // Generate code
 				current_state = game_state.GENERATE;
 			}
 		}

@@ -31,15 +31,20 @@ public class Incrimented_Turn : MonoBehaviour
 		// Take input ID from controller
 		device = SteamVR_Controller.Input((int)tracked_object.index);
 
+        // If player presses touch pad
 		if (device.GetPressDown(touch_pad))
 		{
 			Vector2 axis = device.GetAxis(touch_pad);
+            // If on right side
 			if (axis.x > 0.5f)
 			{
+                // Turn right
 				player.transform.Rotate(Vector3.up * turn_incriment);
 			}
+            // If on left side
 			else if (axis.x < -0.5f)
 			{
+                // Turn left
 				player.transform.Rotate(Vector3.down * turn_incriment);
 			}
 		}

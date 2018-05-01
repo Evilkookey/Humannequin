@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class Keypad_Button : MonoBehaviour {
 
-	public int input_number;	// The number of the button
-	public GameObject puzzle_object;		// The object the puzzle is on
-	public GameObject base_object;
+	public int input_number;	        // The number of the button
+	public GameObject puzzle_object;	// The object the puzzle is on
+	public GameObject base_object;      // The parent object
 	// Start is called when the scene starts
 	void Start ()
 	{

@@ -7,28 +7,28 @@ using UnityEngine;
 
 public class Teleport_Mannequin_timer : MonoBehaviour {
 
-	public Transform[] enemy_positions; 		// Positions to teleport to
-	public GameObject position_parent;			// Empty object that holds all the enemy positions
+	public Transform[] enemy_positions; 		        // Positions to teleport to
+	public GameObject position_parent;			        // Empty object that holds all the enemy positions
 
-	public Transform player;	// Player position
+	public Transform player;	                        // Player position
 
-	public GameObject CameraRigPlayer, FPSController; // Used to determine if the player is in VR or using the FP controller
+	public GameObject CameraRigPlayer, FPSController;   // Used to determine if the player is in VR or using the FP controller
 						
-	int index = 1;								// Index variable for the array, starts at 1 so it ignores the first one
-	//bool enemy_moved;							// Checks if the mannequin can actually move and 
-	Vector3 target_postition;					// Players position
+	int index = 1;								        // Index variable for the array, starts at 1 so it ignores the first one
+	//bool enemy_moved;							        // Checks if the mannequin can actually move and 
+	Vector3 target_postition;					        // Players position
 
-	public float timer;								// A timer for the mannequin's movement
-	public float move_time = 10.0f;				// The amount of time before the mannequin moves
-	//Vector3 current_position;					// The position the mannequin should be in 
+	public float timer;							        // A timer for the mannequin's movement
+	public float move_time = 10.0f;				        // The amount of time before the mannequin moves
+	//Vector3 current_position;					        // The position the mannequin should be in 
 
-	public bool is_enabled;						// The mannequin is enabled when it can start moving towards the player
+	public bool is_enabled;						        // The mannequin is enabled when it can start moving towards the player
 	public List<GameObject> flickering_lights = new List<GameObject>();              // Enemy light that will affect the mannequins position
-    public float light_off_time;                // The length of time the light will be off
-    public GameObject line_puzzle; 				// Used to check if the player has completed the puzzle
-	public Light torch_light,torch_light2;
-	public AudioSource building_up_sound;
-	public GameObject animated_mannequin;
+    public float light_off_time;                        // The length of time the light will be off
+    public GameObject line_puzzle; 				        // Used to check if the player has completed the puzzle
+	public Light torch_light,torch_light2;              // The light on the torch
+	public AudioSource building_up_sound;               // The sfx
+	public GameObject animated_mannequin;               // The mannequin with the animation
 	bool found = false;
 
 	// Use this for initialization
@@ -107,6 +107,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 			}
 			else
 			{
+                // Stop rendering object
 				gameObject.GetComponent<MeshRenderer>().enabled = false;
 				foreach(MeshRenderer mesh in gameObject.GetComponentsInChildren<MeshRenderer>())
 				{
@@ -120,6 +121,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 				// Look at the player position
 				animated_mannequin.transform.rotation = gameObject.transform.rotation;// LookAt (target_postition);
 
+                // Turn on animated one
 				animated_mannequin.SetActive(true);
 
 				StartCoroutine("EndGame");
@@ -163,7 +165,8 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 			light.GetComponentInChildren<Light_Controller>().is_off = true;
         }
 
-		if(torch_light != null)
+        // If there is torch light
+        if (torch_light != null)
 		{
 			torch_light.enabled = false;
 			torch_light2.enabled = false;
@@ -172,6 +175,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
         // Wait
         yield return new WaitForSeconds(t);
 
+        // If there is torch light
 		if(torch_light != null)
 		{
 			torch_light.enabled = true;
@@ -207,7 +211,7 @@ public class Teleport_Mannequin_timer : MonoBehaviour {
 		// Go to the next position in the array
 		index++;
 
-		//play mannequin move sound
+		// Play mannequin move sound
 		gameObject.GetComponent<AudioSource>().Play();
 	}
 }

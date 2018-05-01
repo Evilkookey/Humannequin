@@ -20,35 +20,43 @@ public class MoveTestHand : MonoBehaviour
 	{
 		if (Input.GetKey(KeyCode.W))
 		{			
+            // Move forward
 			rb.MovePosition(rb.transform.position + (Vector3.forward * speed));
 		}
 		if (Input.GetKey(KeyCode.S))
-		{			
-			rb.MovePosition(rb.transform.position + (Vector3.back * speed));
+		{
+            // Move back
+            rb.MovePosition(rb.transform.position + (Vector3.back * speed));
 		}
 		if (Input.GetKey(KeyCode.D))
-		{			
-			rb.MovePosition(rb.transform.position + (Vector3.right * speed));
+		{
+            // Move right
+            rb.MovePosition(rb.transform.position + (Vector3.right * speed));
 		}
 		if (Input.GetKey(KeyCode.A))
-		{			
-			rb.MovePosition(rb.transform.position + (Vector3.left * speed));
+		{
+            // Move left
+            rb.MovePosition(rb.transform.position + (Vector3.left * speed));
 		}
 		if (Input.GetKey(KeyCode.Q))
-		{			
-			rb.MovePosition(rb.transform.position + (Vector3.down * speed));
+		{
+            // Move down
+            rb.MovePosition(rb.transform.position + (Vector3.down * speed));
 		}
 		if (Input.GetKey(KeyCode.E))
-		{			
-			rb.MovePosition(rb.transform.position + (Vector3.up * speed));
+		{
+            // Move up
+            rb.MovePosition(rb.transform.position + (Vector3.up * speed));
 		}
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
+            // Speed up
 			speed = 0.1f;
 		}
 		else if (Input.GetKeyUp(KeyCode.Space))
 		{
+            // Slow down
 			speed = 0.01f;
 		}
 	}

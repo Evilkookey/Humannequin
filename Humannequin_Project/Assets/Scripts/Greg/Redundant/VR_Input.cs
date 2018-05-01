@@ -58,8 +58,10 @@ public class VR_Input : MonoBehaviour
 		}
 		if (device.GetPressUp(trigger_button))
 		{
+            // Check if there is a held object
 			if (held_object)
 			{
+                // Unparent the object and make it fall
 				Debug.Log("object dropped");
 				Rigidbody rb = held_object.GetComponent<Rigidbody> ();
 				rb.isKinematic = false;
@@ -83,9 +85,11 @@ public class VR_Input : MonoBehaviour
 		}
 		if (other.tag == "Pick_Up")
 		{
+            // Chek for trigger pressed
 			device = SteamVR_Controller.Input((int)tracked_object.index);
 			if (device.GetPressDown(trigger_button))
 			{
+                // Parent object and stop it falling
 				Debug.Log("object picked up");
 				held_object = other.gameObject;
 				held_object.transform.parent = gameObject.transform;
