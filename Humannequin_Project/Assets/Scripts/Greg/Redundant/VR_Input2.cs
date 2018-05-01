@@ -16,6 +16,7 @@ public class VR_Input2 : MonoBehaviour
 	public SteamVR_TrackedObject tracked_object;
 	public SteamVR_Controller.Device device;
 
+    // Define interacion types
 	public enum Interaction_Type
 	{
 		NONE,

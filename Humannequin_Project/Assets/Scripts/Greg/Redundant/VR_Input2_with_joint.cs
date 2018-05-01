@@ -24,6 +24,7 @@ public class VR_Input2_with_joint : MonoBehaviour
 	public GameObject hand_pliers;
 	public GameObject hand_torch;
 
+    // Define types of interaction
 	public enum Interaction_Type
 	{
 		NONE,
@@ -263,10 +264,11 @@ public class VR_Input2_with_joint : MonoBehaviour
 	{
 		if (GetComponent<FixedJoint>())
 		{
-
+            // Remove joint
 			GetComponent<FixedJoint>().connectedBody = null;
 			Destroy(GetComponent<FixedJoint>());
 
+            // Add throw force
 			held_object.GetComponent<Rigidbody>().velocity = (device.velocity.x * gameObject.transform.parent.right + device.velocity.y * gameObject.transform.parent.up + device.velocity.z * gameObject.transform.parent.forward);
 			held_object.GetComponent<Rigidbody>().angularVelocity = device.angularVelocity;
 		}
